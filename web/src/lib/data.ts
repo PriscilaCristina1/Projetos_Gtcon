@@ -37,13 +37,13 @@ function mapToClient(row: Record<string, unknown>): Client {
 }
 
 export async function readClients(): Promise<Client[]> {
-  const { data, error } = await supabase.from("clientes").select("*").order("id", { ascending: true })
+  const { data, error } = await supabase().from("clientes").select("*").order("id", { ascending: true })
   if (error) throw new Error(error.message)
   return (data ?? []).map(mapToClient)
 }
 
 export async function getClientById(id: number): Promise<Client | null> {
-  const { data, error } = await supabase.from("clientes").select("*").eq("id", id).single()
+  const { data, error } = await supabase().from("clientes").select("*").eq("id", id).single()
   if (error) {
     if (error.code === "PGRST116") return null
     throw new Error(error.message)
@@ -51,40 +51,40 @@ export async function getClientById(id: number): Promise<Client | null> {
   return mapToClient(data)
 }
 
-export async function createClient(data: Partial<Client>): Promise<Client> {
+export async function createClient(payload: Partial<Client>): Promise<Client> {
   const client = {
-    cod: data.cod ?? null,
-    empresa: data.empresa ?? "",
-    cnpj: data.cnpj ?? null,
-    grupo: data.grupo ?? null,
-    tributacao: data.tributacao ?? null,
-    ramo: data.ramo ?? null,
-    entrada: data.entrada ?? null,
-    gclick: data.gclick ?? null,
-    sieg: data.sieg ?? null,
-    dominio: data.dominio ?? null,
-    xmlSaida: data.xmlSaida ?? null,
-    email: data.email ?? null,
-    telefone: data.telefone ?? null,
-    telefone2: data.telefone2 ?? null,
-    responsavel: data.responsavel ?? null,
-    perfilGclick: data.perfilGclick ?? null,
-    obrigacoesDp: data.obrigacoesDp ?? null,
-    obrigacoesContabil: data.obrigacoesContabil ?? null,
-    obrigacoesFiscal: data.obrigacoesFiscal ?? null,
-    mesReferencia: data.mesReferencia ?? null,
-    isGroup: data.isGroup ?? false,
-    groupName: data.groupName ?? null,
+    cod: payload.cod ?? null,
+    empresa: payload.empresa ?? "",
+    cnpj: payload.cnpj ?? null,
+    grupo: payload.grupo ?? null,
+    tributacao: payload.tributacao ?? null,
+    ramo: payload.ramo ?? null,
+    entrada: payload.entrada ?? null,
+    gclick: payload.gclick ?? null,
+    sieg: payload.sieg ?? null,
+    dominio: payload.dominio ?? null,
+    xmlSaida: payload.xmlSaida ?? null,
+    email: payload.email ?? null,
+    telefone: payload.telefone ?? null,
+    telefone2: payload.telefone2 ?? null,
+    responsavel: payload.responsavel ?? null,
+    perfilGclick: payload.perfilGclick ?? null,
+    obrigacoesDp: payload.obrigacoesDp ?? null,
+    obrigacoesContabil: payload.obrigacoesContabil ?? null,
+    obrigacoesFiscal: payload.obrigacoesFiscal ?? null,
+    mesReferencia: payload.mesReferencia ?? null,
+    isGroup: payload.isGroup ?? false,
+    groupName: payload.groupName ?? null,
   }
-  const { data: inserted, error } = await supabase.from("clientes").insert(client).select().single()
+  const { data: inserted, error } = await supabase().from("clientes").insert(client).select().single()
   if (error) throw new Error(error.message)
   return mapToClient(inserted)
 }
 
-export async function updateClient(id: number, data: Partial<Client>): Promise<Client | null> {
-  const { data: updated, error } = await supabase
+export async function updateClientSv(id: number, payload: Partial<Client>): Promise<Client | null> {
+  const { data: updated, error } = await supabase()
     .from("clientes")
-    .update(data)
+    .update(payload)
     .eq("id", id)
     .select()
     .single()
@@ -95,14 +95,14 @@ export async function updateClient(id: number, data: Partial<Client>): Promise<C
   return mapToClient(updated)
 }
 
-export async function deleteClient(id: number): Promise<boolean> {
-  const { error } = await supabase.from("clientes").delete().eq("id", id)
+export async function deleteClientSv(id: number): Promise<boolean> {
+  const { error } = await supabase().from("clientes").delete().eq("id", id)
   if (error) throw new Error(error.message)
   return true
 }
 
 export async function filterClients(filters: ClientFilters): Promise<Client[]> {
-  let query = supabase.from("clientes").select("*")
+  let query = supabase().from("clientes").select("*")
 
   if (filters.search) {
     const q = filters.search.toLowerCase()
@@ -121,7 +121,7 @@ export async function filterClients(filters: ClientFilters): Promise<Client[]> {
 }
 
 export async function getDashboardMetrics(): Promise<DashboardMetrics> {
-  const { data: clients, error } = await supabase.from("clientes").select("*")
+  const { data: clients, error } = await supabase().from("clientes").select("*")
   if (error) throw new Error(error.message)
 
   const ativos = (clients ?? []).filter((c: Record<string, unknown>) => !c.isGroup)
@@ -190,7 +190,7 @@ export async function getDashboardMetrics(): Promise<DashboardMetrics> {
 }
 
 export async function getGrupos(): Promise<string[]> {
-  const { data, error } = await supabase
+  const { data, error } = await supabase()
     .from("clientes")
     .select("grupo")
     .not("grupo", "is", null)
@@ -203,7 +203,7 @@ export async function getGrupos(): Promise<string[]> {
 }
 
 export async function getTributacoes(): Promise<string[]> {
-  const { data, error } = await supabase.from("clientes").select("tributacao")
+  const { data, error } = await supabase().from("clientes").select("tributacao")
   if (error) throw new Error(error.message)
   const tribs = [...new Set((data ?? []).map((r: { tributacao: string | null }) => normalizeTributacao(r.tributacao)))]
   return tribs.sort()
