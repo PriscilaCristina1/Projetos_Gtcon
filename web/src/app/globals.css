@@ -41,6 +41,16 @@
     100% { background-position: 200% 0; }
   }
 
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.1); opacity: 0.6; }
+  }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
   .animate-gradient {
     background-size: 200% 200%;
     animation: gradient-shift 8s ease infinite;
@@ -52,6 +62,10 @@
 
   .animate-float-delayed {
     animation: float 6s ease-in-out 2s infinite;
+  }
+
+  .animate-float-slow {
+    animation: float 8s ease-in-out 1s infinite;
   }
 
   .animate-pulse-glow {
@@ -66,5 +80,13 @@
     background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.05), transparent);
     background-size: 200% 100%;
     animation: shimmer 3s infinite;
+  }
+
+  .animate-breathe {
+    animation: breathe 4s ease-in-out infinite;
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
   }
 }

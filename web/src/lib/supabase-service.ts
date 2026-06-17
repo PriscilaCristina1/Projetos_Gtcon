@@ -115,7 +115,11 @@ export async function fetchDashboardMetrics(): Promise<DashboardMetrics> {
   }
   const clientesPorMes = Array.from(clientesPorMesMap.entries())
     .map(([mes, total]) => ({ mes, total }))
-    .sort((a, b) => a.mes.localeCompare(b.mes))
+    .sort((a, b) => {
+      const [mA, aA] = a.mes.split("/").map(Number)
+      const [mB, aB] = b.mes.split("/").map(Number)
+      return aA - aB || mA - mB
+    })
 
   const tribMap = new Map<string, number>()
   for (const c of ativos) {

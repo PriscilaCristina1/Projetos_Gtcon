@@ -52,7 +52,7 @@ export function DashboardContent() {
           title="Média por Mês"
           value={Math.round(metrics.clientesPorMes.reduce((a, b) => a + b.total, 0) / Math.max(metrics.clientesPorMes.length, 1))}
           icon={<TrendingUp className="w-6 h-6" />}
-          color="orange"
+          color="teal"
         />
       </div>
 
