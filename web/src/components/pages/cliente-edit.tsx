@@ -73,19 +73,20 @@ export function ClienteEdit() {
   if (loading) return <p className="text-zinc-400">Carregando...</p>
 
   return (
-    <div className="max-w-2xl space-y-6">
+    <div className="max-w-2xl space-y-6 animate-slide-up">
       <div className="flex items-center gap-4">
-        <Link href={`/clientes/${id}`} className="p-2 rounded-lg hover:bg-zinc-800 text-zinc-400 transition-colors">
+        <Link href={`/clientes/${id}`} className="p-2 rounded-lg hover:bg-zinc-800 text-zinc-400 transition-colors hover:text-cyan-400">
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-zinc-100">Editar Cliente</h1>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Editar Cliente</h1>
           <p className="text-sm text-zinc-500">{form.empresa}</p>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-zinc-900 rounded-xl border border-zinc-800 shadow-lg p-6 space-y-5">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <form onSubmit={handleSubmit} className="relative bg-zinc-900/80 backdrop-blur-sm rounded-xl border border-zinc-800/50 shadow-lg p-6 space-y-5 group hover:border-zinc-700/80 transition-all duration-300">
+        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative">
           <div className="md:col-span-2">
             <label className="block text-sm font-medium text-zinc-300 mb-1">Empresa *</label>
             <input
@@ -94,7 +95,7 @@ export function ClienteEdit() {
               required
               value={form.empresa}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
@@ -104,7 +105,7 @@ export function ClienteEdit() {
               name="cod"
               value={form.cod}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
@@ -114,7 +115,7 @@ export function ClienteEdit() {
               name="cnpj"
               value={form.cnpj}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
@@ -124,7 +125,7 @@ export function ClienteEdit() {
               name="grupo"
               value={form.grupo}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
@@ -133,7 +134,7 @@ export function ClienteEdit() {
               name="tributacao"
               value={form.tributacao}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             >
               <option value="">Selecione...</option>
               <option value="SIMPLES NACIONAL">Simples Nacional</option>
@@ -148,7 +149,7 @@ export function ClienteEdit() {
               name="ramo"
               value={form.ramo}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
@@ -159,7 +160,7 @@ export function ClienteEdit() {
               placeholder="MM/AAAA"
               value={form.entrada}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
@@ -169,7 +170,7 @@ export function ClienteEdit() {
               name="email"
               value={form.email}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
@@ -179,7 +180,7 @@ export function ClienteEdit() {
               name="telefone"
               value={form.telefone}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
@@ -189,7 +190,7 @@ export function ClienteEdit() {
               name="responsavel"
               value={form.responsavel}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
@@ -198,7 +199,7 @@ export function ClienteEdit() {
               name="gclick"
               value={form.gclick}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             >
               <option value="">Selecione...</option>
               <option value="OK">OK</option>
@@ -211,7 +212,7 @@ export function ClienteEdit() {
               name="sieg"
               value={form.sieg}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             >
               <option value="">Selecione...</option>
               <option value="OK">OK</option>
@@ -220,7 +221,7 @@ export function ClienteEdit() {
           </div>
         </div>
 
-        <div className="flex justify-end gap-3 pt-4 border-t border-zinc-800">
+        <div className="flex justify-end gap-3 pt-4 border-t border-zinc-800/50 relative">
           <Link
             href={`/clientes/${id}`}
             className="px-4 py-2 text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 rounded-lg transition-all"
@@ -230,7 +231,7 @@ export function ClienteEdit() {
           <button
             type="submit"
             disabled={saving}
-            className="flex items-center gap-2 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-5 py-2 rounded-lg text-sm font-medium hover:bg-indigo-500/20 disabled:opacity-50 transition-all"
+            className="flex items-center gap-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 text-cyan-300 border border-cyan-500/20 px-5 py-2 rounded-lg text-sm font-medium hover:from-cyan-500/20 hover:to-blue-500/20 hover:shadow-[0_0_20px_-5px_rgba(6,182,212,0.2)] disabled:opacity-50 transition-all duration-300"
           >
             <Save className="w-4 h-4" />
             {saving ? "Salvando..." : "Salvar"}

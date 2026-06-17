@@ -40,7 +40,7 @@ export default function ClientesPage() {
   if (loading) return <p className="text-zinc-400">Carregando...</p>
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 animate-slide-up">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-zinc-100">Clientes</h1>
@@ -48,29 +48,30 @@ export default function ClientesPage() {
         </div>
         <Link
           href="/clientes/novo"
-          className="flex items-center gap-2 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-500/20 transition-all"
+          className="flex items-center gap-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 text-cyan-300 border border-cyan-500/20 px-4 py-2 rounded-lg text-sm font-medium hover:from-cyan-500/20 hover:to-blue-500/20 hover:shadow-[0_0_20px_-5px_rgba(6,182,212,0.2)] transition-all duration-300"
         >
           <Plus className="w-4 h-4" />
           Novo Cliente
         </Link>
       </div>
 
-      <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
+      <div className="relative group">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 group-focus-within:text-cyan-400 transition-colors" />
         <input
           type="text"
           placeholder="Buscar por empresa, CNPJ ou grupo..."
-          className="w-full pl-10 pr-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+          className="w-full pl-10 pr-4 py-2.5 bg-zinc-900/80 backdrop-blur-sm border border-zinc-800/50 rounded-lg text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
-      <div className="bg-zinc-900 rounded-xl border border-zinc-800 shadow-lg overflow-hidden">
-        <div className="overflow-x-auto">
+      <div className="relative bg-zinc-900/80 backdrop-blur-sm rounded-xl border border-zinc-800/50 shadow-lg overflow-hidden group hover:border-zinc-700/80 transition-all duration-300">
+        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
+        <div className="overflow-x-auto relative">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-zinc-800/50 border-b border-zinc-800">
+              <tr className="bg-zinc-800/30 border-b border-zinc-800/50">
                 <th className="text-left py-3 px-4 text-zinc-500 font-medium">COD</th>
                 <th className="text-left py-3 px-4 text-zinc-500 font-medium">Empresa</th>
                 <th className="text-left py-3 px-4 text-zinc-500 font-medium">CNPJ</th>
@@ -82,8 +83,8 @@ export default function ClientesPage() {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((client) => (
-                <tr key={client.id} className="border-b border-zinc-800/50 hover:bg-zinc-800/30 transition-colors">
+              {filtered.map((client, i) => (
+                <tr key={client.id} className="border-b border-zinc-800/30 hover:bg-gradient-to-r hover:from-cyan-500/[0.03] hover:to-transparent transition-all duration-200" style={{ animationDelay: `${i * 30}ms` }}>
                   <td className="py-3 px-4 text-zinc-400">{client.cod ?? "-"}</td>
                   <td className="py-3 px-4 font-medium text-zinc-200">{client.empresa}</td>
                   <td className="py-3 px-4 text-zinc-400 font-mono text-xs">{client.cnpj || "-"}</td>
@@ -104,7 +105,7 @@ export default function ClientesPage() {
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2">
                       <Link href={`/clientes/${client.id}`}>
-                        <ExternalLink className="w-4 h-4 text-zinc-500 hover:text-indigo-400 transition-colors" />
+                        <ExternalLink className="w-4 h-4 text-zinc-500 hover:text-cyan-400 transition-colors" />
                       </Link>
                       <button onClick={() => handleDelete(client.id, client.empresa)}>
                         <Trash2 className="w-4 h-4 text-zinc-500 hover:text-red-400 transition-colors" />
