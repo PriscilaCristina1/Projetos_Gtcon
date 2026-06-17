@@ -27,6 +27,7 @@ export function RecentClients({ clients }: RecentClientsProps) {
               <th className="text-left py-2 px-3 text-zinc-500 font-medium">CNPJ</th>
               <th className="text-left py-2 px-3 text-zinc-500 font-medium">Entrada</th>
               <th className="text-left py-2 px-3 text-zinc-500 font-medium">GCLICK</th>
+              <th className="text-left py-2 px-3 text-zinc-500 font-medium">Domínio</th>
               <th className="w-10" />
             </tr>
           </thead>
@@ -38,6 +39,11 @@ export function RecentClients({ clients }: RecentClientsProps) {
                 <td className="py-2.5 px-3 text-zinc-400">{formatDate(client.entrada)}</td>
                 <td className="py-2.5 px-3">
                   <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                    CADASTRADO
+                  </span>
+                </td>
+                <td className="py-2.5 px-3">
+                  <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-teal-500/10 text-teal-400 border border-teal-500/20">
                     CADASTRADO
                   </span>
                 </td>

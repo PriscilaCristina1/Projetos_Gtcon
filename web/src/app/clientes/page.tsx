@@ -79,6 +79,7 @@ export default function ClientesPage() {
                 <th className="text-left py-3 px-4 text-zinc-500 font-medium">Tributação</th>
                 <th className="text-left py-3 px-4 text-zinc-500 font-medium">Entrada</th>
                 <th className="text-left py-3 px-4 text-zinc-500 font-medium">GCLICK</th>
+                <th className="text-left py-3 px-4 text-zinc-500 font-medium">Domínio</th>
                 <th className="w-24" />
               </tr>
             </thead>
@@ -97,6 +98,11 @@ export default function ClientesPage() {
                     </span>
                   </td>
                   <td className="py-3 px-4">
+                    <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-teal-500/10 text-teal-400 border border-teal-500/20">
+                      CADASTRADO
+                    </span>
+                  </td>
+                  <td className="py-3 px-4">
                     <div className="flex items-center gap-2">
                       <Link href={`/clientes/${client.id}`}>
                         <ExternalLink className="w-4 h-4 text-zinc-500 hover:text-cyan-400 transition-colors" />
@@ -110,7 +116,7 @@ export default function ClientesPage() {
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="py-8 text-center text-zinc-500">
+                  <td colSpan={9} className="py-8 text-center text-zinc-500">
                     Nenhum cliente encontrado
                   </td>
                 </tr>
