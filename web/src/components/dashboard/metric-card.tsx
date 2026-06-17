@@ -10,21 +10,38 @@ interface MetricCardProps {
 }
 
 const colors = {
-  blue: "bg-blue-50 text-blue-600 border-blue-200",
-  purple: "bg-purple-50 text-purple-600 border-purple-200",
-  green: "bg-green-50 text-green-600 border-green-200",
-  orange: "bg-orange-50 text-orange-600 border-orange-200",
+  blue: {
+    bg: "bg-indigo-500/10",
+    text: "text-indigo-400",
+    border: "border-indigo-500/20",
+  },
+  purple: {
+    bg: "bg-purple-500/10",
+    text: "text-purple-400",
+    border: "border-purple-500/20",
+  },
+  green: {
+    bg: "bg-emerald-500/10",
+    text: "text-emerald-400",
+    border: "border-emerald-500/20",
+  },
+  orange: {
+    bg: "bg-orange-500/10",
+    text: "text-orange-400",
+    border: "border-orange-500/20",
+  },
 }
 
 export function MetricCard({ title, value, icon, color }: MetricCardProps) {
+  const c = colors[color]
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+    <div className="bg-zinc-900 rounded-xl border border-zinc-800 p-5 shadow-lg transition-all duration-200 hover:border-zinc-700 hover:shadow-xl">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-gray-500">{title}</p>
-          <p className="text-2xl font-bold text-gray-800 mt-1">{value}</p>
+          <p className="text-sm text-zinc-400">{title}</p>
+          <p className="text-2xl font-bold text-zinc-100 mt-1">{value}</p>
         </div>
-        <div className={cn("p-3 rounded-lg border", colors[color])}>
+        <div className={cn("p-3 rounded-lg border", c.bg, c.text, c.border)}>
           {icon}
         </div>
       </div>

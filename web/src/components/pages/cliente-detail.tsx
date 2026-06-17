@@ -26,8 +26,8 @@ export function ClienteDetail() {
     if (ok) router.push("/clientes")
   }, [client, id, router])
 
-  if (loading) return <p className="text-gray-500">Carregando...</p>
-  if (!client) return <p className="text-red-500">Cliente não encontrado</p>
+  if (loading) return <p className="text-zinc-400">Carregando...</p>
+  if (!client) return <p className="text-red-400">Cliente não encontrado</p>
 
   const fields: { label: string; value: string | null }[] = [
     { label: "COD", value: client.cod?.toString() ?? null },
@@ -55,26 +55,26 @@ export function ClienteDetail() {
         <div className="flex items-center gap-4">
           <Link
             href="/clientes"
-            className="p-2 rounded-lg hover:bg-gray-100 text-gray-500"
+            className="p-2 rounded-lg hover:bg-zinc-800 text-zinc-400 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">{client.empresa}</h1>
-            <p className="text-sm text-gray-500">{client.cnpj || "Sem CNPJ"}</p>
+            <h1 className="text-2xl font-bold text-zinc-100">{client.empresa}</h1>
+            <p className="text-sm text-zinc-500">{client.cnpj || "Sem CNPJ"}</p>
           </div>
         </div>
         <div className="flex gap-2">
           <Link
             href={`/clientes/${id}/editar`}
-            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700"
+            className="flex items-center gap-2 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-500/20 transition-all"
           >
             <Edit3 className="w-4 h-4" />
             Editar
           </Link>
           <button
             onClick={handleDelete}
-            className="flex items-center gap-2 bg-red-50 text-red-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-100 border border-red-200"
+            className="flex items-center gap-2 bg-red-500/10 text-red-400 border border-red-500/20 px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-500/20 transition-all"
           >
             <Trash2 className="w-4 h-4" />
             Excluir
@@ -82,13 +82,13 @@ export function ClienteDetail() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+      <div className="bg-zinc-900 rounded-xl border border-zinc-800 shadow-lg p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {fields.map((f) =>
             f.value ? (
               <div key={f.label}>
-                <p className="text-xs text-gray-500 uppercase font-medium">{f.label}</p>
-                <p className="text-sm text-gray-800 mt-0.5">{f.value}</p>
+                <p className="text-xs text-zinc-500 uppercase font-medium">{f.label}</p>
+                <p className="text-sm text-zinc-200 mt-0.5">{f.value}</p>
               </div>
             ) : null
           )}

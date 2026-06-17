@@ -37,18 +37,18 @@ export default function ClientesPage() {
     }
   }, [])
 
-  if (loading) return <p className="text-gray-500">Carregando...</p>
+  if (loading) return <p className="text-zinc-400">Carregando...</p>
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Clientes</h1>
-          <p className="text-sm text-gray-500">{filtered.length} registros encontrados</p>
+          <h1 className="text-2xl font-bold text-zinc-100">Clientes</h1>
+          <p className="text-sm text-zinc-500">{filtered.length} registros encontrados</p>
         </div>
         <Link
           href="/clientes/novo"
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+          className="flex items-center gap-2 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-500/20 transition-all"
         >
           <Plus className="w-4 h-4" />
           Novo Cliente
@@ -56,46 +56,46 @@ export default function ClientesPage() {
       </div>
 
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
         <input
           type="text"
           placeholder="Buscar por empresa, CNPJ ou grupo..."
-          className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full pl-10 pr-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+      <div className="bg-zinc-900 rounded-xl border border-zinc-800 shadow-lg overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left py-3 px-4 text-gray-500 font-medium">COD</th>
-                <th className="text-left py-3 px-4 text-gray-500 font-medium">Empresa</th>
-                <th className="text-left py-3 px-4 text-gray-500 font-medium">CNPJ</th>
-                <th className="text-left py-3 px-4 text-gray-500 font-medium">Grupo</th>
-                <th className="text-left py-3 px-4 text-gray-500 font-medium">Tributação</th>
-                <th className="text-left py-3 px-4 text-gray-500 font-medium">Entrada</th>
-                <th className="text-left py-3 px-4 text-gray-500 font-medium">GCLICK</th>
+              <tr className="bg-zinc-800/50 border-b border-zinc-800">
+                <th className="text-left py-3 px-4 text-zinc-500 font-medium">COD</th>
+                <th className="text-left py-3 px-4 text-zinc-500 font-medium">Empresa</th>
+                <th className="text-left py-3 px-4 text-zinc-500 font-medium">CNPJ</th>
+                <th className="text-left py-3 px-4 text-zinc-500 font-medium">Grupo</th>
+                <th className="text-left py-3 px-4 text-zinc-500 font-medium">Tributação</th>
+                <th className="text-left py-3 px-4 text-zinc-500 font-medium">Entrada</th>
+                <th className="text-left py-3 px-4 text-zinc-500 font-medium">GCLICK</th>
                 <th className="w-24" />
               </tr>
             </thead>
             <tbody>
               {filtered.map((client) => (
-                <tr key={client.id} className="border-b border-gray-50 hover:bg-gray-50">
-                  <td className="py-3 px-4 text-gray-600">{client.cod ?? "-"}</td>
-                  <td className="py-3 px-4 font-medium text-gray-800">{client.empresa}</td>
-                  <td className="py-3 px-4 text-gray-600 font-mono text-xs">{client.cnpj || "-"}</td>
-                  <td className="py-3 px-4 text-gray-600">{client.grupo || "-"}</td>
-                  <td className="py-3 px-4 text-gray-600">{client.tributacao || "-"}</td>
-                  <td className="py-3 px-4 text-gray-600">{formatDate(client.entrada)}</td>
+                <tr key={client.id} className="border-b border-zinc-800/50 hover:bg-zinc-800/30 transition-colors">
+                  <td className="py-3 px-4 text-zinc-400">{client.cod ?? "-"}</td>
+                  <td className="py-3 px-4 font-medium text-zinc-200">{client.empresa}</td>
+                  <td className="py-3 px-4 text-zinc-400 font-mono text-xs">{client.cnpj || "-"}</td>
+                  <td className="py-3 px-4 text-zinc-400">{client.grupo || "-"}</td>
+                  <td className="py-3 px-4 text-zinc-400">{client.tributacao || "-"}</td>
+                  <td className="py-3 px-4 text-zinc-400">{formatDate(client.entrada)}</td>
                   <td className="py-3 px-4">
                     <span
                       className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
                         client.gclick === "OK"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-yellow-100 text-yellow-700"
+                          ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                          : "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20"
                       }`}
                     >
                       {client.gclick || "PENDENTE"}
@@ -104,10 +104,10 @@ export default function ClientesPage() {
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2">
                       <Link href={`/clientes/${client.id}`}>
-                        <ExternalLink className="w-4 h-4 text-gray-400 hover:text-blue-600" />
+                        <ExternalLink className="w-4 h-4 text-zinc-500 hover:text-indigo-400 transition-colors" />
                       </Link>
                       <button onClick={() => handleDelete(client.id, client.empresa)}>
-                        <Trash2 className="w-4 h-4 text-gray-400 hover:text-red-600" />
+                        <Trash2 className="w-4 h-4 text-zinc-500 hover:text-red-400 transition-colors" />
                       </button>
                     </div>
                   </td>
@@ -115,7 +115,7 @@ export default function ClientesPage() {
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="py-8 text-center text-gray-400">
+                  <td colSpan={8} className="py-8 text-center text-zinc-500">
                     Nenhum cliente encontrado
                   </td>
                 </tr>

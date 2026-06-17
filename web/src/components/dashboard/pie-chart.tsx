@@ -9,7 +9,7 @@ import {
   Legend,
 } from "recharts"
 
-const COLORS = ["#3b82f6", "#8b5cf6", "#10b981", "#f59e0b", "#ef4444", "#ec4899", "#14b8a6", "#f97316"]
+const COLORS = ["#6366f1", "#8b5cf6", "#10b981", "#f59e0b", "#ef4444", "#ec4899", "#14b8a6", "#f97316"]
 
 interface PieChartProps {
   title: string
@@ -18,8 +18,8 @@ interface PieChartProps {
 
 export function PieChart({ title, data }: PieChartProps) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
-      <h3 className="text-sm font-semibold text-gray-700 mb-4">{title}</h3>
+    <div className="bg-zinc-900 rounded-xl border border-zinc-800 p-5 shadow-lg">
+      <h3 className="text-sm font-semibold text-zinc-300 mb-4">{title}</h3>
       <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">
           <RechartsPie>
@@ -36,7 +36,14 @@ export function PieChart({ title, data }: PieChartProps) {
                 <Cell key={i} fill={COLORS[i % COLORS.length]} />
               ))}
             </Pie>
-            <Tooltip />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "#18181b",
+                border: "1px solid #27272a",
+                borderRadius: "8px",
+                color: "#fafafa",
+              }}
+            />
             <Legend />
           </RechartsPie>
         </ResponsiveContainer>
