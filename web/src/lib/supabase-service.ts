@@ -154,8 +154,17 @@ export async function fetchDashboardMetrics(): Promise<DashboardMetrics> {
 
   const grupos = new Set(clients.filter((c) => c.grupo && c.grupo !== "-").map((c) => c.grupo))
 
-  const clientesRecentes = ativos
-    .sort((a, b) => b.id - a.id)
+  const clientesRecentes = [...ativos]
+    .sort((a, b) => {
+      const extract = (v: string | null) => {
+        if (!v) return [0, 0]
+        const [m, y] = v.split("/").map(Number)
+        return [y || 0, m || 0]
+      }
+      const [yA, mA] = extract(a.entrada)
+      const [yB, mB] = extract(b.entrada)
+      return yB - yA || mB - mA
+    })
     .slice(0, 10)
 
   return {
