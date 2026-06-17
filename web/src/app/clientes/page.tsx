@@ -98,9 +98,13 @@ export default function ClientesPage() {
                     </span>
                   </td>
                   <td className="py-3 px-4">
-                    <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-teal-500/10 text-teal-400 border border-teal-500/20">
-                      CADASTRADO
-                    </span>
+                    {client.entrada === "07/2026" ? (
+                      <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-teal-500/10 text-teal-400 border border-teal-500/20">
+                        CADASTRADO
+                      </span>
+                    ) : (
+                      <span className="text-zinc-600">-</span>
+                    )}
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2">
