@@ -1,50 +1,41 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback, useMemo } from "react"
 import Link from "next/link"
 import type { Client } from "@/lib/types"
 import { formatDate } from "@/lib/utils"
+import { fetchClients, deleteClient } from "@/lib/supabase-service"
 import { Search, Plus, ExternalLink, Trash2 } from "lucide-react"
 
 export default function ClientesPage() {
   const [clients, setClients] = useState<Client[]>([])
-  const [filtered, setFiltered] = useState<Client[]>([])
   const [search, setSearch] = useState("")
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch("/api/clientes")
-      .then((r) => r.json())
-      .then((data) => {
-        setClients(data)
-        setFiltered(data)
-      })
+    fetchClients()
+      .then(setClients)
       .finally(() => setLoading(false))
   }, [])
 
-  useEffect(() => {
-    if (!search.trim()) {
-      setFiltered(clients)
-      return
-    }
+  const filtered = useMemo(() => {
+    if (!search.trim()) return clients
     const q = search.toLowerCase()
-    setFiltered(
-      clients.filter(
-        (c) =>
-          c.empresa.toLowerCase().includes(q) ||
-          (c.cnpj && c.cnpj.includes(q)) ||
-          (c.grupo && c.grupo.toLowerCase().includes(q))
-      )
+    return clients.filter(
+      (c) =>
+        c.empresa.toLowerCase().includes(q) ||
+        (c.cnpj && c.cnpj.includes(q)) ||
+        (c.grupo && c.grupo.toLowerCase().includes(q))
     )
   }, [search, clients])
 
-  async function handleDelete(id: number, empresa: string) {
+  const handleDelete = useCallback(async (id: number, empresa: string) => {
     if (!confirm(`Excluir "${empresa}"?`)) return
-    const res = await fetch(`/api/clientes/${id}`, { method: "DELETE" })
-    if (res.ok) {
+    const ok = await deleteClient(id)
+    if (ok) {
       setClients((prev) => prev.filter((c) => c.id !== id))
     }
-  }
+  }, [])
 
   if (loading) return <p className="text-gray-500">Carregando...</p>
 

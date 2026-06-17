@@ -1,13 +1,16 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
-import { createClient } from "@/lib/supabase-service"
+import type { Client } from "@/lib/types"
+import { fetchClientById, updateClient } from "@/lib/supabase-service"
 import { ArrowLeft, Save } from "lucide-react"
 
-export default function NovoClientePage() {
+export function ClienteEdit() {
+  const { id } = useParams<{ id: string }>()
   const router = useRouter()
+  const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [form, setForm] = useState({
     empresa: "",
@@ -26,6 +29,30 @@ export default function NovoClientePage() {
     responsavel: "",
   })
 
+  useEffect(() => {
+    fetchClientById(Number(id))
+      .then((client: Client | null) => {
+        if (!client) return
+        setForm({
+          empresa: client.empresa || "",
+          cnpj: client.cnpj || "",
+          cod: client.cod?.toString() || "",
+          grupo: client.grupo || "",
+          tributacao: client.tributacao || "",
+          ramo: client.ramo || "",
+          entrada: client.entrada || "",
+          gclick: client.gclick || "",
+          sieg: client.sieg || "",
+          dominio: client.dominio || "",
+          xmlSaida: client.xmlSaida || "",
+          email: client.email || "",
+          telefone: client.telefone || "",
+          responsavel: client.responsavel || "",
+        })
+      })
+      .finally(() => setLoading(false))
+  }, [id])
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setSaving(true)
@@ -34,8 +61,8 @@ export default function NovoClientePage() {
       raw[key] = value.trim() || null
     }
     if (raw.cod) raw.cod = Number(raw.cod)
-    const created = await createClient(raw as Partial<import("@/lib/types").Client>)
-    router.push(`/clientes/${created.id}`)
+    const updated = await updateClient(Number(id), raw as Partial<Client>)
+    if (updated) router.push(`/clientes/${id}`)
     setSaving(false)
   }
 
@@ -43,15 +70,17 @@ export default function NovoClientePage() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
+  if (loading) return <p className="text-gray-500">Carregando...</p>
+
   return (
     <div className="max-w-2xl space-y-6">
       <div className="flex items-center gap-4">
-        <Link href="/clientes" className="p-2 rounded-lg hover:bg-gray-100 text-gray-500">
+        <Link href={`/clientes/${id}`} className="p-2 rounded-lg hover:bg-gray-100 text-gray-500">
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Novo Cliente</h1>
-          <p className="text-sm text-gray-500">Cadastre um novo cliente no sistema</p>
+          <h1 className="text-2xl font-bold text-gray-800">Editar Cliente</h1>
+          <p className="text-sm text-gray-500">{form.empresa}</p>
         </div>
       </div>
 
@@ -193,7 +222,7 @@ export default function NovoClientePage() {
 
         <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
           <Link
-            href="/clientes"
+            href={`/clientes/${id}`}
             className="px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg"
           >
             Cancelar

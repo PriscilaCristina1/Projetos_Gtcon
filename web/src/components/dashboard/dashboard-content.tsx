@@ -6,6 +6,7 @@ import { MetricCard } from "@/components/dashboard/metric-card"
 import { BarChart } from "@/components/dashboard/bar-chart"
 import { PieChart } from "@/components/dashboard/pie-chart"
 import { RecentClients } from "@/components/dashboard/recent-clients"
+import { fetchDashboardMetrics } from "@/lib/supabase-service"
 import { Users, Building2, UserCheck, TrendingUp } from "lucide-react"
 
 export function DashboardContent() {
@@ -13,8 +14,7 @@ export function DashboardContent() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch("/api/dashboard")
-      .then((r) => r.json())
+    fetchDashboardMetrics()
       .then(setMetrics)
       .finally(() => setLoading(false))
   }, [])
