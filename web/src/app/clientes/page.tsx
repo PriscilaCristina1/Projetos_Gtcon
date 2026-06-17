@@ -19,14 +19,27 @@ export default function ClientesPage() {
   }, [])
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return clients
-    const q = search.toLowerCase()
-    return clients.filter(
-      (c) =>
-        c.empresa.toLowerCase().includes(q) ||
-        (c.cnpj && c.cnpj.includes(q)) ||
-        (c.grupo && c.grupo.toLowerCase().includes(q))
-    )
+    const list = search.trim()
+      ? clients.filter((c) => {
+          const q = search.toLowerCase()
+          return (
+            c.empresa.toLowerCase().includes(q) ||
+            (c.cnpj && c.cnpj.includes(q)) ||
+            (c.grupo && c.grupo.toLowerCase().includes(q))
+          )
+        })
+      : clients
+
+    return [...list].sort((a, b) => {
+      const extract = (v: string | null) => {
+        if (!v) return [0, 0]
+        const [m, y] = v.split("/").map(Number)
+        return [y || 0, m || 0]
+      }
+      const [yA, mA] = extract(a.entrada)
+      const [yB, mB] = extract(b.entrada)
+      return yB - yA || mB - mA
+    })
   }, [search, clients])
 
   const handleDelete = useCallback(async (id: number, empresa: string) => {
