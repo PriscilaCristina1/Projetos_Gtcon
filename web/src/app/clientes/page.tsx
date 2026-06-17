@@ -14,7 +14,7 @@ export default function ClientesPage() {
 
   useEffect(() => {
     fetchClients()
-      .then(setClients)
+      .then((data) => setClients(data.filter((c) => c.empresa?.trim())))
       .finally(() => setLoading(false))
   }, [])
 
