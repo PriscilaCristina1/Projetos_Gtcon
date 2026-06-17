@@ -92,14 +92,8 @@ export default function ClientesPage() {
                   <td className="py-3 px-4 text-zinc-400">{client.tributacao || "-"}</td>
                   <td className="py-3 px-4 text-zinc-400">{formatDate(client.entrada)}</td>
                   <td className="py-3 px-4">
-                    <span
-                      className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
-                        client.gclick === "OK"
-                          ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                          : "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20"
-                      }`}
-                    >
-                      {client.gclick || "PENDENTE"}
+                    <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                      CADASTRADO
                     </span>
                   </td>
                   <td className="py-3 px-4">

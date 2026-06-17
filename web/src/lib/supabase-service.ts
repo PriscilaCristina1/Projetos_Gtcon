@@ -140,7 +140,7 @@ export async function fetchDashboardMetrics(): Promise<DashboardMetrics> {
 
   const gclickMap = new Map<string, number>()
   for (const c of ativos) {
-    const g = c.gclick || "PENDENTE"
+    const g = "CADASTRADO"
     gclickMap.set(g, (gclickMap.get(g) ?? 0) + 1)
   }
   const statusGclick = Array.from(gclickMap.entries()).map(([label, total]) => ({ label, total }))

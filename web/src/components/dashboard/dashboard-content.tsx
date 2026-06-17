@@ -43,8 +43,8 @@ export function DashboardContent() {
           color="purple"
         />
         <MetricCard
-          title="GCLICK OK"
-          value={metrics.statusGclick.find((s) => s.label === "OK")?.total ?? 0}
+          title="GCLICK Cadastrado"
+          value={metrics.totalClientes}
           icon={<UserCheck className="w-6 h-6" />}
           color="green"
         />

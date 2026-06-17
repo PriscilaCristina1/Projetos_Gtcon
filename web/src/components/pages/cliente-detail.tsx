@@ -37,7 +37,7 @@ export function ClienteDetail() {
     { label: "Tributação", value: client.tributacao },
     { label: "Ramo", value: client.ramo },
     { label: "Entrada", value: formatDate(client.entrada) },
-    { label: "GCLICK", value: client.gclick },
+    { label: "GCLICK", value: "CADASTRADO" },
     { label: "SIEG", value: client.sieg },
     { label: "Domínio", value: client.dominio },
     { label: "XML Saída", value: client.xmlSaida },
