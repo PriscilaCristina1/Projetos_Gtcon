@@ -1,0 +1,1 @@
+-- Seed data will be inserted here after migration script runs

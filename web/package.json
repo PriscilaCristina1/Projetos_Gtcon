@@ -10,6 +10,7 @@
     "import:sheet": "node scripts/import-supabase.mjs"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.108.2",
     "clsx": "^2",
     "dotenv": "^17.4.2",
