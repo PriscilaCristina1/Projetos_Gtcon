@@ -69,19 +69,6 @@ export function DashboardContent() {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <BarChart
-          title="Top 10 Ramos"
-          data={metrics.porRamo}
-          dataKey="total"
-          labelKey="label"
-        />
-        <PieChart
-          title="Status GCLICK"
-          data={metrics.statusGclick}
-        />
-      </div>
-
       <RecentClients clients={metrics.clientesRecentes} />
     </div>
   )
