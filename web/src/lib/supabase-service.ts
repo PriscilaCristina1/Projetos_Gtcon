@@ -106,7 +106,7 @@ export async function filterClients(filters: ClientFilters): Promise<Client[]> {
 
 export async function fetchDashboardMetrics(): Promise<DashboardMetrics> {
   const clients = await fetchClients()
-  const ativos = clients.filter((c) => !c.isGroup)
+  const ativos = clients.filter((c) => !c.isGroup && c.empresa?.trim())
 
   const clientesPorMesMap = new Map<string, number>()
   for (const c of ativos) {
