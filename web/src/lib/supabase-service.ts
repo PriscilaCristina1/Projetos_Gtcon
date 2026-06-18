@@ -152,6 +152,8 @@ export async function fetchDashboardMetrics(): Promise<DashboardMetrics> {
   }
   const statusDominio = Array.from(dominioMap.entries()).map(([label, total]) => ({ label, total }))
 
+  const totalDominioCadastrado = ativos.filter((c) => c.entrada === "07/2026").length
+
   const grupos = new Set(clients.filter((c) => c.grupo && c.grupo !== "-").map((c) => c.grupo))
 
   const clientesRecentes = [...ativos]
@@ -170,6 +172,7 @@ export async function fetchDashboardMetrics(): Promise<DashboardMetrics> {
   return {
     totalClientes: ativos.length,
     totalGrupos: grupos.size,
+    totalDominioCadastrado,
     clientesPorMes,
     porTributacao,
     porRamo,

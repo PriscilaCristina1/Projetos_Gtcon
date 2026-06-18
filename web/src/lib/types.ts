@@ -32,6 +32,7 @@ export interface DashboardMetrics {
   porRamo: { label: string; total: number }[]
   statusGclick: { label: string; total: number }[]
   statusDominio: { label: string; total: number }[]
+  totalDominioCadastrado: number
   clientesRecentes: Client[]
 }
 

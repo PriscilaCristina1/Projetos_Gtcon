@@ -7,7 +7,7 @@ import { BarChart } from "@/components/dashboard/bar-chart"
 import { PieChart } from "@/components/dashboard/pie-chart"
 import { RecentClients } from "@/components/dashboard/recent-clients"
 import { fetchDashboardMetrics } from "@/lib/supabase-service"
-import { Users, Building2, UserCheck, TrendingUp } from "lucide-react"
+import { Users, Building2, UserCheck, Globe } from "lucide-react"
 
 export function DashboardContent() {
   const [metrics, setMetrics] = useState<DashboardMetrics | null>(null)
@@ -49,9 +49,9 @@ export function DashboardContent() {
           color="green"
         />
         <MetricCard
-          title="Média por Mês"
-          value={Math.round(metrics.clientesPorMes.reduce((a, b) => a + b.total, 0) / Math.max(metrics.clientesPorMes.length, 1))}
-          icon={<TrendingUp className="w-6 h-6" />}
+          title="Domínio Cadastrado"
+          value={metrics.totalDominioCadastrado}
+          icon={<Globe className="w-6 h-6" />}
           color="teal"
         />
       </div>

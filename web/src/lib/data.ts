@@ -177,9 +177,12 @@ export async function getDashboardMetrics(): Promise<DashboardMetrics> {
     .slice(0, 10)
     .map(mapToClient)
 
+  const totalDominioCadastrado = ativos.filter((c: Record<string, unknown>) => c.entrada === "07/2026").length
+
   return {
     totalClientes: ativos.length,
     totalGrupos: gruposSet.size,
+    totalDominioCadastrado,
     clientesPorMes,
     porTributacao,
     porRamo,

@@ -17,4 +17,5 @@ declare module "lucide-react" {
   export const UserCheck: Icon
   export const UserPlus: Icon
   export const Users: Icon
+  export const Globe: Icon
 }
