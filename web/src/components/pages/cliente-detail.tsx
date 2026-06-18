@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import type { Client } from "@/lib/types"
-import { formatDate } from "@/lib/utils"
+import { formatDate, normalizeTributacao } from "@/lib/utils"
 import { fetchClientById, deleteClient } from "@/lib/supabase-service"
 import { ArrowLeft, Edit3, Trash2 } from "lucide-react"
 
@@ -34,7 +34,7 @@ export function ClienteDetail() {
     { label: "Empresa", value: client.empresa?.toUpperCase() ?? null },
     { label: "CNPJ", value: client.cnpj },
     { label: "Grupo", value: client.grupo },
-    { label: "Tributação", value: client.tributacao },
+    { label: "Tributação", value: normalizeTributacao(client.tributacao) },
     { label: "Ramo", value: client.ramo },
     { label: "Entrada", value: formatDate(client.entrada) },
     { label: "GCLICK", value: "CADASTRADO" },

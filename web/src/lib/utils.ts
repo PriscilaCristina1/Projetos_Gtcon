@@ -19,6 +19,8 @@ export function formatDate(dateStr: string | null): string {
 export function normalizeTributacao(val: string | null): string {
   if (!val) return "NÃO INFORMADO"
   const v = val.toUpperCase().trim()
+  if (v === "LR") return "LUCRO REAL"
+  if (v === "LP") return "LUCRO PRESUMIDO"
   if (v.includes("SIMPLES")) return "SIMPLES NACIONAL"
   if (v.includes("PRESUMIDO") || v === "SN") return "LUCRO PRESUMIDO"
   if (v.includes("REAL")) return "LUCRO REAL"

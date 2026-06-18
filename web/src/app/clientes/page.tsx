@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback, useMemo } from "react"
 import Link from "next/link"
 import type { Client } from "@/lib/types"
-import { formatDate } from "@/lib/utils"
+import { formatDate, normalizeTributacao } from "@/lib/utils"
 import { fetchClients, deleteClient } from "@/lib/supabase-service"
 import { Search, Plus, ExternalLink, Trash2 } from "lucide-react"
 
@@ -102,7 +102,7 @@ export default function ClientesPage() {
                   <td className="py-3 px-4 font-medium uppercase">{client.empresa}</td>
                   <td className="py-3 px-4 font-mono text-xs">{client.cnpj || "-"}</td>
                   <td className="py-3 px-4">{client.grupo || "-"}</td>
-                  <td className="py-3 px-4">{client.tributacao || "-"}</td>
+                  <td className="py-3 px-4">{normalizeTributacao(client.tributacao)}</td>
                   <td className="py-3 px-4">{formatDate(client.entrada)}</td>
                   <td className="py-3 px-4">
                     <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-zinc-100 border border-zinc-200">
