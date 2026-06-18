@@ -82,9 +82,9 @@ export function BarChart({
               cursor={{ fill: "rgba(6,182,212,0.04)" }}
             />
             <Legend
-              wrapperStyle={{ fontSize: "11px", color: "#64748b", paddingTop: "4px" }}
+              wrapperStyle={{ fontSize: "11px", color: "#64748b", paddingTop: "8px" }}
               content={() => (
-                <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center pt-2">
+                <div className="flex flex-wrap gap-x-5 gap-y-1 justify-center">
                   {chartData.map((d, i) => (
                     <div key={i} className="flex items-center gap-1.5">
                       <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ backgroundColor: (colors || DEFAULT_COLORS)[i % (colors || DEFAULT_COLORS).length] }} />
@@ -94,33 +94,16 @@ export function BarChart({
                 </div>
               )}
             />
-            <defs>
-              {!colors && (
-                <>
-                  <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#67e8f9" />
-                    <stop offset="50%" stopColor="#93c5fd" />
-                    <stop offset="100%" stopColor="#a5b4fc" />
-                  </linearGradient>
-                </>
-              )}
-            </defs>
-            {colors ? (
-              <Bar dataKey={dataKey} radius={horizontal ? [0, 8, 8, 0] : [8, 8, 0, 0]}>
-                {chartData.map((_, i) => (
-                  <Cell
-                    key={i}
-                    fill={(colors || DEFAULT_COLORS)[i % (colors || DEFAULT_COLORS).length]}
-                    className="hover:opacity-75 transition-opacity"
-                  />
-                ))}
-                <LabelList dataKey={dataKey} position="top" fill="#94a3b8" fontSize={11} fontWeight={400} />
-              </Bar>
-            ) : (
-              <Bar dataKey={dataKey} fill="url(#barGradient)" radius={[8, 8, 0, 0]} className="hover:opacity-75 transition-opacity">
-                <LabelList dataKey={dataKey} position="top" fill="#94a3b8" fontSize={11} fontWeight={400} />
-              </Bar>
-            )}
+            <Bar dataKey={dataKey} radius={horizontal ? [0, 8, 8, 0] : [8, 8, 0, 0]}>
+              {chartData.map((_, i) => (
+                <Cell
+                  key={i}
+                  fill={(colors || DEFAULT_COLORS)[i % (colors || DEFAULT_COLORS).length]}
+                  className="hover:opacity-75 transition-opacity"
+                />
+              ))}
+              <LabelList dataKey={dataKey} position="top" fill="#94a3b8" fontSize={11} fontWeight={400} />
+            </Bar>
           </RechartsBar>
         </ResponsiveContainer>
       </div>
