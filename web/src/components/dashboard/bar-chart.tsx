@@ -35,13 +35,7 @@ export function BarChart({
   showPercentage,
 }: BarChartProps) {
   const total = showPercentage ? data.reduce((s, d) => s + (d.total || 0), 0) : 0
-  const chartData = showPercentage
-    ? data.map((d) => ({
-        ...d,
-        label: `${d.label || d.mes || ""} (${((d.total || 0) / total * 100).toFixed(1)}%)`,
-        mes: `${d.label || d.mes || ""} (${((d.total || 0) / total * 100).toFixed(1)}%)`,
-      }))
-    : data
+  const chartData = data
 
   return (
     <div className="relative bg-zinc-900/80 backdrop-blur-sm rounded-xl border border-zinc-800/50 p-5 shadow-lg overflow-hidden group hover:border-cyan-700/50 transition-all duration-300">
@@ -58,7 +52,7 @@ export function BarChart({
             {horizontal ? (
               <>
                 <XAxis type="number" tick={{ fontSize: 11, fill: "#71717a" }} axisLine={{ stroke: "#27272a" }} tickLine={{ stroke: "#27272a" }} />
-                <YAxis dataKey={labelKey} type="category" tick={{ fontSize: 11, fill: "#71717a" }} axisLine={{ stroke: "#27272a" }} tickLine={{ stroke: "#27272a" }} width={120} />
+                <YAxis dataKey={labelKey} type="category" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={{ stroke: "#27272a" }} tickLine={{ stroke: "#27272a" }} width={160} />
               </>
             ) : (
               <>
