@@ -81,8 +81,16 @@ export function BarChart({
             {colors ? (
               <Legend
                 wrapperStyle={{ fontSize: "11px", color: "#64748b", paddingTop: "4px" }}
-                iconType="circle"
-                iconSize={8}
+                content={() => (
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center pt-2">
+                    {chartData.map((d, i) => (
+                      <div key={i} className="flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ backgroundColor: (colors || DEFAULT_COLORS)[i % (colors || DEFAULT_COLORS).length] }} />
+                        <span className="text-xs text-zinc-500">{d.label || d.mes}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               />
             ) : (
               <Legend
