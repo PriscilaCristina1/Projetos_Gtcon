@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { DashboardMetrics } from "@/lib/types"
 import { MetricCard } from "@/components/dashboard/metric-card"
 import { BarChart } from "@/components/dashboard/bar-chart"
-import { PieChart } from "@/components/dashboard/pie-chart"
 import { RecentClients } from "@/components/dashboard/recent-clients"
 import { fetchDashboardMetrics } from "@/lib/supabase-service"
 import { Users, Building2, UserCheck, Globe } from "lucide-react"
@@ -86,9 +85,14 @@ export function DashboardContent() {
             labelKey="mes"
           />
         </div>
-        <PieChart
+        <BarChart
           title="Por Regime Tributário"
           data={metrics.porTributacao}
+          dataKey="total"
+          labelKey="label"
+          horizontal
+          showPercentage
+          colors={["#f59e0b", "#10b981", "#8b5cf6", "#ef4444", "#ec4899"]}
         />
       </div>
 
