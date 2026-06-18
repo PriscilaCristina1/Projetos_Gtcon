@@ -53,7 +53,7 @@ export function BarChart({
       </h3>
       <div className={`${horizontal ? "h-80" : "h-72"} relative`}>
         <ResponsiveContainer width="100%" height="100%">
-          <RechartsBar data={chartData} layout={horizontal ? "vertical" : "horizontal"} barCategoryGap="30%" margin={{ top: 22, right: 10, left: 0, bottom: 5 }}>
+          <RechartsBar data={chartData} layout={horizontal ? "vertical" : "horizontal"} barCategoryGap="30%" margin={{ top: 22, right: 10, left: 0, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e0f2fe" strokeWidth={0.3} />
             {horizontal ? (
               <>
@@ -62,7 +62,7 @@ export function BarChart({
               </>
             ) : (
               <>
-                <XAxis dataKey={labelKey} tick={{ fontSize: 11, fill: "#94a3b8", fontWeight: 400 }} angle={-20} textAnchor="end" height={50} axisLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} tickLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} />
+                <XAxis dataKey={labelKey} tick={{ fontSize: 10, fill: "#94a3b8", fontWeight: 400 }} height={20} axisLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} tickLine={false} />
                 <YAxis tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} tickLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} />
               </>
             )}
