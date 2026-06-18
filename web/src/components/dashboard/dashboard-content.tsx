@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { DashboardMetrics } from "@/lib/types"
 import { MetricCard } from "@/components/dashboard/metric-card"
 import { BarChart } from "@/components/dashboard/bar-chart"
-
+import { PieChart } from "@/components/dashboard/pie-chart"
 import { RecentClients } from "@/components/dashboard/recent-clients"
 import { fetchDashboardMetrics } from "@/lib/supabase-service"
 import { Users, Building2, UserCheck, Globe } from "lucide-react"
@@ -19,14 +19,14 @@ export function DashboardContent() {
       .finally(() => setLoading(false))
   }, [])
 
-  if (loading) return <p className="text-zinc-400">Carregando...</p>
+  if (loading) return <p className="text-zinc-300">Carregando...</p>
   if (!metrics) return <p className="text-red-400">Erro ao carregar dados</p>
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-zinc-100">Dashboard</h1>
-        <p className="text-zinc-500 text-sm">Visão geral dos clientes</p>
+        <h1 className="text-2xl font-bold text-zinc-50">Dashboard</h1>
+        <p className="text-zinc-400 text-sm">Visão geral dos clientes</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -63,14 +63,9 @@ export function DashboardContent() {
           dataKey="total"
           labelKey="mes"
         />
-        <BarChart
+        <PieChart
           title="Por Regime Tributário"
           data={metrics.porTributacao}
-          dataKey="total"
-          labelKey="label"
-          horizontal
-          showPercentage
-          colors={["#06b6d4", "#3b82f6", "#6366f1", "#14b8a6"]}
         />
       </div>
 
