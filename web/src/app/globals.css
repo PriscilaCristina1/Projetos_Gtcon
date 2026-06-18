@@ -7,7 +7,7 @@
   }
 
   body {
-    @apply bg-[#499bf2] text-[#9aa0a6] antialiased;
+    @apply bg-[#499bf2] text-[#3e4042] antialiased;
   }
 
   ::selection {

@@ -31,7 +31,7 @@ export function DashboardContent() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-800">Dashboard</h1>
+          <h1 className="text-2xl font-bold text-white">Dashboard</h1>
           <p className="text-sm">Visão geral dos clientes</p>
         </div>
       </div>
