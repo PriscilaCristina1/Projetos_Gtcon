@@ -7,7 +7,7 @@
   }
 
   body {
-    @apply bg-blue-100 text-zinc-800 antialiased;
+    @apply bg-[#0050ff] text-zinc-800 antialiased;
   }
 
   ::selection {
