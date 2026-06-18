@@ -6,7 +6,7 @@ interface MetricCardProps {
   title: string
   value: string | number
   icon: React.ReactNode
-  color: "blue" | "purple" | "green" | "teal"
+  color: "blue" | "purple" | "green" | "teal" | "cyan"
 }
 
 const colors = {
@@ -30,6 +30,13 @@ const colors = {
     border: "border-emerald-500/20",
     shadow: "shadow-emerald-500/10",
     gradient: "from-emerald-500 to-teal-500",
+  },
+  cyan: {
+    bg: "bg-cyan-500/10",
+    text: "text-cyan-300",
+    border: "border-cyan-500/20",
+    shadow: "shadow-cyan-500/10",
+    gradient: "from-cyan-500 to-sky-500",
   },
   teal: {
     bg: "bg-teal-500/10",

@@ -7,7 +7,7 @@ import { BarChart } from "@/components/dashboard/bar-chart"
 import { PieChart } from "@/components/dashboard/pie-chart"
 import { RecentClients } from "@/components/dashboard/recent-clients"
 import { fetchDashboardMetrics } from "@/lib/supabase-service"
-import { Users, Building2, UserCheck, Globe } from "lucide-react"
+import { UserCheck, Globe } from "lucide-react"
 
 export function DashboardContent() {
   const [metrics, setMetrics] = useState<DashboardMetrics | null>(null)
@@ -29,27 +29,15 @@ export function DashboardContent() {
         <p className="text-zinc-500 text-sm">Visão geral dos clientes</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <MetricCard
-          title="Total de Clientes"
-          value={metrics.totalClientes}
-          icon={<Users className="w-6 h-6" />}
-          color="blue"
-        />
-        <MetricCard
-          title="Grupos"
-          value={metrics.totalGrupos}
-          icon={<Building2 className="w-6 h-6" />}
-          color="purple"
-        />
-        <MetricCard
-          title="GCLICK Cadastrado"
+          title="G-click"
           value={metrics.totalClientes}
           icon={<UserCheck className="w-6 h-6" />}
-          color="green"
+          color="cyan"
         />
         <MetricCard
-          title="Domínio Cadastrado"
+          title="Domínio"
           value={metrics.totalDominioCadastrado}
           icon={<Globe className="w-6 h-6" />}
           color="teal"
