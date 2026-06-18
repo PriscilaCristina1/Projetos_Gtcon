@@ -95,9 +95,16 @@ export function BarChart({
             ) : (
               <Legend
                 wrapperStyle={{ fontSize: "11px", color: "#64748b", paddingTop: "4px" }}
-                iconType="rect"
-                iconSize={10}
-                formatter={() => "Total de Clientes"}
+                content={() => (
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center pt-2">
+                    {chartData.map((d, i) => (
+                      <div key={i} className="flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-sm inline-block" style={{ backgroundColor: "#06b6d4" }} />
+                        <span className="text-xs text-zinc-500">{d.label || d.mes}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               />
             )}
             <defs>
