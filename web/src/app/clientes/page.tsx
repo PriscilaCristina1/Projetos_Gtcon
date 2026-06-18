@@ -99,7 +99,7 @@ export default function ClientesPage() {
               {filtered.map((client, i) => (
                 <tr key={client.id} className="border-b border-zinc-100 hover:bg-sky-50 transition-colors" style={{ animationDelay: `${i * 30}ms` }}>
                   <td className="py-3 px-4 text-zinc-500">{client.cod ?? "-"}</td>
-                  <td className="py-3 px-4 font-medium text-zinc-800">{client.empresa}</td>
+                  <td className="py-3 px-4 font-medium text-zinc-800 uppercase">{client.empresa}</td>
                   <td className="py-3 px-4 text-zinc-500 font-mono text-xs">{client.cnpj || "-"}</td>
                   <td className="py-3 px-4 text-zinc-500">{client.grupo || "-"}</td>
                   <td className="py-3 px-4 text-zinc-500">{client.tributacao || "-"}</td>
@@ -123,7 +123,7 @@ export default function ClientesPage() {
                       <Link href={`/clientes/${client.id}`}>
                         <ExternalLink className="w-4 h-4 text-zinc-400 hover:text-cyan-600 transition-colors" />
                       </Link>
-                      <button onClick={() => handleDelete(client.id, client.empresa)}>
+                      <button onClick={() => handleDelete(client.id, client.empresa?.toUpperCase())}>
                         <Trash2 className="w-4 h-4 text-zinc-400 hover:text-red-500 transition-colors" />
                       </button>
                     </div>

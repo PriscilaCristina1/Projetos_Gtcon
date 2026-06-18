@@ -21,7 +21,7 @@ export function ClienteDetail() {
   }, [id])
 
   const handleDelete = useCallback(async () => {
-    if (!client || !confirm(`Excluir "${client.empresa}"?`)) return
+    if (!client || !confirm(`Excluir "${client.empresa?.toUpperCase()}"?`)) return
     const ok = await deleteClient(Number(id))
     if (ok) router.push("/clientes")
   }, [client, id, router])
@@ -31,7 +31,7 @@ export function ClienteDetail() {
 
   const fields: { label: string; value: string | null }[] = [
     { label: "COD", value: client.cod?.toString() ?? null },
-    { label: "Empresa", value: client.empresa },
+    { label: "Empresa", value: client.empresa?.toUpperCase() ?? null },
     { label: "CNPJ", value: client.cnpj },
     { label: "Grupo", value: client.grupo },
     { label: "Tributação", value: client.tributacao },
@@ -60,7 +60,7 @@ export function ClienteDetail() {
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">{client.empresa}</h1>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent uppercase">{client.empresa}</h1>
             <p className="text-sm text-zinc-500">{client.cnpj || "Sem CNPJ"}</p>
           </div>
         </div>

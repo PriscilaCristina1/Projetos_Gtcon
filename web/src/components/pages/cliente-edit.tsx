@@ -80,7 +80,7 @@ export function ClienteEdit() {
         </Link>
         <div>
           <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">Editar Cliente</h1>
-          <p className="text-sm text-zinc-500">{form.empresa}</p>
+          <p className="text-sm text-zinc-500 uppercase">{form.empresa}</p>
         </div>
       </div>
 
@@ -94,7 +94,7 @@ export function ClienteEdit() {
               required
               value={form.empresa}
               onChange={handleChange}
-              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 placeholder-zinc-400 uppercase focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>

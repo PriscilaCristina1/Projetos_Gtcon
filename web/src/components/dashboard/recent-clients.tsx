@@ -33,7 +33,7 @@ export function RecentClients({ clients }: RecentClientsProps) {
           <tbody>
             {clients.map((client) => (
               <tr key={client.id} className="border-b border-zinc-100 hover:bg-sky-50 transition-colors">
-                <td className="py-2.5 px-3 font-medium text-zinc-800">{client.empresa}</td>
+                <td className="py-2.5 px-3 font-medium text-zinc-800 uppercase">{client.empresa}</td>
                 <td className="py-2.5 px-3 text-zinc-500">{client.cnpj || "-"}</td>
                 <td className="py-2.5 px-3 text-zinc-500">{formatDate(client.entrada)}</td>
                 <td className="py-2.5 px-3">
