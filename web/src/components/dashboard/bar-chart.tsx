@@ -8,16 +8,41 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Cell,
 } from "recharts"
+
+
 
 interface BarChartProps {
   title: string
   data: { label?: string; mes?: string; total: number }[]
   dataKey: string
   labelKey: string
+  horizontal?: boolean
+  colors?: string[]
+  showPercentage?: boolean
 }
 
-export function BarChart({ title, data, dataKey, labelKey }: BarChartProps) {
+const DEFAULT_COLORS = ["#06b6d4", "#3b82f6", "#6366f1", "#14b8a6", "#0ea5e9", "#8b5cf6", "#0284c7", "#2dd4bf"]
+
+export function BarChart({
+  title,
+  data,
+  dataKey,
+  labelKey,
+  horizontal,
+  colors,
+  showPercentage,
+}: BarChartProps) {
+  const total = showPercentage ? data.reduce((s, d) => s + (d.total || 0), 0) : 0
+  const chartData = showPercentage
+    ? data.map((d) => ({
+        ...d,
+        label: `${d.label || d.mes || ""} (${((d.total || 0) / total * 100).toFixed(1)}%)`,
+        mes: `${d.label || d.mes || ""} (${((d.total || 0) / total * 100).toFixed(1)}%)`,
+      }))
+    : data
+
   return (
     <div className="relative bg-zinc-900/80 backdrop-blur-sm rounded-xl border border-zinc-800/50 p-5 shadow-lg overflow-hidden group hover:border-cyan-700/50 transition-all duration-300">
       <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.02] to-indigo-500/[0.02] pointer-events-none" />
@@ -26,24 +51,21 @@ export function BarChart({ title, data, dataKey, labelKey }: BarChartProps) {
         <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(6,182,212,0.5)]" />
         {title}
       </h3>
-      <div className="h-72 relative">
+      <div className={`${horizontal ? "h-80" : "h-72"} relative`}>
         <ResponsiveContainer width="100%" height="100%">
-          <RechartsBar data={data}>
+          <RechartsBar data={chartData} layout={horizontal ? "vertical" : "horizontal"}>
             <CartesianGrid strokeDasharray="3 3" stroke="#1e3a5f" strokeOpacity={0.3} />
-            <XAxis
-              dataKey={labelKey}
-              tick={{ fontSize: 11, fill: "#71717a" }}
-              angle={-45}
-              textAnchor="end"
-              height={60}
-              axisLine={{ stroke: "#27272a" }}
-              tickLine={{ stroke: "#27272a" }}
-            />
-            <YAxis
-              tick={{ fontSize: 11, fill: "#71717a" }}
-              axisLine={{ stroke: "#27272a" }}
-              tickLine={{ stroke: "#27272a" }}
-            />
+            {horizontal ? (
+              <>
+                <XAxis type="number" tick={{ fontSize: 11, fill: "#71717a" }} axisLine={{ stroke: "#27272a" }} tickLine={{ stroke: "#27272a" }} />
+                <YAxis dataKey={labelKey} type="category" tick={{ fontSize: 11, fill: "#71717a" }} axisLine={{ stroke: "#27272a" }} tickLine={{ stroke: "#27272a" }} width={120} />
+              </>
+            ) : (
+              <>
+                <XAxis dataKey={labelKey} tick={{ fontSize: 11, fill: "#71717a" }} angle={-45} textAnchor="end" height={60} axisLine={{ stroke: "#27272a" }} tickLine={{ stroke: "#27272a" }} />
+                <YAxis tick={{ fontSize: 11, fill: "#71717a" }} axisLine={{ stroke: "#27272a" }} tickLine={{ stroke: "#27272a" }} />
+              </>
+            )}
             <Tooltip
               contentStyle={{
                 backgroundColor: "rgba(24,24,27,0.95)",
@@ -56,22 +78,28 @@ export function BarChart({ title, data, dataKey, labelKey }: BarChartProps) {
               cursor={{ fill: "rgba(6,182,212,0.05)" }}
             />
             <defs>
-              <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#06b6d4" />
-                <stop offset="50%" stopColor="#3b82f6" />
-                <stop offset="100%" stopColor="#6366f1" />
-              </linearGradient>
-              <filter id="barGlow">
-                <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#06b6d4" floodOpacity="0.3" />
-              </filter>
+              {!colors && (
+                <>
+                  <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#06b6d4" />
+                    <stop offset="50%" stopColor="#3b82f6" />
+                    <stop offset="100%" stopColor="#6366f1" />
+                  </linearGradient>
+                  <filter id="barGlow">
+                    <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#06b6d4" floodOpacity="0.3" />
+                  </filter>
+                </>
+              )}
             </defs>
-            <Bar
-              dataKey={dataKey}
-              fill="url(#barGradient)"
-              radius={[6, 6, 0, 0]}
-              filter="url(#barGlow)"
-              className="hover:opacity-80 transition-opacity cursor-pointer"
-            />
+            {colors ? (
+              <Bar dataKey={dataKey} radius={horizontal ? [0, 6, 6, 0] : [6, 6, 0, 0]}>
+                {chartData.map((_, i) => (
+                  <Cell key={i} fill={(colors || DEFAULT_COLORS)[i % (colors || DEFAULT_COLORS).length]} className="hover:opacity-80 transition-opacity cursor-pointer" />
+                ))}
+              </Bar>
+            ) : (
+              <Bar dataKey={dataKey} fill="url(#barGradient)" radius={horizontal ? [0, 6, 6, 0] : [6, 6, 0, 0]} filter="url(#barGlow)" className="hover:opacity-80 transition-opacity cursor-pointer" />
+            )}
           </RechartsBar>
         </ResponsiveContainer>
       </div>
