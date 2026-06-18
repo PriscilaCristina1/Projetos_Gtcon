@@ -10,7 +10,6 @@ import {
   ResponsiveContainer,
   Cell,
   LabelList,
-  Legend,
 } from "recharts"
 
 interface BarChartProps {
@@ -81,19 +80,6 @@ export function BarChart({
               }}
               cursor={{ fill: "rgba(6,182,212,0.04)" }}
             />
-            <Legend
-              wrapperStyle={{ fontSize: "11px", color: "#64748b", paddingTop: "8px" }}
-              content={() => (
-                <div className="flex flex-wrap gap-x-5 gap-y-1 justify-center">
-                  {chartData.map((d, i) => (
-                    <div key={i} className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ backgroundColor: (colors || DEFAULT_COLORS)[i % (colors || DEFAULT_COLORS).length] }} />
-                      <span className="text-xs text-zinc-500">{d.label || d.mes}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            />
             <Bar dataKey={dataKey} radius={horizontal ? [0, 8, 8, 0] : [8, 8, 0, 0]}>
               {chartData.map((_, i) => (
                 <Cell
@@ -106,6 +92,14 @@ export function BarChart({
             </Bar>
           </RechartsBar>
         </ResponsiveContainer>
+      </div>
+      <div className="flex flex-wrap gap-x-5 gap-y-1 justify-center pt-3">
+        {chartData.map((d, i) => (
+          <div key={i} className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ backgroundColor: (colors || DEFAULT_COLORS)[i % (colors || DEFAULT_COLORS).length] }} />
+            <span className="text-xs text-zinc-500">{d.label || d.mes}</span>
+          </div>
+        ))}
       </div>
     </div>
   )
