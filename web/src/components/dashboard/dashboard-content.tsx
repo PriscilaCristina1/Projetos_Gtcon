@@ -65,24 +65,23 @@ export function DashboardContent() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-zinc-700">Clientes por Mês</h3>
-            <select
-              value={mesFiltro}
-              onChange={(e) => setMesFiltro(e.target.value)}
-              className="bg-white border border-sky-200/70 rounded-lg px-3 py-1.5 text-xs text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 cursor-pointer"
-            >
-              <option value="">Últimos 12 meses</option>
-              {[...mesesDisponiveis].reverse().map((mes) => (
-                <option key={mes} value={mes}>{mes}</option>
-              ))}
-            </select>
-          </div>
           <BarChart
-            title=""
+            title="Clientes por Mês"
             data={dadosFiltrados}
             dataKey="total"
             labelKey="mes"
+            filter={
+              <select
+                value={mesFiltro}
+                onChange={(e) => setMesFiltro(e.target.value)}
+                className="bg-white border border-sky-200/70 rounded-lg px-3 py-1.5 text-xs text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 cursor-pointer"
+              >
+                <option value="">Últimos 12 meses</option>
+                {[...mesesDisponiveis].reverse().map((mes) => (
+                  <option key={mes} value={mes}>{mes}</option>
+                ))}
+              </select>
+            }
           />
         </div>
         <BarChart

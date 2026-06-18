@@ -21,6 +21,7 @@ interface BarChartProps {
   horizontal?: boolean
   colors?: string[]
   showPercentage?: boolean
+  filter?: React.ReactNode
 }
 
 const DEFAULT_COLORS = ["#06b6d4", "#3b82f6", "#6366f1", "#14b8a6", "#0ea5e9", "#8b5cf6", "#0284c7", "#2dd4bf"]
@@ -33,6 +34,7 @@ export function BarChart({
   horizontal,
   colors,
   showPercentage,
+  filter,
 }: BarChartProps) {
   const total = showPercentage ? data.reduce((s, d) => s + (d.total || 0), 0) : 0
   const chartData = showPercentage
@@ -48,11 +50,12 @@ export function BarChart({
       <h3 className="text-sm font-semibold text-zinc-700 mb-4 relative flex items-center gap-2">
         <span className="w-2 h-2 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 shadow-sm" />
         {title}
+        <span className="ml-auto">{filter}</span>
       </h3>
       <div className={`${horizontal ? "h-80" : "h-72"} relative`}>
         <ResponsiveContainer width="100%" height="100%">
           <RechartsBar data={chartData} layout={horizontal ? "vertical" : "horizontal"} barCategoryGap={horizontal ? "20%" : "12%"} margin={{ top: 22, right: 10, left: 0, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e0f2fe" strokeWidth={0.5} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#e0f2fe" strokeWidth={0.3} />
             {horizontal ? (
               <>
                 <XAxis type="number" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} tickLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} />
