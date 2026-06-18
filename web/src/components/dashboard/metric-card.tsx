@@ -10,11 +10,11 @@ interface MetricCardProps {
 }
 
 const colors = {
-  blue: { bg: "bg-zinc-100", text: "text-zinc-600", border: "border-zinc-200", icon: "text-zinc-600" },
-  purple: { bg: "bg-zinc-100", text: "text-zinc-600", border: "border-zinc-200", icon: "text-zinc-600" },
-  green: { bg: "bg-zinc-100", text: "text-zinc-600", border: "border-zinc-200", icon: "text-zinc-600" },
-  cyan: { bg: "bg-zinc-100", text: "text-zinc-600", border: "border-zinc-200", icon: "text-zinc-600" },
-  teal: { bg: "bg-zinc-100", text: "text-zinc-600", border: "border-zinc-200", icon: "text-zinc-600" },
+  blue: { bg: "bg-zinc-100", text: "", border: "border-zinc-200", icon: "" },
+  purple: { bg: "bg-zinc-100", text: "", border: "border-zinc-200", icon: "" },
+  green: { bg: "bg-zinc-100", text: "", border: "border-zinc-200", icon: "" },
+  cyan: { bg: "bg-zinc-100", text: "", border: "border-zinc-200", icon: "" },
+  teal: { bg: "bg-zinc-100", text: "", border: "border-zinc-200", icon: "" },
 }
 
 export function MetricCard({ title, value, icon, color }: MetricCardProps) {
@@ -25,8 +25,8 @@ export function MetricCard({ title, value, icon, color }: MetricCardProps) {
     )}>
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-zinc-500 group-hover:text-zinc-600 transition-colors">{title}</p>
-          <p className="text-2xl font-bold text-zinc-800 mt-1 group-hover:text-zinc-900 transition-colors">{value}</p>
+          <p className="text-sm transition-colors">{title}</p>
+          <p className="text-2xl font-bold mt-1 transition-colors">{value}</p>
         </div>
         <div className={cn("p-3 rounded-xl border transition-all duration-300 group-hover:scale-110", c.bg, c.icon, c.border)}>
           {icon}

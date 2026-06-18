@@ -26,8 +26,8 @@ export function ClienteDetail() {
     if (ok) router.push("/clientes")
   }, [client, id, router])
 
-  if (loading) return <p className="text-zinc-500">Carregando...</p>
-  if (!client) return <p className="text-red-500">Cliente não encontrado</p>
+  if (loading) return <p className="">Carregando...</p>
+  if (!client) return <p className="">Cliente não encontrado</p>
 
   const fields: { label: string; value: string | null }[] = [
     { label: "COD", value: client.cod?.toString() ?? null },
@@ -55,26 +55,26 @@ export function ClienteDetail() {
         <div className="flex items-center gap-4">
           <Link
             href="/clientes"
-            className="p-2 rounded-lg hover:bg-zinc-100 text-zinc-500 transition-colors hover:text-zinc-700"
+            className="p-2 rounded-lg hover:bg-zinc-100 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-zinc-800 uppercase">{client.empresa}</h1>
-            <p className="text-sm text-zinc-500">{client.cnpj || "Sem CNPJ"}</p>
+            <h1 className="text-2xl font-bold uppercase">{client.empresa}</h1>
+            <p className="text-sm">{client.cnpj || "Sem CNPJ"}</p>
           </div>
         </div>
         <div className="flex gap-2">
           <Link
             href={`/clientes/${id}/editar`}
-            className="flex items-center gap-2 bg-zinc-100 text-zinc-700 border border-zinc-200 px-4 py-2 rounded-lg text-sm font-medium hover:bg-zinc-200 transition-all duration-300"
+            className="flex items-center gap-2 bg-zinc-100 border border-zinc-200 px-4 py-2 rounded-lg text-sm font-medium hover:bg-zinc-200 transition-all duration-300"
           >
             <Edit3 className="w-4 h-4" />
             Editar
           </Link>
           <button
             onClick={handleDelete}
-            className="flex items-center gap-2 bg-zinc-100 text-zinc-700 border border-zinc-200 px-4 py-2 rounded-lg text-sm font-medium hover:bg-zinc-200 transition-all duration-300"
+            className="flex items-center gap-2 bg-zinc-100 border border-zinc-200 px-4 py-2 rounded-lg text-sm font-medium hover:bg-zinc-200 transition-all duration-300"
           >
             <Trash2 className="w-4 h-4" />
             Excluir
@@ -87,8 +87,8 @@ export function ClienteDetail() {
           {fields.map((f) =>
             f.value ? (
               <div key={f.label} className="group/field">
-                <p className="text-xs text-zinc-500 uppercase font-medium group-hover/field:text-zinc-700 transition-colors">{f.label}</p>
-                <p className="text-sm text-zinc-700 mt-0.5">{f.value}</p>
+                <p className="text-xs uppercase font-medium transition-colors">{f.label}</p>
+                <p className="text-sm mt-0.5">{f.value}</p>
               </div>
             ) : null
           )}

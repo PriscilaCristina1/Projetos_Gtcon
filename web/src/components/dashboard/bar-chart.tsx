@@ -46,7 +46,7 @@ export function BarChart({
   return (
     <div className="relative bg-white rounded-xl border border-zinc-200/50 p-5 shadow-sm transition-shadow duration-300">
       <div className="absolute inset-0 bg-gradient-to-br from-zinc-50/30 to-transparent rounded-xl pointer-events-none" />
-      <h3 className="text-sm font-semibold text-zinc-700 mb-4 relative flex items-center gap-2">
+      <h3 className="text-sm font-semibold mb-4 relative flex items-center gap-2">
         <span className="w-2 h-2 rounded-full bg-zinc-400 shadow-sm" />
         {title}
         <span className="ml-auto">{filter}</span>
@@ -97,7 +97,7 @@ export function BarChart({
         {chartData.map((d, i) => (
           <div key={i} className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ backgroundColor: (colors || DEFAULT_COLORS)[i % (colors || DEFAULT_COLORS).length] }} />
-            <span className="text-xs text-zinc-500">{d.label || d.mes}</span>
+            <span className="text-xs">{d.label || d.mes}</span>
           </div>
         ))}
       </div>

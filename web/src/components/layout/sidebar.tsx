@@ -27,10 +27,10 @@ export function Sidebar() {
             />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-zinc-800">
+            <h1 className="text-lg font-bold">
               GTCON
             </h1>
-            <p className="text-[10px] text-zinc-500 tracking-wider uppercase">Controle de Clientes</p>
+            <p className="text-[10px] tracking-wider uppercase">Controle de Clientes</p>
           </div>
         </div>
       </div>
@@ -45,8 +45,8 @@ export function Sidebar() {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 relative group",
                 isActive
-                  ? "text-zinc-800"
-                  : "text-zinc-500 hover:text-zinc-700"
+                  ? ""
+                  : ""
               )}
             >
               {isActive && (
@@ -56,14 +56,14 @@ export function Sidebar() {
                 "absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-r-full transition-all duration-300",
                 isActive ? "bg-zinc-400" : "bg-transparent"
               )} />
-              <Icon className={cn("w-5 h-5 relative z-10", isActive && "text-zinc-700")} />
-              <span className={cn("relative z-10", isActive && "text-zinc-800")}>{link.label}</span>
+              <Icon className={cn("w-5 h-5 relative z-10", isActive && "")} />
+              <span className={cn("relative z-10", isActive && "")}>{link.label}</span>
             </Link>
           )
         })}
       </nav>
       <div className="p-4 border-t border-zinc-200/60 relative">
-        <p className="text-xs text-zinc-500">GTCON © 2026</p>
+        <p className="text-xs">GTCON © 2026</p>
       </div>
     </aside>
   )
