@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
   Cell,
   LabelList,
+  Legend,
 } from "recharts"
 
 interface BarChartProps {
@@ -77,6 +78,20 @@ export function BarChart({
               }}
               cursor={{ fill: "rgba(6,182,212,0.06)" }}
             />
+            {colors ? (
+              <Legend
+                wrapperStyle={{ fontSize: "11px", color: "#64748b", paddingTop: "4px" }}
+                iconType="circle"
+                iconSize={8}
+              />
+            ) : (
+              <Legend
+                wrapperStyle={{ fontSize: "11px", color: "#64748b", paddingTop: "4px" }}
+                iconType="rect"
+                iconSize={10}
+                formatter={() => "Total de Clientes"}
+              />
+            )}
             <defs>
               {!colors && (
                 <>
