@@ -52,16 +52,16 @@ export function BarChart({
       <div className={`${horizontal ? "h-80" : "h-72"} relative`}>
         <ResponsiveContainer width="100%" height="100%">
           <RechartsBar data={chartData} layout={horizontal ? "vertical" : "horizontal"} barCategoryGap={horizontal ? "20%" : "12%"} margin={{ top: 22, right: 10, left: 0, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="4 4" stroke="#e0f2fe" strokeOpacity={0.8} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#e0f2fe" strokeWidth={0.5} />
             {horizontal ? (
               <>
-                <XAxis type="number" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={{ stroke: "#e2e8f0" }} tickLine={{ stroke: "#e2e8f0" }} />
-                <YAxis dataKey={showPercentage ? "labelComPct" : labelKey} type="category" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={{ stroke: "#e2e8f0" }} tickLine={{ stroke: "#e2e8f0" }} width={200} />
+                <XAxis type="number" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} tickLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} />
+                <YAxis dataKey={showPercentage ? "labelComPct" : labelKey} type="category" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} tickLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} width={200} />
               </>
             ) : (
               <>
-                <XAxis dataKey={labelKey} tick={{ fontSize: 12, fill: "#475569", fontWeight: 500 }} angle={-20} textAnchor="end" height={50} axisLine={{ stroke: "#e2e8f0" }} tickLine={{ stroke: "#e2e8f0" }} />
-                <YAxis tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={{ stroke: "#e2e8f0" }} tickLine={{ stroke: "#e2e8f0" }} />
+                <XAxis dataKey={labelKey} tick={{ fontSize: 12, fill: "#475569", fontWeight: 500 }} angle={-20} textAnchor="end" height={50} axisLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} tickLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} />
+                <YAxis tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} tickLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} />
               </>
             )}
             <Tooltip
