@@ -24,7 +24,7 @@ interface BarChartProps {
   filter?: React.ReactNode
 }
 
-const DEFAULT_COLORS = ["#06b6d4", "#3b82f6", "#6366f1", "#14b8a6", "#0ea5e9", "#8b5cf6", "#0284c7", "#2dd4bf"]
+const DEFAULT_COLORS = ["#67e8f9", "#93c5fd", "#a5b4fc", "#6ee7b7", "#7dd3fc", "#c4b5fd", "#fda4af", "#fde68a"]
 
 export function BarChart({
   title,
@@ -45,16 +45,16 @@ export function BarChart({
     : data
 
   return (
-    <div className="relative bg-white rounded-xl border border-sky-100/80 p-5 shadow-sm hover:shadow-md transition-shadow duration-300">
-      <div className="absolute inset-0 bg-gradient-to-br from-sky-50/50 to-transparent rounded-xl pointer-events-none" />
+    <div className="relative bg-white rounded-xl border border-sky-100/50 p-5 shadow-sm transition-shadow duration-300">
+      <div className="absolute inset-0 bg-gradient-to-br from-sky-50/30 to-transparent rounded-xl pointer-events-none" />
       <h3 className="text-sm font-semibold text-zinc-700 mb-4 relative flex items-center gap-2">
-        <span className="w-2 h-2 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 shadow-sm" />
+        <span className="w-2 h-2 rounded-full bg-gradient-to-br from-cyan-300 to-blue-400 shadow-sm" />
         {title}
         <span className="ml-auto">{filter}</span>
       </h3>
       <div className={`${horizontal ? "h-80" : "h-72"} relative`}>
         <ResponsiveContainer width="100%" height="100%">
-          <RechartsBar data={chartData} layout={horizontal ? "vertical" : "horizontal"} barCategoryGap={horizontal ? "20%" : "12%"} margin={{ top: 22, right: 10, left: 0, bottom: 5 }}>
+          <RechartsBar data={chartData} layout={horizontal ? "vertical" : "horizontal"} barCategoryGap="30%" margin={{ top: 22, right: 10, left: 0, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e0f2fe" strokeWidth={0.3} />
             {horizontal ? (
               <>
@@ -63,23 +63,23 @@ export function BarChart({
               </>
             ) : (
               <>
-                <XAxis dataKey={labelKey} tick={{ fontSize: 12, fill: "#475569", fontWeight: 500 }} angle={-20} textAnchor="end" height={50} axisLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} tickLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} />
+                <XAxis dataKey={labelKey} tick={{ fontSize: 11, fill: "#94a3b8", fontWeight: 400 }} angle={-20} textAnchor="end" height={50} axisLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} tickLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} />
                 <YAxis tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} tickLine={{ stroke: "#e2e8f0", strokeWidth: 0.5 }} />
               </>
             )}
             <Tooltip
               contentStyle={{
-                backgroundColor: "rgba(255,255,255,0.97)",
+                backgroundColor: "rgba(255,255,255,0.95)",
                 backdropFilter: "blur(12px)",
-                border: "1px solid rgba(6,182,212,0.15)",
-                borderRadius: "12px",
-                color: "#1e293b",
-                fontSize: "13px",
-                fontWeight: 500,
-                boxShadow: "0 8px 32px rgba(6,182,212,0.12), 0 2px 8px rgba(0,0,0,0.04)",
-                padding: "10px 14px",
+                border: "1px solid rgba(6,182,212,0.1)",
+                borderRadius: "10px",
+                color: "#475569",
+                fontSize: "12px",
+                fontWeight: 400,
+                boxShadow: "0 4px 16px rgba(0,0,0,0.04)",
+                padding: "8px 12px",
               }}
-              cursor={{ fill: "rgba(6,182,212,0.06)" }}
+              cursor={{ fill: "rgba(6,182,212,0.04)" }}
             />
             {colors ? (
               <Legend
@@ -114,30 +114,27 @@ export function BarChart({
               {!colors && (
                 <>
                   <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#06b6d4" />
-                    <stop offset="50%" stopColor="#3b82f6" />
-                    <stop offset="100%" stopColor="#6366f1" />
+                    <stop offset="0%" stopColor="#67e8f9" />
+                    <stop offset="50%" stopColor="#93c5fd" />
+                    <stop offset="100%" stopColor="#a5b4fc" />
                   </linearGradient>
-                  <filter id="barShadow">
-                    <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#06b6d4" floodOpacity="0.15" />
-                  </filter>
                 </>
               )}
             </defs>
             {colors ? (
-              <Bar dataKey={dataKey} radius={horizontal ? [0, 6, 6, 0] : [6, 6, 0, 0]}>
+              <Bar dataKey={dataKey} radius={horizontal ? [0, 8, 8, 0] : [8, 8, 0, 0]}>
                 {chartData.map((_, i) => (
                   <Cell
                     key={i}
                     fill={(colors || DEFAULT_COLORS)[i % (colors || DEFAULT_COLORS).length]}
-                    className="hover:opacity-85 transition-opacity"
+                    className="hover:opacity-75 transition-opacity"
                   />
                 ))}
-                <LabelList dataKey={dataKey} position="top" fill="#64748b" fontSize={11} fontWeight={600} />
+                <LabelList dataKey={dataKey} position="top" fill="#94a3b8" fontSize={11} fontWeight={400} />
               </Bar>
             ) : (
-              <Bar dataKey={dataKey} fill="url(#barGradient)" radius={[6, 6, 0, 0]} filter="url(#barShadow)" className="hover:opacity-90 transition-opacity">
-                <LabelList dataKey={dataKey} position="top" fill="#64748b" fontSize={11} fontWeight={600} />
+              <Bar dataKey={dataKey} fill="url(#barGradient)" radius={[8, 8, 0, 0]} className="hover:opacity-75 transition-opacity">
+                <LabelList dataKey={dataKey} position="top" fill="#94a3b8" fontSize={11} fontWeight={400} />
               </Bar>
             )}
           </RechartsBar>

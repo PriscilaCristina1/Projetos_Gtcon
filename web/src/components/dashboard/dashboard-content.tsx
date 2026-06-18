@@ -89,7 +89,7 @@ export function DashboardContent() {
           data={metrics.porTributacao}
           dataKey="total"
           labelKey="label"
-          colors={["#f59e0b", "#10b981", "#8b5cf6", "#ef4444", "#ec4899"]}
+          colors={["#fcd34d", "#6ee7b7", "#a5b4fc", "#fca5a5", "#f9a8d4"]}
         />
       </div>
 
