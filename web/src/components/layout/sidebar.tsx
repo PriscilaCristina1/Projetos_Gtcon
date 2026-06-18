@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
@@ -19,8 +20,14 @@ export function Sidebar() {
       <div className="absolute inset-0 bg-gradient-to-b from-sky-50/60 to-transparent pointer-events-none" />
       <div className="p-5 border-b border-sky-100/60 relative">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-            <span className="text-white font-bold text-sm">G</span>
+          <div className="w-10 h-10 rounded-lg overflow-hidden shadow-md flex-shrink-0">
+            <Image
+              src="/log-nova-min.jpeg"
+              alt="GTCON"
+              width={40}
+              height={40}
+              className="w-full h-full object-cover"
+            />
           </div>
           <div>
             <h1 className="text-lg font-bold bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
