@@ -19,8 +19,8 @@ export function DashboardContent() {
       .finally(() => setLoading(false))
   }, [])
 
-  if (loading) return <p className="text-white/70">Carregando...</p>
-  if (!metrics) return <p className="text-red-300">Erro ao carregar dados</p>
+  if (loading) return <p className="text-zinc-500">Carregando...</p>
+  if (!metrics) return <p className="text-red-500">Erro ao carregar dados</p>
 
   const mesesDisponiveis = metrics.clientesPorMes.map((d) => d.mes)
   const dadosFiltrados = mesFiltro
@@ -31,8 +31,8 @@ export function DashboardContent() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Dashboard</h1>
-          <p className="text-white/70 text-sm">Visão geral dos clientes</p>
+          <h1 className="text-2xl font-bold text-black">Dashboard</h1>
+          <p className="text-zinc-600 text-sm">Visão geral dos clientes</p>
         </div>
       </div>
 
