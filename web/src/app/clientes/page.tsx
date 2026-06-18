@@ -83,7 +83,7 @@ export default function ClientesPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-zinc-50 border-b border-zinc-200">
+              <tr className="bg-sky-50 border-b border-zinc-200">
                 <th className="text-left py-3 px-4 text-zinc-500 font-medium">COD</th>
                 <th className="text-left py-3 px-4 text-zinc-500 font-medium">Empresa</th>
                 <th className="text-left py-3 px-4 text-zinc-500 font-medium">CNPJ</th>
@@ -97,7 +97,7 @@ export default function ClientesPage() {
             </thead>
             <tbody>
               {filtered.map((client, i) => (
-                <tr key={client.id} className="border-b border-zinc-100 hover:bg-zinc-50 transition-colors" style={{ animationDelay: `${i * 30}ms` }}>
+                <tr key={client.id} className="border-b border-zinc-100 hover:bg-sky-50 transition-colors" style={{ animationDelay: `${i * 30}ms` }}>
                   <td className="py-3 px-4 text-zinc-500">{client.cod ?? "-"}</td>
                   <td className="py-3 px-4 font-medium text-zinc-800">{client.empresa}</td>
                   <td className="py-3 px-4 text-zinc-500 font-mono text-xs">{client.cnpj || "-"}</td>

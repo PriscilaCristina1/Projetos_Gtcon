@@ -15,8 +15,9 @@ export function Sidebar() {
   const pathname = usePathname()
 
   return (
-    <aside className="w-64 bg-white/80 backdrop-blur-xl border-r border-zinc-200/60 flex flex-col relative">
-      <div className="p-5 border-b border-zinc-200/60 relative">
+    <aside className="w-64 bg-white/80 backdrop-blur-xl border-r border-sky-100/60 flex flex-col relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-sky-50/60 to-transparent pointer-events-none" />
+      <div className="p-5 border-b border-sky-100/60 relative">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
             <span className="text-white font-bold text-sm">G</span>
@@ -57,7 +58,7 @@ export function Sidebar() {
           )
         })}
       </nav>
-      <div className="p-4 border-t border-zinc-200/60 relative">
+      <div className="p-4 border-t border-sky-100/60 relative">
         <p className="text-xs text-zinc-400">GTCON © 2026</p>
       </div>
     </aside>
