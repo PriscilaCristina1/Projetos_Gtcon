@@ -90,8 +90,6 @@ export function DashboardContent() {
           data={metrics.porTributacao}
           dataKey="total"
           labelKey="label"
-          horizontal
-          showPercentage
           colors={["#f59e0b", "#10b981", "#8b5cf6", "#ef4444", "#ec4899"]}
         />
       </div>
