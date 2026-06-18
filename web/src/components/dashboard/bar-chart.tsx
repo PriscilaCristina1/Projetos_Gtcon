@@ -35,7 +35,12 @@ export function BarChart({
   showPercentage,
 }: BarChartProps) {
   const total = showPercentage ? data.reduce((s, d) => s + (d.total || 0), 0) : 0
-  const chartData = data
+  const chartData = showPercentage
+    ? data.map((d) => {
+        const pct = total > 0 ? ((d.total || 0) / total * 100).toFixed(1) : "0.0"
+        return { ...d, labelComPct: `${d.label || d.mes || ""}  ${pct}%` }
+      })
+    : data
 
   return (
     <div className="relative bg-zinc-900/80 backdrop-blur-sm rounded-xl border border-zinc-800/50 p-5 shadow-lg overflow-hidden group hover:border-cyan-700/50 transition-all duration-300">
@@ -47,12 +52,12 @@ export function BarChart({
       </h3>
       <div className={`${horizontal ? "h-80" : "h-72"} relative`}>
         <ResponsiveContainer width="100%" height="100%">
-          <RechartsBar data={chartData} layout={horizontal ? "vertical" : "horizontal"}>
+          <RechartsBar data={chartData} layout={horizontal ? "vertical" : "horizontal"} barCategoryGap={horizontal ? "20%" : "10%"}>
             <CartesianGrid strokeDasharray="3 3" stroke="#1e3a5f" strokeOpacity={0.3} />
             {horizontal ? (
               <>
                 <XAxis type="number" tick={{ fontSize: 11, fill: "#71717a" }} axisLine={{ stroke: "#27272a" }} tickLine={{ stroke: "#27272a" }} />
-                <YAxis dataKey={labelKey} type="category" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={{ stroke: "#27272a" }} tickLine={{ stroke: "#27272a" }} width={160} />
+                <YAxis dataKey={showPercentage ? "labelComPct" : labelKey} type="category" tick={{ fontSize: 11, fill: "#71717a" }} axisLine={{ stroke: "#27272a" }} tickLine={{ stroke: "#27272a" }} width={200} />
               </>
             ) : (
               <>
