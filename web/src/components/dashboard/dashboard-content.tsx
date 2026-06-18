@@ -31,8 +31,8 @@ export function DashboardContent() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-black">Dashboard</h1>
-          <p className="text-zinc-600 text-sm">Visão geral dos clientes</p>
+          <h1 className="text-2xl font-bold text-zinc-800">Dashboard</h1>
+          <p className="text-zinc-500 text-sm">Visão geral dos clientes</p>
         </div>
       </div>
 
@@ -74,7 +74,7 @@ export function DashboardContent() {
               <select
                 value={mesFiltro}
                 onChange={(e) => setMesFiltro(e.target.value)}
-                className="bg-white border border-sky-200/70 rounded-lg px-3 py-1.5 text-xs text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 cursor-pointer"
+                className="bg-white border border-zinc-200 rounded-lg px-3 py-1.5 text-xs text-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-300 cursor-pointer"
               >
                 <option value="">Últimos 12 meses</option>
                 {[...mesesDisponiveis].reverse().map((mes) => (

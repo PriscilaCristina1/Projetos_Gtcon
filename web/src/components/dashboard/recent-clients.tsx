@@ -10,10 +10,10 @@ interface RecentClientsProps {
 
 export function RecentClients({ clients }: RecentClientsProps) {
   return (
-    <div className="relative bg-white rounded-xl border border-zinc-200/70 p-5 shadow-sm overflow-hidden">
+    <div className="relative bg-white rounded-xl border border-zinc-200/50 p-5 shadow-sm overflow-hidden">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold text-zinc-700">Clientes Recentes</h3>
-        <Link href="/clientes" className="text-xs text-cyan-600 hover:text-cyan-700 transition-colors">
+        <Link href="/clientes" className="text-xs text-zinc-500 hover:text-zinc-700 transition-colors">
           Ver todos
         </Link>
       </div>

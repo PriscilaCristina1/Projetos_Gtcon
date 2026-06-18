@@ -10,36 +10,11 @@ interface MetricCardProps {
 }
 
 const colors = {
-  blue: {
-    bg: "bg-cyan-50",
-    text: "text-cyan-700",
-    border: "border-cyan-200",
-    icon: "text-cyan-600",
-  },
-  purple: {
-    bg: "bg-indigo-50",
-    text: "text-indigo-700",
-    border: "border-indigo-200",
-    icon: "text-indigo-600",
-  },
-  green: {
-    bg: "bg-emerald-50",
-    text: "text-emerald-700",
-    border: "border-emerald-200",
-    icon: "text-emerald-600",
-  },
-  cyan: {
-    bg: "bg-cyan-50",
-    text: "text-cyan-700",
-    border: "border-cyan-200",
-    icon: "text-cyan-600",
-  },
-  teal: {
-    bg: "bg-teal-50",
-    text: "text-teal-700",
-    border: "border-teal-200",
-    icon: "text-teal-600",
-  },
+  blue: { bg: "bg-zinc-100", text: "text-zinc-600", border: "border-zinc-200", icon: "text-zinc-600" },
+  purple: { bg: "bg-zinc-100", text: "text-zinc-600", border: "border-zinc-200", icon: "text-zinc-600" },
+  green: { bg: "bg-zinc-100", text: "text-zinc-600", border: "border-zinc-200", icon: "text-zinc-600" },
+  cyan: { bg: "bg-zinc-100", text: "text-zinc-600", border: "border-zinc-200", icon: "text-zinc-600" },
+  teal: { bg: "bg-zinc-100", text: "text-zinc-600", border: "border-zinc-200", icon: "text-zinc-600" },
 }
 
 export function MetricCard({ title, value, icon, color }: MetricCardProps) {
