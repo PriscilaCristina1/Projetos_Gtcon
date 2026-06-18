@@ -9,11 +9,7 @@ import {
   Legend,
 } from "recharts"
 
-const COLORS = [
-  "#22d3ee", "#60a5fa", "#818cf8", "#34d399",
-  "#38bdf8", "#a78bfa", "#0ea5e9", "#5eead4",
-  "#67e8f9", "#93c5fd", "#a5b4fc", "#6ee7b7",
-]
+const COLORS = ["#06b6d4", "#3b82f6", "#6366f1", "#14b8a6", "#0ea5e9", "#8b5cf6", "#0284c7", "#2dd4bf"]
 
 interface PieChartProps {
   title: string
@@ -22,10 +18,9 @@ interface PieChartProps {
 
 export function PieChart({ title, data }: PieChartProps) {
   return (
-    <div className="relative bg-zinc-800/50 backdrop-blur-sm rounded-xl border border-zinc-700/40 p-5 shadow-lg overflow-hidden group hover:border-zinc-600/60 transition-all duration-300">
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
-      <h3 className="text-sm font-semibold text-zinc-200 mb-4 relative flex items-center gap-2">
-        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(6,182,212,0.5)]" />
+    <div className="relative bg-white rounded-xl border border-zinc-200/70 p-5 shadow-sm overflow-hidden">
+      <h3 className="text-sm font-semibold text-zinc-700 mb-4 relative flex items-center gap-2">
+        <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
         {title}
       </h3>
       <div className="h-72 relative">
@@ -41,25 +36,20 @@ export function PieChart({ title, data }: PieChartProps) {
               label={({ label, total }) => `${label}: ${total}`}
             >
               {data.map((_, i) => (
-                <Cell
-                  key={i}
-                  fill={COLORS[i % COLORS.length]}
-                />
+                <Cell key={i} fill={COLORS[i % COLORS.length]} />
               ))}
             </Pie>
             <Tooltip
               contentStyle={{
-                backgroundColor: "rgba(39,39,42,0.95)",
+                backgroundColor: "rgba(255,255,255,0.95)",
                 backdropFilter: "blur(8px)",
                 border: "1px solid rgba(6,182,212,0.2)",
                 borderRadius: "8px",
-                color: "#fafafa",
-                boxShadow: "0 0 20px -5px rgba(6,182,212,0.15)",
+                color: "#18181b",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
               }}
             />
-            <Legend
-              wrapperStyle={{ fontSize: "11px", color: "#a1a1aa" }}
-            />
+            <Legend wrapperStyle={{ fontSize: "11px", color: "#52525b" }} />
           </RechartsPie>
         </ResponsiveContainer>
       </div>

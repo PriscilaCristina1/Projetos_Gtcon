@@ -26,8 +26,8 @@ export function ClienteDetail() {
     if (ok) router.push("/clientes")
   }, [client, id, router])
 
-  if (loading) return <p className="text-zinc-400">Carregando...</p>
-  if (!client) return <p className="text-red-400">Cliente não encontrado</p>
+  if (loading) return <p className="text-zinc-500">Carregando...</p>
+  if (!client) return <p className="text-red-500">Cliente não encontrado</p>
 
   const fields: { label: string; value: string | null }[] = [
     { label: "COD", value: client.cod?.toString() ?? null },
@@ -55,26 +55,26 @@ export function ClienteDetail() {
         <div className="flex items-center gap-4">
           <Link
             href="/clientes"
-            className="p-2 rounded-lg hover:bg-zinc-800 text-zinc-400 transition-colors hover:text-cyan-400"
+            className="p-2 rounded-lg hover:bg-zinc-100 text-zinc-500 transition-colors hover:text-cyan-600"
           >
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">{client.empresa}</h1>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">{client.empresa}</h1>
             <p className="text-sm text-zinc-500">{client.cnpj || "Sem CNPJ"}</p>
           </div>
         </div>
         <div className="flex gap-2">
           <Link
             href={`/clientes/${id}/editar`}
-            className="flex items-center gap-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 text-cyan-300 border border-cyan-500/20 px-4 py-2 rounded-lg text-sm font-medium hover:from-cyan-500/20 hover:to-blue-500/20 hover:shadow-[0_0_20px_-5px_rgba(6,182,212,0.2)] transition-all duration-300"
+            className="flex items-center gap-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 text-cyan-700 border border-cyan-200 px-4 py-2 rounded-lg text-sm font-medium hover:from-cyan-500/20 hover:to-blue-500/20 transition-all duration-300"
           >
             <Edit3 className="w-4 h-4" />
             Editar
           </Link>
           <button
             onClick={handleDelete}
-            className="flex items-center gap-2 bg-red-500/10 text-red-400 border border-red-500/20 px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-500/20 hover:shadow-[0_0_20px_-5px_rgba(239,68,68,0.2)] transition-all duration-300"
+            className="flex items-center gap-2 bg-red-50 text-red-600 border border-red-200 px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-100 transition-all duration-300"
           >
             <Trash2 className="w-4 h-4" />
             Excluir
@@ -82,14 +82,13 @@ export function ClienteDetail() {
         </div>
       </div>
 
-      <div className="relative bg-zinc-900/80 backdrop-blur-sm rounded-xl border border-zinc-800/50 shadow-lg p-6 group hover:border-zinc-700/80 transition-all duration-300">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+      <div className="relative bg-white rounded-xl border border-zinc-200/70 shadow-sm p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {fields.map((f) =>
             f.value ? (
               <div key={f.label} className="group/field">
-                <p className="text-xs text-zinc-500 uppercase font-medium group-hover/field:text-cyan-400 transition-colors">{f.label}</p>
-                <p className="text-sm text-zinc-200 mt-0.5">{f.value}</p>
+                <p className="text-xs text-zinc-500 uppercase font-medium group-hover/field:text-cyan-600 transition-colors">{f.label}</p>
+                <p className="text-sm text-zinc-800 mt-0.5">{f.value}</p>
               </div>
             ) : null
           )}

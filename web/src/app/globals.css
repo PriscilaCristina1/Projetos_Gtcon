@@ -3,11 +3,11 @@
 @layer base {
   * {
     scrollbar-width: thin;
-    scrollbar-color: #1e3a5f transparent;
+    scrollbar-color: #cbd5e1 transparent;
   }
 
   body {
-    @apply bg-zinc-950 text-zinc-100 antialiased;
+    @apply bg-zinc-50 text-zinc-800 antialiased;
   }
 
   ::selection {

@@ -19,14 +19,14 @@ export function DashboardContent() {
       .finally(() => setLoading(false))
   }, [])
 
-  if (loading) return <p className="text-zinc-300">Carregando...</p>
-  if (!metrics) return <p className="text-red-400">Erro ao carregar dados</p>
+  if (loading) return <p className="text-zinc-500">Carregando...</p>
+  if (!metrics) return <p className="text-red-500">Erro ao carregar dados</p>
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-zinc-50">Dashboard</h1>
-        <p className="text-zinc-400 text-sm">Visão geral dos clientes</p>
+        <h1 className="text-2xl font-bold text-zinc-800">Dashboard</h1>
+        <p className="text-zinc-500 text-sm">Visão geral dos clientes</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

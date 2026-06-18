@@ -11,39 +11,34 @@ interface MetricCardProps {
 
 const colors = {
   blue: {
-    bg: "bg-cyan-400/15",
-    text: "text-cyan-300",
-    border: "border-cyan-400/25",
-    shadow: "shadow-cyan-500/10",
-    gradient: "from-cyan-400 to-blue-400",
+    bg: "bg-cyan-50",
+    text: "text-cyan-700",
+    border: "border-cyan-200",
+    icon: "text-cyan-600",
   },
   purple: {
-    bg: "bg-indigo-400/15",
-    text: "text-indigo-300",
-    border: "border-indigo-400/25",
-    shadow: "shadow-indigo-500/10",
-    gradient: "from-indigo-400 to-purple-400",
+    bg: "bg-indigo-50",
+    text: "text-indigo-700",
+    border: "border-indigo-200",
+    icon: "text-indigo-600",
   },
   green: {
-    bg: "bg-emerald-400/15",
-    text: "text-emerald-300",
-    border: "border-emerald-400/25",
-    shadow: "shadow-emerald-500/10",
-    gradient: "from-emerald-400 to-teal-400",
+    bg: "bg-emerald-50",
+    text: "text-emerald-700",
+    border: "border-emerald-200",
+    icon: "text-emerald-600",
   },
   cyan: {
-    bg: "bg-cyan-400/15",
-    text: "text-cyan-300",
-    border: "border-cyan-400/25",
-    shadow: "shadow-cyan-500/10",
-    gradient: "from-cyan-400 to-sky-400",
+    bg: "bg-cyan-50",
+    text: "text-cyan-700",
+    border: "border-cyan-200",
+    icon: "text-cyan-600",
   },
   teal: {
-    bg: "bg-teal-400/15",
-    text: "text-teal-300",
-    border: "border-teal-400/25",
-    shadow: "shadow-teal-500/10",
-    gradient: "from-teal-400 to-cyan-400",
+    bg: "bg-teal-50",
+    text: "text-teal-700",
+    border: "border-teal-200",
+    icon: "text-teal-600",
   },
 }
 
@@ -51,19 +46,14 @@ export function MetricCard({ title, value, icon, color }: MetricCardProps) {
   const c = colors[color]
   return (
     <div className={cn(
-      "group relative bg-zinc-800/50 backdrop-blur-sm rounded-xl border border-zinc-700/40 p-5 shadow-lg transition-all duration-300 hover:border-zinc-600/60 hover:shadow-xl overflow-hidden",
-      "hover:shadow-[0_0_30px_-5px]",
-      c.shadow
+      "group relative bg-white rounded-xl border border-zinc-200/70 p-5 shadow-sm transition-all duration-300 hover:shadow-md hover:border-zinc-300/80 overflow-hidden"
     )}>
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
-      <div className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br rounded-full blur-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 pointer-events-none" />
-      <div className="flex items-center justify-between relative">
+      <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors">{title}</p>
-          <p className="text-2xl font-bold text-zinc-100 mt-1 group-hover:text-white transition-colors">{value}</p>
+          <p className="text-sm text-zinc-500 group-hover:text-zinc-600 transition-colors">{title}</p>
+          <p className="text-2xl font-bold text-zinc-800 mt-1 group-hover:text-zinc-900 transition-colors">{value}</p>
         </div>
-        <div className={cn("p-3 rounded-xl border transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg relative overflow-hidden", c.bg, c.text, c.border)}>
-          <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
+        <div className={cn("p-3 rounded-xl border transition-all duration-300 group-hover:scale-110", c.bg, c.icon, c.border)}>
           {icon}
         </div>
       </div>

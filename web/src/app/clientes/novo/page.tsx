@@ -46,66 +46,65 @@ export default function NovoClientePage() {
   return (
     <div className="max-w-2xl space-y-6 animate-slide-up">
       <div className="flex items-center gap-4">
-        <Link href="/clientes" className="p-2 rounded-lg hover:bg-zinc-800 text-zinc-400 transition-colors hover:text-cyan-400">
+        <Link href="/clientes" className="p-2 rounded-lg hover:bg-zinc-100 text-zinc-500 transition-colors hover:text-cyan-600">
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Novo Cliente</h1>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">Novo Cliente</h1>
           <p className="text-sm text-zinc-500">Cadastre um novo cliente no sistema</p>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="relative bg-zinc-900/80 backdrop-blur-sm rounded-xl border border-zinc-800/50 shadow-lg p-6 space-y-5 group hover:border-zinc-700/80 transition-all duration-300">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative">
+      <form onSubmit={handleSubmit} className="relative bg-white rounded-xl border border-zinc-200/70 shadow-sm p-6 space-y-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Empresa *</label>
+            <label className="block text-sm font-medium text-zinc-700 mb-1">Empresa *</label>
             <input
               type="text"
               name="empresa"
               required
               value={form.empresa}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">COD</label>
+            <label className="block text-sm font-medium text-zinc-700 mb-1">COD</label>
             <input
               type="number"
               name="cod"
               value={form.cod}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">CNPJ</label>
+            <label className="block text-sm font-medium text-zinc-700 mb-1">CNPJ</label>
             <input
               type="text"
               name="cnpj"
               value={form.cnpj}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Grupo</label>
+            <label className="block text-sm font-medium text-zinc-700 mb-1">Grupo</label>
             <input
               type="text"
               name="grupo"
               value={form.grupo}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Tributação</label>
+            <label className="block text-sm font-medium text-zinc-700 mb-1">Tributação</label>
             <select
               name="tributacao"
               value={form.tributacao}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             >
               <option value="">Selecione...</option>
               <option value="SIMPLES NACIONAL">Simples Nacional</option>
@@ -114,63 +113,63 @@ export default function NovoClientePage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Ramo</label>
+            <label className="block text-sm font-medium text-zinc-700 mb-1">Ramo</label>
             <input
               type="text"
               name="ramo"
               value={form.ramo}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Entrada</label>
+            <label className="block text-sm font-medium text-zinc-700 mb-1">Entrada</label>
             <input
               type="text"
               name="entrada"
               placeholder="MM/AAAA"
               value={form.entrada}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">E-mail</label>
+            <label className="block text-sm font-medium text-zinc-700 mb-1">E-mail</label>
             <input
               type="email"
               name="email"
               value={form.email}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Telefone</label>
+            <label className="block text-sm font-medium text-zinc-700 mb-1">Telefone</label>
             <input
               type="text"
               name="telefone"
               value={form.telefone}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Responsável</label>
+            <label className="block text-sm font-medium text-zinc-700 mb-1">Responsável</label>
             <input
               type="text"
               name="responsavel"
               value={form.responsavel}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">GCLICK</label>
+            <label className="block text-sm font-medium text-zinc-700 mb-1">GCLICK</label>
             <select
               name="gclick"
               value={form.gclick}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             >
               <option value="">Selecione...</option>
               <option value="OK">OK</option>
@@ -178,12 +177,12 @@ export default function NovoClientePage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">SIEG</label>
+            <label className="block text-sm font-medium text-zinc-700 mb-1">SIEG</label>
             <select
               name="sieg"
               value={form.sieg}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             >
               <option value="">Selecione...</option>
               <option value="OK">OK</option>
@@ -191,12 +190,12 @@ export default function NovoClientePage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Domínio</label>
+            <label className="block text-sm font-medium text-zinc-700 mb-1">Domínio</label>
             <select
               name="dominio"
               value={form.dominio}
               onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all duration-300"
             >
               <option value="">Selecione...</option>
               <option value="CADASTRADO">Cadastrado</option>
@@ -204,17 +203,17 @@ export default function NovoClientePage() {
           </div>
         </div>
 
-        <div className="flex justify-end gap-3 pt-4 border-t border-zinc-800/50 relative">
+        <div className="flex justify-end gap-3 pt-4 border-t border-zinc-200">
           <Link
             href="/clientes"
-            className="px-4 py-2 text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 rounded-lg transition-all"
+            className="px-4 py-2 text-sm font-medium text-zinc-500 hover:text-zinc-700 hover:bg-zinc-100 rounded-lg transition-all"
           >
             Cancelar
           </Link>
           <button
             type="submit"
             disabled={saving}
-            className="flex items-center gap-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 text-cyan-300 border border-cyan-500/20 px-5 py-2 rounded-lg text-sm font-medium hover:from-cyan-500/20 hover:to-blue-500/20 hover:shadow-[0_0_20px_-5px_rgba(6,182,212,0.2)] disabled:opacity-50 transition-all duration-300"
+            className="flex items-center gap-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 text-cyan-700 border border-cyan-200 px-5 py-2 rounded-lg text-sm font-medium hover:from-cyan-500/20 hover:to-blue-500/20 disabled:opacity-50 transition-all duration-300"
           >
             <Save className="w-4 h-4" />
             {saving ? "Salvando..." : "Salvar"}
