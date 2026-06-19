@@ -94,6 +94,7 @@ export default function ClientesPage() {
                 <th className="text-left py-3 px-4 font-medium">Grupo</th>
                 <th className="text-left py-3 px-4 font-medium">Tributação</th>
                 <th className="text-left py-3 px-4 font-medium">Entrada</th>
+                <th className="text-left py-3 px-4 font-medium">E-mail</th>
                 <th className="text-left py-3 px-4 font-medium">G-click</th>
                 <th className="text-left py-3 px-4 font-medium">Domínio</th>
                 <th className="w-24" />
@@ -108,6 +109,7 @@ export default function ClientesPage() {
                   <td className="py-3 px-4">{client.grupo || "-"}</td>
                   <td className="py-3 px-4">{normalizeTributacao(client.tributacao)}</td>
                   <td className="py-3 px-4">{formatDate(client.entrada)}</td>
+                  <td className="py-3 px-4">{client.email || "-"}</td>
                   <td className="py-3 px-4">
                     <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-zinc-100 border border-zinc-200">
                       CADASTRADO
@@ -136,7 +138,7 @@ export default function ClientesPage() {
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={9} className="py-8 text-center">
+                  <td colSpan={10} className="py-8 text-center">
                     Nenhum cliente encontrado
                   </td>
                 </tr>
