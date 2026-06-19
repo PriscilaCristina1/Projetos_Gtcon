@@ -9,11 +9,7 @@ import {
   Legend,
 } from "recharts"
 
-const COLORS = [
-  "#06b6d4", "#0ea5e9", "#3b82f6", "#6366f1",
-  "#14b8a6", "#8b5cf6", "#0284c7", "#2dd4bf",
-  "#2563eb", "#0891b2", "#7c3aed", "#0d9488",
-]
+const COLORS = ["#fcd34d", "#6ee7b7", "#a5b4fc", "#fca5a5", "#f9a8d4"]
 
 interface PieChartProps {
   title: string
@@ -22,13 +18,13 @@ interface PieChartProps {
 
 export function PieChart({ title, data }: PieChartProps) {
   return (
-    <div className="relative bg-white rounded-xl border border-sky-100/80 p-5 shadow-sm hover:shadow-md transition-shadow duration-300">
-      <div className="absolute inset-0 bg-gradient-to-br from-sky-50/50 to-transparent rounded-xl pointer-events-none" />
-      <h3 className="text-sm font-semibold text-zinc-700 mb-4 relative flex items-center gap-2">
-        <span className="w-2 h-2 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 shadow-sm" />
+    <div className="relative bg-white rounded-xl border border-zinc-200/50 p-3 shadow-sm transition-shadow duration-300">
+      <div className="absolute inset-0 bg-gradient-to-br from-zinc-50/30 to-transparent rounded-xl pointer-events-none" />
+      <h3 className="text-sm font-semibold mb-2 relative flex items-center gap-2">
+        <span className="w-2 h-2 rounded-full bg-zinc-400 shadow-sm" />
         {title}
       </h3>
-      <div className="h-72 relative">
+      <div className="h-56 relative">
         <ResponsiveContainer width="100%" height="100%">
           <RechartsPie>
             <Pie
@@ -39,12 +35,8 @@ export function PieChart({ title, data }: PieChartProps) {
               cy="50%"
               innerRadius={55}
               outerRadius={90}
-              paddingAngle={3}
+              paddingAngle={2}
               cornerRadius={4}
-              label={({ label, total, percent }) =>
-                `${label}: ${total} (${(percent * 100).toFixed(0)}%)`
-              }
-              labelLine={{ stroke: "#94a3b8", strokeWidth: 1 }}
             >
               {data.map((_, i) => (
                 <Cell
@@ -68,7 +60,7 @@ export function PieChart({ title, data }: PieChartProps) {
               }}
             />
             <Legend
-              wrapperStyle={{ fontSize: "11px", color: "#64748b", paddingTop: "8px" }}
+              wrapperStyle={{ fontSize: "11px", color: "#64748b", paddingTop: "4px" }}
               iconType="circle"
               iconSize={8}
             />
