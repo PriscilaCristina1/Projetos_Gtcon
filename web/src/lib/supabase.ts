@@ -23,6 +23,8 @@ export function supabase(): SupabaseClient {
 
 export type DbClient = Client & {
   xml_saida: string | null
+  telefone2: string | null
+  email2: string | null
   perfil_gclick: string | null
   cadastro: string | null
   obrigacoes_dp: string | null
@@ -52,6 +54,8 @@ export function mapDbToClient(db: DbClient): Client {
     xmlSaida: db.xml_saida,
     email: db.email,
     telefone: db.telefone,
+    telefone2: db.telefone2,
+    email2: db.email2,
     responsavel: db.responsavel,
     perfilGclick: db.perfil_gclick,
     cadastro: db.cadastro,
@@ -80,6 +84,8 @@ export function mapClientToDb(client: Partial<Client>): Record<string, unknown> 
   if (client.xmlSaida !== undefined) db.xml_saida = client.xmlSaida
   if (client.email !== undefined) db.email = client.email
   if (client.telefone !== undefined) db.telefone = client.telefone
+  if (client.telefone2 !== undefined) db.telefone2 = client.telefone2
+  if (client.email2 !== undefined) db.email2 = client.email2
   if (client.responsavel !== undefined) db.responsavel = client.responsavel
   if (client.perfilGclick !== undefined) db.perfil_gclick = client.perfilGclick
   if (client.obrigacoesDp !== undefined) db.obrigacoes_dp = client.obrigacoesDp
