@@ -23,7 +23,7 @@ interface BarChartProps {
   filter?: React.ReactNode
 }
 
-const DEFAULT_COLORS = ["#06b6d4", "#3b82f6", "#6366f1", "#10b981", "#0284c7", "#8b5cf6", "#f43f5e", "#f59e0b"]
+const DEFAULT_COLORS = ["#67e8f9", "#93c5fd", "#a5b4fc", "#6ee7b7", "#7dd3fc", "#c4b5fd", "#fda4af", "#fde68a"]
 
 export function BarChart({
   title,
@@ -88,7 +88,7 @@ export function BarChart({
                   className="hover:opacity-75 transition-opacity"
                 />
               ))}
-              <LabelList dataKey={dataKey} position={horizontal ? "right" : "top"} fill="#94a3b8" fontSize={11} fontWeight={400} />
+              <LabelList dataKey={dataKey} position="top" fill="#94a3b8" fontSize={11} fontWeight={400} />
             </Bar>
           </RechartsBar>
         </ResponsiveContainer>
