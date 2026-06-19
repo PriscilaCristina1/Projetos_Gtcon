@@ -27,6 +27,8 @@ export function ClienteEdit() {
     email2: "",
     telefone: "",
     telefone2: "",
+    contato: "",
+    contato2: "",
     responsavel: "",
     cadastro: "",
     observacoes: "",
@@ -51,6 +53,8 @@ export function ClienteEdit() {
           email2: client.email2 || "",
           telefone: client.telefone || "",
           telefone2: client.telefone2 || "",
+          contato: client.contato || "",
+          contato2: client.contato2 || "",
           responsavel: client.responsavel || "",
           cadastro: client.cadastro || "",
           observacoes: client.observacoes || "",
@@ -206,11 +210,31 @@ export function ClienteEdit() {
             />
           </div>
           <div>
+            <label className="block text-sm font-medium mb-1">Contato</label>
+            <input
+              type="text"
+              name="contato"
+              value={form.contato}
+              onChange={handleChange}
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
+            />
+          </div>
+          <div>
             <label className="block text-sm font-medium mb-1">Telefone (Secundário)</label>
             <input
               type="text"
               name="telefone2"
               value={form.telefone2}
+              onChange={handleChange}
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Contato</label>
+            <input
+              type="text"
+              name="contato2"
+              value={form.contato2}
               onChange={handleChange}
               className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
             />

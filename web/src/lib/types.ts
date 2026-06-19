@@ -15,6 +15,8 @@ export interface Client {
   email2: string | null
   telefone: string | null
   telefone2: string | null
+  contato: string | null
+  contato2: string | null
   responsavel: string | null
   cadastro: string | null
   observacoes: string | null

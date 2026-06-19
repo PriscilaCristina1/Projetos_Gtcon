@@ -25,6 +25,8 @@ export type DbClient = Client & {
   xml_saida: string | null
   email2: string | null
   telefone2: string | null
+  contato: string | null
+  contato2: string | null
   perfil_gclick: string | null
   cadastro: string | null
   obrigacoes_dp: string | null
@@ -56,6 +58,8 @@ export function mapDbToClient(db: DbClient): Client {
     email2: db.email2,
     telefone: db.telefone,
     telefone2: db.telefone2,
+    contato: db.contato,
+    contato2: db.contato2,
     responsavel: db.responsavel,
     perfilGclick: db.perfil_gclick,
     cadastro: db.cadastro,
@@ -86,6 +90,8 @@ export function mapClientToDb(client: Partial<Client>): Record<string, unknown> 
   if (client.email2 !== undefined) db.email2 = client.email2
   if (client.telefone !== undefined) db.telefone = client.telefone
   if (client.telefone2 !== undefined) db.telefone2 = client.telefone2
+  if (client.contato !== undefined) db.contato = client.contato
+  if (client.contato2 !== undefined) db.contato2 = client.contato2
   if (client.responsavel !== undefined) db.responsavel = client.responsavel
   if (client.perfilGclick !== undefined) db.perfil_gclick = client.perfilGclick
   if (client.obrigacoesDp !== undefined) db.obrigacoes_dp = client.obrigacoesDp
