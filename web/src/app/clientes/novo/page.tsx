@@ -29,14 +29,19 @@ export default function NovoClientePage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setSaving(true)
-    const raw: Record<string, string | number | null> = {}
-    for (const [key, value] of Object.entries(form)) {
-      raw[key] = value.trim() || null
+    try {
+      const raw: Record<string, string | number | null> = {}
+      for (const [key, value] of Object.entries(form)) {
+        raw[key] = value.trim() || null
+      }
+      if (raw.cod) raw.cod = Number(raw.cod)
+      const created = await createClient(raw as Partial<import("@/lib/types").Client>)
+      router.push(`/clientes/${created.id}`)
+    } catch (err) {
+      alert("Erro ao salvar: " + (err instanceof Error ? err.message : "Erro desconhecido"))
+    } finally {
+      setSaving(false)
     }
-    if (raw.cod) raw.cod = Number(raw.cod)
-    const created = await createClient(raw as Partial<import("@/lib/types").Client>)
-    router.push(`/clientes/${created.id}`)
-    setSaving(false)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
