@@ -44,16 +44,16 @@ export function BarChart({
     : data
 
   return (
-      <div className="relative bg-white rounded-xl border border-zinc-200/50 p-4 shadow-sm transition-shadow duration-300">
+      <div className="relative bg-white rounded-xl border border-zinc-200/50 p-3 shadow-sm transition-shadow duration-300">
       <div className="absolute inset-0 bg-gradient-to-br from-zinc-50/30 to-transparent rounded-xl pointer-events-none" />
-      <h3 className="text-sm font-semibold mb-4 relative flex items-center gap-2">
+      <h3 className="text-sm font-semibold mb-2 relative flex items-center gap-2">
         <span className="w-2 h-2 rounded-full bg-zinc-400 shadow-sm" />
         {title}
         <span className="ml-auto">{filter}</span>
       </h3>
-      <div className={`${horizontal ? "h-80" : "h-72"} relative`}>
+      <div className={`${horizontal ? "h-72" : "h-56"} relative`}>
         <ResponsiveContainer width="100%" height="100%">
-          <RechartsBar data={chartData} layout={horizontal ? "vertical" : "horizontal"} barCategoryGap="30%" margin={{ top: 22, right: 10, left: 0, bottom: 2 }}>
+          <RechartsBar data={chartData} layout={horizontal ? "vertical" : "horizontal"} barCategoryGap="30%" margin={{ top: 8, right: 5, left: 0, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e0f2fe" strokeWidth={0.3} />
             {horizontal ? (
               <>
@@ -93,7 +93,7 @@ export function BarChart({
           </RechartsBar>
         </ResponsiveContainer>
       </div>
-      <div className="flex flex-wrap gap-x-5 gap-y-1 justify-center pt-3">
+      <div className="flex flex-wrap gap-x-4 gap-y-0.5 justify-center pt-1">
         {chartData.map((d, i) => (
           <div key={i} className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ backgroundColor: (colors || DEFAULT_COLORS)[i % (colors || DEFAULT_COLORS).length] }} />

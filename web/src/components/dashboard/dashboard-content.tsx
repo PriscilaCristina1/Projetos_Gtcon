@@ -22,7 +22,7 @@ export function DashboardContent() {
   if (!metrics) return <p className="">Erro ao carregar dados</p>
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">Dashboard</h1>
@@ -30,7 +30,7 @@ export function DashboardContent() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1.5">
         <MetricCard
           title="Total de Clientes"
           value={metrics.totalClientes}
@@ -57,7 +57,7 @@ export function DashboardContent() {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-1.5">
         <BarChart
           title="Clientes por Mês"
           data={metrics.clientesPorMes.slice(-12)}

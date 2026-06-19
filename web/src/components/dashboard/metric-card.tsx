@@ -21,14 +21,14 @@ export function MetricCard({ title, value, icon, color }: MetricCardProps) {
   const c = colors[color]
   return (
     <div className={cn(
-      "group relative bg-white rounded-xl border border-zinc-200/70 p-5 shadow-sm transition-all duration-300 hover:shadow-md hover:border-zinc-300/80 overflow-hidden"
+      "group relative bg-white rounded-xl border border-zinc-200/70 p-3 shadow-sm transition-all duration-300 hover:shadow-md hover:border-zinc-300/80 overflow-hidden"
     )}>
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm transition-colors text-zinc-500">{title}</p>
-          <p className="text-2xl font-bold mt-1 transition-colors text-zinc-800">{value}</p>
+          <p className="text-xl font-bold transition-colors text-zinc-800">{value}</p>
         </div>
-        <div className={cn("p-3.5 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl", c.bg, c.icon)}>
+        <div className={cn("p-3 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl", c.bg, c.icon)}>
           {icon}
         </div>
       </div>
