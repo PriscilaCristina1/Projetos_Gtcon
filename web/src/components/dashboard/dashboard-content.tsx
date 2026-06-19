@@ -64,6 +64,7 @@ export function DashboardContent() {
           data={metrics.clientesPorMes.slice(-12)}
           dataKey="total"
           labelKey="mes"
+          horizontal
         />
         <PieChart
           title="Por Regime Tributário"
