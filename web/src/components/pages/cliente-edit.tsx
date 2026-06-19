@@ -219,7 +219,7 @@ export function ClienteEdit() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">GCLICK</label>
+            <label className="block text-sm font-medium mb-1">G-click</label>
             <select
               name="gclick"
               value={form.gclick}
@@ -231,7 +231,7 @@ export function ClienteEdit() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Cadastro</label>
+            <label className="block text-sm font-medium mb-1">Cadastro Onvio</label>
             <select
               name="cadastro"
               value={form.cadastro}

@@ -37,7 +37,7 @@ export function ClienteDetail() {
     { id: "tributacao", label: "Tributação", value: normalizeTributacao(client.tributacao) },
     { id: "ramo", label: "Ramo", value: client.ramo },
     { id: "entrada", label: "Entrada", value: formatDate(client.entrada) },
-    { id: "gclick", label: "GCLICK", value: client.gclick },
+    { id: "gclick", label: "G-click", value: client.gclick },
     { id: "dominio", label: "Domínio", value: client.dominio },
     { id: "xmlSaida", label: "XML Saída", value: client.xmlSaida },
     { id: "email", label: "E-mail", value: client.email },
@@ -45,9 +45,9 @@ export function ClienteDetail() {
     { id: "telefone", label: "Telefone", value: client.telefone },
     { id: "telefone2", label: "Telefone", value: client.telefone2 },
     { id: "responsavel", label: "Responsável Legal", value: client.responsavel },
-    { id: "cadastro", label: "Cadastro", value: client.cadastro },
+    { id: "cadastro", label: "Cadastro Onvio", value: client.cadastro },
     { id: "observacoes", label: "Observações", value: client.observacoes },
-    { id: "perfilGclick", label: "Perfil GCLICK", value: client.perfilGclick },
+    { id: "perfilGclick", label: "Perfil G-click", value: client.perfilGclick },
     { id: "mesReferencia", label: "Mês Ref.", value: client.mesReferencia },
   ]
 

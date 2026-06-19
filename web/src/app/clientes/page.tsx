@@ -94,7 +94,7 @@ export default function ClientesPage() {
                 <th className="text-left py-3 px-4 font-medium">Grupo</th>
                 <th className="text-left py-3 px-4 font-medium">Tributação</th>
                 <th className="text-left py-3 px-4 font-medium">Entrada</th>
-                <th className="text-left py-3 px-4 font-medium">GCLICK</th>
+                <th className="text-left py-3 px-4 font-medium">G-click</th>
                 <th className="text-left py-3 px-4 font-medium">Domínio</th>
                 <th className="w-24" />
               </tr>
