@@ -60,7 +60,8 @@ export function PieChart({ title, data }: PieChartProps) {
               }}
             />
             <Legend
-              wrapperStyle={{ fontSize: "11px", color: "#64748b", paddingTop: "18px" }}
+              verticalAlign="bottom"
+              wrapperStyle={{ fontSize: "11px", color: "#64748b", paddingTop: "4px" }}
               iconType="circle"
               iconSize={8}
             />
