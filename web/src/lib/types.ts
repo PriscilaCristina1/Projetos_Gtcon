@@ -12,9 +12,9 @@ export interface Client {
   dominio: string | null
   xmlSaida: string | null
   email: string | null
+  email2: string | null
   telefone: string | null
   telefone2: string | null
-  email2: string | null
   responsavel: string | null
   cadastro: string | null
   observacoes: string | null

@@ -27,9 +27,9 @@ export function ClienteEdit() {
     email2: "",
     telefone: "",
     telefone2: "",
-    observacoes: "",
     responsavel: "",
     cadastro: "",
+    observacoes: "",
   })
 
   useEffect(() => {
@@ -51,9 +51,9 @@ export function ClienteEdit() {
           email2: client.email2 || "",
           telefone: client.telefone || "",
           telefone2: client.telefone2 || "",
-          observacoes: client.observacoes || "",
           responsavel: client.responsavel || "",
           cadastro: client.cadastro || "",
+          observacoes: client.observacoes || "",
         })
       })
       .finally(() => setLoading(false))
@@ -179,7 +179,7 @@ export function ClienteEdit() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">E-mail 2</label>
+            <label className="block text-sm font-medium mb-1">E-mail</label>
             <input
               type="email"
               name="email2"
@@ -199,7 +199,7 @@ export function ClienteEdit() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Telefone 2</label>
+            <label className="block text-sm font-medium mb-1">Telefone</label>
             <input
               type="text"
               name="telefone2"
@@ -251,7 +251,7 @@ export function ClienteEdit() {
               className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
             >
               <option value=""></option>
-              <option value="CADASTRADO">Cadastrado</option>
+              <option value="CADASTRADO">Cadastro Onvio</option>
             </select>
           </div>
           <div className="md:col-span-2">

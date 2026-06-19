@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS clientes (
   dominio TEXT,
   "xmlSaida" TEXT,
   email TEXT,
+  "email2" TEXT,
   telefone TEXT,
   "telefone2" TEXT,
   responsavel TEXT,

@@ -12,6 +12,7 @@ CREATE TABLE clientes (
   dominio TEXT,
   xml_saida TEXT,
   email TEXT,
+  email2 TEXT,
   telefone TEXT,
   telefone2 TEXT,
   responsavel TEXT,

@@ -29,26 +29,26 @@ export function ClienteDetail() {
   if (loading) return <p className="">Carregando...</p>
   if (!client) return <p className="">Cliente não encontrado</p>
 
-  const fields: { label: string; value: string | null }[] = [
-    { label: "COD", value: client.cod?.toString() ?? null },
-    { label: "Empresa", value: client.empresa?.toUpperCase() ?? null },
-    { label: "CNPJ", value: client.cnpj },
-    { label: "Grupo", value: client.grupo },
-    { label: "Tributação", value: normalizeTributacao(client.tributacao) },
-    { label: "Ramo", value: client.ramo },
-    { label: "Entrada", value: formatDate(client.entrada) },
-    { label: "GCLICK", value: client.gclick },
-    { label: "Domínio", value: client.dominio },
-    { label: "XML Saída", value: client.xmlSaida },
-    { label: "E-mail", value: client.email },
-    { label: "E-mail 2", value: client.email2 },
-    { label: "Telefone", value: client.telefone },
-    { label: "Telefone 2", value: client.telefone2 },
-    { label: "Responsável Legal", value: client.responsavel },
-    { label: "Cadastro", value: client.cadastro },
-    { label: "Observações", value: client.observacoes },
-    { label: "Perfil GCLICK", value: client.perfilGclick },
-    { label: "Mês Ref.", value: client.mesReferencia },
+  const fields: { id: string; label: string; value: string | null }[] = [
+    { id: "cod", label: "COD", value: client.cod?.toString() ?? null },
+    { id: "empresa", label: "Empresa", value: client.empresa?.toUpperCase() ?? null },
+    { id: "cnpj", label: "CNPJ", value: client.cnpj },
+    { id: "grupo", label: "Grupo", value: client.grupo },
+    { id: "tributacao", label: "Tributação", value: normalizeTributacao(client.tributacao) },
+    { id: "ramo", label: "Ramo", value: client.ramo },
+    { id: "entrada", label: "Entrada", value: formatDate(client.entrada) },
+    { id: "gclick", label: "GCLICK", value: client.gclick },
+    { id: "dominio", label: "Domínio", value: client.dominio },
+    { id: "xmlSaida", label: "XML Saída", value: client.xmlSaida },
+    { id: "email", label: "E-mail", value: client.email },
+    { id: "email2", label: "E-mail", value: client.email2 },
+    { id: "telefone", label: "Telefone", value: client.telefone },
+    { id: "telefone2", label: "Telefone", value: client.telefone2 },
+    { id: "responsavel", label: "Responsável Legal", value: client.responsavel },
+    { id: "cadastro", label: "Cadastro", value: client.cadastro },
+    { id: "observacoes", label: "Observações", value: client.observacoes },
+    { id: "perfilGclick", label: "Perfil GCLICK", value: client.perfilGclick },
+    { id: "mesReferencia", label: "Mês Ref.", value: client.mesReferencia },
   ]
 
   return (
@@ -88,7 +88,7 @@ export function ClienteDetail() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {fields.map((f) =>
             f.value ? (
-              <div key={f.label} className="group/field">
+              <div key={f.id} className="group/field">
                 <p className="text-xs uppercase font-medium transition-colors">{f.label}</p>
                 <p className="text-sm mt-0.5">{f.value}</p>
               </div>
