@@ -44,7 +44,7 @@ export function BarChart({
     : data
 
   return (
-    <div className="relative bg-white rounded-xl border border-zinc-200/50 p-5 shadow-sm transition-shadow duration-300">
+      <div className="relative bg-white rounded-xl border border-zinc-200/50 p-4 shadow-sm transition-shadow duration-300">
       <div className="absolute inset-0 bg-gradient-to-br from-zinc-50/30 to-transparent rounded-xl pointer-events-none" />
       <h3 className="text-sm font-semibold mb-4 relative flex items-center gap-2">
         <span className="w-2 h-2 rounded-full bg-zinc-400 shadow-sm" />

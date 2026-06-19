@@ -28,7 +28,7 @@ export function DashboardContent() {
     : metrics.clientesPorMes.slice(-12)
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">Dashboard</h1>
@@ -36,7 +36,7 @@ export function DashboardContent() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
         <MetricCard
           title="Total de Clientes"
           value={metrics.totalClientes}
@@ -63,7 +63,7 @@ export function DashboardContent() {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
         <BarChart
             title="Clientes por Mês"
             data={dadosFiltrados}

@@ -10,11 +10,11 @@ interface MetricCardProps {
 }
 
 const colors = {
-  blue: { bg: "bg-zinc-50 dark:bg-zinc-800/20", text: "", border: "border-zinc-200 dark:border-zinc-700", icon: "text-blue-400/40 dark:text-blue-400/30" },
-  purple: { bg: "bg-zinc-50 dark:bg-zinc-800/20", text: "", border: "border-zinc-200 dark:border-zinc-700", icon: "text-purple-400/40 dark:text-purple-400/30" },
-  green: { bg: "bg-zinc-50 dark:bg-zinc-800/20", text: "", border: "border-zinc-200 dark:border-zinc-700", icon: "text-green-400/40 dark:text-green-400/30" },
-  cyan: { bg: "bg-zinc-50 dark:bg-zinc-800/20", text: "", border: "border-zinc-200 dark:border-zinc-700", icon: "text-cyan-400/40 dark:text-cyan-400/30" },
-  teal: { bg: "bg-zinc-50 dark:bg-zinc-800/20", text: "", border: "border-zinc-200 dark:border-zinc-700", icon: "text-teal-400/40 dark:text-teal-400/30" },
+  blue: { bg: "bg-gradient-to-br from-blue-500 to-blue-600", text: "", border: "border-blue-100 dark:border-blue-900", icon: "text-white" },
+  purple: { bg: "bg-gradient-to-br from-purple-500 to-purple-600", text: "", border: "border-purple-100 dark:border-purple-900", icon: "text-white" },
+  green: { bg: "bg-gradient-to-br from-green-500 to-green-600", text: "", border: "border-green-100 dark:border-green-900", icon: "text-white" },
+  cyan: { bg: "bg-gradient-to-br from-cyan-500 to-cyan-600", text: "", border: "border-cyan-100 dark:border-cyan-900", icon: "text-white" },
+  teal: { bg: "bg-gradient-to-br from-teal-500 to-teal-600", text: "", border: "border-teal-100 dark:border-teal-900", icon: "text-white" },
 }
 
 export function MetricCard({ title, value, icon, color }: MetricCardProps) {
@@ -28,7 +28,7 @@ export function MetricCard({ title, value, icon, color }: MetricCardProps) {
           <p className="text-sm transition-colors text-zinc-500">{title}</p>
           <p className="text-2xl font-bold mt-1 transition-colors text-zinc-800">{value}</p>
         </div>
-        <div className={cn("p-3 rounded-xl border transition-all duration-300", c.bg, c.icon, c.border)}>
+        <div className={cn("p-3.5 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl", c.bg, c.icon)}>
           {icon}
         </div>
       </div>
