@@ -24,11 +24,10 @@ export function ClienteEdit() {
     dominio: "",
     xmlSaida: "",
     email: "",
-    email2: "",
     telefone: "",
-    telefone2: "",
     observacoes: "",
     responsavel: "",
+    cadastro: "",
   })
 
   useEffect(() => {
@@ -47,11 +46,10 @@ export function ClienteEdit() {
           dominio: client.dominio || "",
           xmlSaida: client.xmlSaida || "",
           email: client.email || "",
-          email2: client.email2 || "",
           telefone: client.telefone || "",
-          telefone2: client.telefone2 || "",
           observacoes: client.observacoes || "",
           responsavel: client.responsavel || "",
+          cadastro: client.cadastro || "",
         })
       })
       .finally(() => setLoading(false))
@@ -177,16 +175,6 @@ export function ClienteEdit() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">E-mail 2</label>
-            <input
-              type="email"
-              name="email2"
-              value={form.email2}
-              onChange={handleChange}
-              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
-            />
-          </div>
-          <div>
             <label className="block text-sm font-medium mb-1">Telefone</label>
             <input
               type="text"
@@ -197,17 +185,7 @@ export function ClienteEdit() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Telefone 2</label>
-            <input
-              type="text"
-              name="telefone2"
-              value={form.telefone2}
-              onChange={handleChange}
-              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Responsável</label>
+            <label className="block text-sm font-medium mb-1">Responsável Legal</label>
             <input
               type="text"
               name="responsavel"
@@ -221,6 +199,18 @@ export function ClienteEdit() {
             <select
               name="gclick"
               value={form.gclick}
+              onChange={handleChange}
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
+            >
+              <option value=""></option>
+              <option value="CADASTRADO">Cadastrado</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Cadastro</label>
+            <select
+              name="cadastro"
+              value={form.cadastro}
               onChange={handleChange}
               className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
             >

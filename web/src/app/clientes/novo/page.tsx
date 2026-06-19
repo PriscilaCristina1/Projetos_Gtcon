@@ -22,10 +22,9 @@ export default function NovoClientePage() {
     observacoes: "",
     xmlSaida: "",
     email: "",
-    email2: "",
     telefone: "",
-    telefone2: "",
     responsavel: "",
+    cadastro: "",
   })
 
   async function handleSubmit(e: React.FormEvent) {
@@ -151,16 +150,6 @@ export default function NovoClientePage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">E-mail 2</label>
-            <input
-              type="email"
-              name="email2"
-              value={form.email2}
-              onChange={handleChange}
-              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
-            />
-          </div>
-          <div>
             <label className="block text-sm font-medium mb-1">Telefone</label>
             <input
               type="text"
@@ -171,17 +160,7 @@ export default function NovoClientePage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Telefone 2</label>
-            <input
-              type="text"
-              name="telefone2"
-              value={form.telefone2}
-              onChange={handleChange}
-              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Responsável</label>
+            <label className="block text-sm font-medium mb-1">Responsável Legal</label>
             <input
               type="text"
               name="responsavel"
@@ -195,6 +174,18 @@ export default function NovoClientePage() {
             <select
               name="gclick"
               value={form.gclick}
+              onChange={handleChange}
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
+            >
+              <option value=""></option>
+              <option value="CADASTRADO">Cadastrado</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Cadastro</label>
+            <select
+              name="cadastro"
+              value={form.cadastro}
               onChange={handleChange}
               className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
             >
