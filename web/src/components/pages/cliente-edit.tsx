@@ -73,9 +73,10 @@ export function ClienteEdit() {
         alert("Cliente salvo com sucesso!")
         router.push(`/clientes/${id}`)
       } else {
-        alert("Erro ao salvar cliente. Verifique os dados e tente novamente.")
+        alert("Erro ao salvar cliente. Tente novamente ou contate o suporte.")
       }
     } catch (err) {
+      console.error("Erro no handleSubmit:", err)
       alert("Erro ao salvar: " + (err instanceof Error ? err.message : "Erro desconhecido"))
     } finally {
       setSaving(false)
