@@ -39,6 +39,7 @@ export default function NovoClientePage() {
       }
       if (raw.cod) raw.cod = Number(raw.cod)
       const created = await createClient(raw as Partial<import("@/lib/types").Client>)
+      alert("Cliente salvo com sucesso!")
       router.push(`/clientes/${created.id}`)
     } catch (err) {
       alert("Erro ao salvar: " + (err instanceof Error ? err.message : "Erro desconhecido"))

@@ -62,14 +62,24 @@ export function ClienteEdit() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setSaving(true)
-    const raw: Record<string, string | number | null> = {}
-    for (const [key, value] of Object.entries(form)) {
-      raw[key] = value.trim() || null
+    try {
+      const raw: Record<string, string | number | null> = {}
+      for (const [key, value] of Object.entries(form)) {
+        raw[key] = value.trim() || null
+      }
+      if (raw.cod) raw.cod = Number(raw.cod)
+      const updated = await updateClient(Number(id), raw as Partial<Client>)
+      if (updated) {
+        alert("Cliente salvo com sucesso!")
+        router.push(`/clientes/${id}`)
+      } else {
+        alert("Erro ao salvar cliente. Verifique os dados e tente novamente.")
+      }
+    } catch (err) {
+      alert("Erro ao salvar: " + (err instanceof Error ? err.message : "Erro desconhecido"))
+    } finally {
+      setSaving(false)
     }
-    if (raw.cod) raw.cod = Number(raw.cod)
-    const updated = await updateClient(Number(id), raw as Partial<Client>)
-    if (updated) router.push(`/clientes/${id}`)
-    setSaving(false)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
