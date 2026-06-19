@@ -22,7 +22,9 @@ export default function NovoClientePage() {
     observacoes: "",
     xmlSaida: "",
     email: "",
+    email2: "",
     telefone: "",
+    telefone2: "",
     responsavel: "",
   })
 
@@ -149,11 +151,31 @@ export default function NovoClientePage() {
             />
           </div>
           <div>
+            <label className="block text-sm font-medium mb-1">E-mail 2</label>
+            <input
+              type="email"
+              name="email2"
+              value={form.email2}
+              onChange={handleChange}
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
+            />
+          </div>
+          <div>
             <label className="block text-sm font-medium mb-1">Telefone</label>
             <input
               type="text"
               name="telefone"
               value={form.telefone}
+              onChange={handleChange}
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Telefone 2</label>
+            <input
+              type="text"
+              name="telefone2"
+              value={form.telefone2}
               onChange={handleChange}
               className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
             />
@@ -176,9 +198,20 @@ export default function NovoClientePage() {
               onChange={handleChange}
               className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
             >
-              <option value="">Selecione...</option>
-              <option value="OK">OK</option>
-              <option value="PENDENTE">Pendente</option>
+              <option value=""></option>
+              <option value="CADASTRADO">Cadastrado</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Domínio</label>
+            <select
+              name="dominio"
+              value={form.dominio}
+              onChange={handleChange}
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
+            >
+              <option value=""></option>
+              <option value="CADASTRADO">Cadastrado</option>
             </select>
           </div>
           <div className="md:col-span-2">
@@ -190,18 +223,6 @@ export default function NovoClientePage() {
               rows={3}
               className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300 resize-none"
             />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Domínio</label>
-            <select
-              name="dominio"
-              value={form.dominio}
-              onChange={handleChange}
-              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
-            >
-              <option value="">Selecione...</option>
-              <option value="CADASTRADO">Cadastrado</option>
-            </select>
           </div>
         </div>
 

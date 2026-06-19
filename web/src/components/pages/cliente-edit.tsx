@@ -21,11 +21,13 @@ export function ClienteEdit() {
     ramo: "",
     entrada: "",
     gclick: "",
-    sieg: "",
     dominio: "",
     xmlSaida: "",
     email: "",
+    email2: "",
     telefone: "",
+    telefone2: "",
+    observacoes: "",
     responsavel: "",
   })
 
@@ -42,11 +44,13 @@ export function ClienteEdit() {
           ramo: client.ramo || "",
           entrada: client.entrada || "",
           gclick: client.gclick || "",
-          sieg: client.sieg || "",
           dominio: client.dominio || "",
           xmlSaida: client.xmlSaida || "",
           email: client.email || "",
+          email2: client.email2 || "",
           telefone: client.telefone || "",
+          telefone2: client.telefone2 || "",
+          observacoes: client.observacoes || "",
           responsavel: client.responsavel || "",
         })
       })
@@ -66,7 +70,7 @@ export function ClienteEdit() {
     setSaving(false)
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
@@ -173,11 +177,31 @@ export function ClienteEdit() {
             />
           </div>
           <div>
+            <label className="block text-sm font-medium mb-1">E-mail 2</label>
+            <input
+              type="email"
+              name="email2"
+              value={form.email2}
+              onChange={handleChange}
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
+            />
+          </div>
+          <div>
             <label className="block text-sm font-medium mb-1">Telefone</label>
             <input
               type="text"
               name="telefone"
               value={form.telefone}
+              onChange={handleChange}
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Telefone 2</label>
+            <input
+              type="text"
+              name="telefone2"
+              value={form.telefone2}
               onChange={handleChange}
               className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
             />
@@ -200,22 +224,8 @@ export function ClienteEdit() {
               onChange={handleChange}
               className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
             >
-              <option value="">Selecione...</option>
-              <option value="OK">OK</option>
-              <option value="PENDENTE">Pendente</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">SIEG</label>
-            <select
-              name="sieg"
-              value={form.sieg}
-              onChange={handleChange}
-              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
-            >
-              <option value="">Selecione...</option>
-              <option value="OK">OK</option>
-              <option value="PENDENTE">Pendente</option>
+              <option value=""></option>
+              <option value="CADASTRADO">Cadastrado</option>
             </select>
           </div>
           <div>
@@ -226,9 +236,19 @@ export function ClienteEdit() {
               onChange={handleChange}
               className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
             >
-              <option value="">Selecione...</option>
+              <option value=""></option>
               <option value="CADASTRADO">Cadastrado</option>
             </select>
+          </div>
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium mb-1">Observações</label>
+            <textarea
+              name="observacoes"
+              value={form.observacoes}
+              onChange={handleChange}
+              rows={3}
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300 resize-none"
+            />
           </div>
         </div>
 

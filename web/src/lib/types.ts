@@ -14,6 +14,7 @@ export interface Client {
   email: string | null
   telefone: string | null
   telefone2: string | null
+  email2: string | null
   responsavel: string | null
   observacoes: string | null
   perfilGclick: string | null
