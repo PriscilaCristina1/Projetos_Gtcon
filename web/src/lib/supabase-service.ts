@@ -58,7 +58,7 @@ export async function updateClient(id: number, data: Partial<Client>): Promise<C
     .single()
 
   if (error) {
-    console.error("Erro ao atualizar cliente:", error)
+    console.error("Erro ao atualizar cliente:", error.message, JSON.stringify(dbData))
     return null
   }
   return mapDbToClient(updated as DbClient)
