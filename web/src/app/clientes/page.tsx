@@ -119,7 +119,7 @@ export default function ClientesPage() {
                   <td className="py-3 px-4">{client.grupo || "-"}</td>
                   <td className="py-3 px-4">{normalizeTributacao(client.tributacao)}</td>
                   <td className="py-3 px-4">{formatDate(client.entrada)}</td>
-                  <td className="py-3 px-4">{client.email || groupEmailMap[client.grupo || ""] || "-"}</td>
+                  <td className="py-3 px-4">{client.email || client.email2 || groupEmailMap[client.grupo || ""] || "-"}</td>
                   <td className="py-3 px-4">
                     <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-zinc-100 border border-zinc-200">
                       CADASTRADO
