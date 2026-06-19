@@ -29,6 +29,7 @@ export type DbClient = Client & {
   obrigacoes_contabil: string | null
   obrigacoes_fiscal: string | null
   mes_referencia: string | null
+  observacoes: string | null
   is_group: boolean
   group_name: string | null
   created_at: string
@@ -54,6 +55,7 @@ export function mapDbToClient(db: DbClient): Client {
     telefone2: db.telefone2,
     responsavel: db.responsavel,
     perfilGclick: db.perfil_gclick,
+    observacoes: db.observacoes,
     obrigacoesDp: db.obrigacoes_dp,
     obrigacoesContabil: db.obrigacoes_contabil,
     obrigacoesFiscal: db.obrigacoes_fiscal,
@@ -87,5 +89,6 @@ export function mapClientToDb(client: Partial<Client>): Record<string, unknown> 
   if (client.mesReferencia !== undefined) db.mes_referencia = client.mesReferencia
   if (client.isGroup !== undefined) db.is_group = client.isGroup
   if (client.groupName !== undefined) db.group_name = client.groupName
+  if (client.observacoes !== undefined) db.observacoes = client.observacoes
   return db
 }

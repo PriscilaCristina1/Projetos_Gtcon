@@ -31,6 +31,7 @@ function mapToClient(row: Record<string, unknown>): Client {
     obrigacoesContabil: row.obrigacoesContabil as string | null,
     obrigacoesFiscal: row.obrigacoesFiscal as string | null,
     mesReferencia: row.mesReferencia as string | null,
+    observacoes: row.observacoes as string | null,
     isGroup: row.isGroup as boolean,
     groupName: row.groupName as string | null,
   }
@@ -73,6 +74,7 @@ export async function createClient(payload: Partial<Client>): Promise<Client> {
     obrigacoesContabil: payload.obrigacoesContabil ?? null,
     obrigacoesFiscal: payload.obrigacoesFiscal ?? null,
     mesReferencia: payload.mesReferencia ?? null,
+    observacoes: payload.observacoes ?? null,
     isGroup: payload.isGroup ?? false,
     groupName: payload.groupName ?? null,
   }

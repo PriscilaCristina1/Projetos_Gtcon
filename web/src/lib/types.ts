@@ -15,6 +15,7 @@ export interface Client {
   telefone: string | null
   telefone2: string | null
   responsavel: string | null
+  observacoes: string | null
   perfilGclick: string | null
   obrigacoesDp: string | null
   obrigacoesContabil: string | null

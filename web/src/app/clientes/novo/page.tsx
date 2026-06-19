@@ -18,8 +18,8 @@ export default function NovoClientePage() {
     ramo: "",
     entrada: "",
     gclick: "",
-    sieg: "",
     dominio: "",
+    observacoes: "",
     xmlSaida: "",
     email: "",
     telefone: "",
@@ -44,7 +44,7 @@ export default function NovoClientePage() {
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
@@ -181,18 +181,15 @@ export default function NovoClientePage() {
               <option value="PENDENTE">Pendente</option>
             </select>
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">SIEG</label>
-            <select
-              name="sieg"
-              value={form.sieg}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium mb-1">Observações</label>
+            <textarea
+              name="observacoes"
+              value={form.observacoes}
               onChange={handleChange}
-              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
-            >
-              <option value="">Selecione...</option>
-              <option value="OK">OK</option>
-              <option value="PENDENTE">Pendente</option>
-            </select>
+              rows={3}
+              className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300 resize-none"
+            />
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Domínio</label>
