@@ -9,7 +9,7 @@ import {
   Legend,
 } from "recharts"
 
-const COLORS = ["#fcd34d", "#6ee7b7", "#a5b4fc", "#fca5a5", "#f9a8d4"]
+const COLORS = ["#f59e0b", "#10b981", "#6366f1", "#ef4444", "#ec4899"]
 
 interface PieChartProps {
   title: string
@@ -24,7 +24,7 @@ export function PieChart({ title, data }: PieChartProps) {
         <span className="w-2 h-2 rounded-full bg-zinc-400 shadow-sm" />
         {title}
       </h3>
-      <div className="h-56 relative">
+      <div className="h-64 relative">
         <ResponsiveContainer width="100%" height="100%">
           <RechartsPie>
             <Pie
@@ -33,8 +33,8 @@ export function PieChart({ title, data }: PieChartProps) {
               nameKey="label"
               cx="50%"
               cy="50%"
-              innerRadius={55}
-              outerRadius={90}
+              innerRadius={65}
+              outerRadius={110}
               paddingAngle={2}
               cornerRadius={4}
             >
@@ -60,7 +60,7 @@ export function PieChart({ title, data }: PieChartProps) {
               }}
             />
             <Legend
-              wrapperStyle={{ fontSize: "11px", color: "#64748b", paddingTop: "4px" }}
+              wrapperStyle={{ fontSize: "11px", color: "#64748b", paddingTop: "18px" }}
               iconType="circle"
               iconSize={8}
             />
