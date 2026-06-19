@@ -176,7 +176,7 @@ export function ClienteEdit() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">E-mail</label>
+            <label className="block text-sm font-medium mb-1">E-mail (Primário)</label>
             <input
               type="email"
               name="email"
@@ -186,7 +186,7 @@ export function ClienteEdit() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">E-mail</label>
+            <label className="block text-sm font-medium mb-1">E-mail (Secundário)</label>
             <input
               type="email"
               name="email2"
@@ -196,7 +196,7 @@ export function ClienteEdit() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Telefone</label>
+            <label className="block text-sm font-medium mb-1">Telefone (Primário)</label>
             <input
               type="text"
               name="telefone"
@@ -206,7 +206,7 @@ export function ClienteEdit() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Telefone</label>
+            <label className="block text-sm font-medium mb-1">Telefone (Secundário)</label>
             <input
               type="text"
               name="telefone2"
