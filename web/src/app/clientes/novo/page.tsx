@@ -224,7 +224,7 @@ export default function NovoClientePage() {
               className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:border-zinc-300 transition-all duration-300"
             >
               <option value=""></option>
-              <option value="CADASTRADO">Cadastro Onvio</option>
+              <option value="CADASTRADO">Cadastrado</option>
             </select>
           </div>
           <div className="md:col-span-2">
