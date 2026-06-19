@@ -53,7 +53,7 @@ export function BarChart({
       </h3>
       <div className={`${horizontal ? "h-72" : "h-72"} relative`}>
         <ResponsiveContainer width="100%" height="100%">
-          <RechartsBar data={chartData} layout={horizontal ? "vertical" : "horizontal"} barCategoryGap="50%" margin={{ top: 8, right: 5, left: 0, bottom: 0 }}>
+          <RechartsBar data={chartData} layout={horizontal ? "vertical" : "horizontal"} barCategoryGap="20%" margin={{ top: 8, right: 5, left: 0, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e0f2fe" strokeWidth={0.3} />
             {horizontal ? (
               <>
@@ -80,7 +80,7 @@ export function BarChart({
               }}
               cursor={{ fill: "rgba(6,182,212,0.04)" }}
             />
-            <Bar dataKey={dataKey} radius={horizontal ? [0, 8, 8, 0] : [8, 8, 0, 0]} barSize={20}>
+            <Bar dataKey={dataKey} radius={horizontal ? [0, 8, 8, 0] : [8, 8, 0, 0]} barSize={40}>
               {chartData.map((_, i) => (
                 <Cell
                   key={i}
