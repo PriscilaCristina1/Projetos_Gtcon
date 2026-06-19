@@ -68,13 +68,9 @@ export function ClienteEdit() {
         raw[key] = value.trim() || null
       }
       if (raw.cod) raw.cod = Number(raw.cod)
-      const updated = await updateClient(Number(id), raw as Partial<Client>)
-      if (updated) {
-        alert("Cliente salvo com sucesso!")
-        router.push(`/clientes/${id}`)
-      } else {
-        alert("Erro ao salvar cliente. Tente novamente ou contate o suporte.")
-      }
+      await updateClient(Number(id), raw as Partial<Client>)
+      alert("Cliente salvo com sucesso!")
+      router.push(`/clientes/${id}`)
     } catch (err) {
       console.error("Erro no handleSubmit:", err)
       alert("Erro ao salvar: " + (err instanceof Error ? err.message : "Erro desconhecido"))

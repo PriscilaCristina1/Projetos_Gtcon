@@ -43,7 +43,7 @@ export async function createClient(data: Partial<Client>): Promise<Client> {
   return mapDbToClient(created as DbClient)
 }
 
-export async function updateClient(id: number, data: Partial<Client>): Promise<Client | null> {
+export async function updateClient(id: number, data: Partial<Client>): Promise<Client> {
   const s = supabase()
   const dbData = {
     ...mapClientToDb(data),
@@ -59,7 +59,7 @@ export async function updateClient(id: number, data: Partial<Client>): Promise<C
 
   if (error) {
     console.error("Erro ao atualizar cliente:", error.message, JSON.stringify(dbData))
-    return null
+    throw new Error(error.message)
   }
   return mapDbToClient(updated as DbClient)
 }
