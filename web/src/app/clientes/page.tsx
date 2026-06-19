@@ -31,14 +31,10 @@ export default function ClientesPage() {
       : clients
 
     return [...list].sort((a, b) => {
-      const extract = (v: string | null) => {
-        if (!v) return [0, 0]
-        const [m, y] = v.split("/").map(Number)
-        return [y || 0, m || 0]
-      }
-      const [yA, mA] = extract(a.entrada)
-      const [yB, mB] = extract(b.entrada)
-      return yB - yA || mB - mA
+      const gA = (a.grupo || "").toLowerCase()
+      const gB = (b.grupo || "").toLowerCase()
+      if (gA !== gB) return gA.localeCompare(gB)
+      return (a.empresa || "").localeCompare(b.empresa || "")
     })
   }, [search, clients])
 
