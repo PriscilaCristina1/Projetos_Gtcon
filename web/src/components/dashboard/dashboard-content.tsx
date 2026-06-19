@@ -11,7 +11,6 @@ import { Users, Building2, UserCheck, Globe } from "lucide-react"
 export function DashboardContent() {
   const [metrics, setMetrics] = useState<DashboardMetrics | null>(null)
   const [loading, setLoading] = useState(true)
-  const [mesFiltro, setMesFiltro] = useState("")
 
   useEffect(() => {
     fetchDashboardMetrics()
@@ -21,11 +20,6 @@ export function DashboardContent() {
 
   if (loading) return <p className="">Carregando...</p>
   if (!metrics) return <p className="">Erro ao carregar dados</p>
-
-  const mesesDisponiveis = metrics.clientesPorMes.map((d) => d.mes)
-  const dadosFiltrados = mesFiltro
-    ? metrics.clientesPorMes.filter((d) => d.mes === mesFiltro)
-    : metrics.clientesPorMes.slice(-12)
 
   return (
     <div className="space-y-3">
@@ -65,23 +59,11 @@ export function DashboardContent() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
         <BarChart
-            title="Clientes por Mês"
-            data={dadosFiltrados}
-            dataKey="total"
-            labelKey="mes"
-            filter={
-              <select
-                value={mesFiltro}
-                onChange={(e) => setMesFiltro(e.target.value)}
-                className="bg-white border border-zinc-200 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-zinc-300 cursor-pointer"
-              >
-                <option value="">Últimos 12 meses</option>
-                {[...mesesDisponiveis].reverse().map((mes) => (
-                  <option key={mes} value={mes}>{mes}</option>
-                ))}
-              </select>
-            }
-          />
+          title="Clientes por Mês"
+          data={metrics.clientesPorMes.slice(-12)}
+          dataKey="total"
+          labelKey="mes"
+        />
         <BarChart
           title="Por Regime Tributário"
           data={metrics.porTributacao}
