@@ -11,6 +11,24 @@ const links = [
   { href: "/clientes/novo", label: "Novo Cliente", icon: UserPlus },
 ]
 
+const linkIcons: Record<string, string> = {
+  "/": "from-emerald-500 to-emerald-600 shadow-emerald-200",
+  "/clientes": "from-blue-500 to-blue-600 shadow-blue-200",
+  "/clientes/novo": "from-violet-500 to-violet-600 shadow-violet-200",
+}
+
+const linkBars: Record<string, string> = {
+  "/": "bg-emerald-400",
+  "/clientes": "bg-blue-400",
+  "/clientes/novo": "bg-violet-400",
+}
+
+const linkActiveBg: Record<string, string> = {
+  "/": "bg-emerald-50 border-emerald-200",
+  "/clientes": "bg-blue-50 border-blue-200",
+  "/clientes/novo": "bg-violet-50 border-violet-200",
+}
+
 export function Sidebar() {
   const pathname = usePathname()
 
@@ -45,19 +63,29 @@ export function Sidebar() {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 relative group",
                 isActive
-                  ? ""
-                  : ""
+                  ? linkActiveBg[link.href]
+                  : "hover:bg-zinc-50"
               )}
             >
               {isActive && (
-                <span className="absolute inset-0 rounded-lg bg-zinc-100 border border-zinc-200" />
+                <span className={cn("absolute inset-0 rounded-lg border", linkActiveBg[link.href].split(" ")[1])} />
               )}
               <span className={cn(
                 "absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-r-full transition-all duration-300",
-                isActive ? "bg-zinc-400" : "bg-transparent"
+                isActive ? linkBars[link.href] : "bg-transparent group-hover:bg-zinc-300"
               )} />
-              <Icon className={cn("w-5 h-5 relative z-10", isActive && "")} />
-              <span className={cn("relative z-10", isActive && "")}>{link.label}</span>
+              <div className={cn(
+                "w-8 h-8 rounded-lg flex items-center justify-center relative z-10 transition-all duration-300 shadow-sm",
+                isActive
+                  ? `bg-gradient-to-br ${linkIcons[link.href]} text-white shadow-md`
+                  : "bg-zinc-100 text-zinc-500 group-hover:bg-zinc-200 group-hover:text-zinc-700"
+              )}>
+                <Icon className="w-4 h-4" />
+              </div>
+              <span className={cn(
+                "relative z-10 transition-all duration-300",
+                isActive ? "text-zinc-800 font-semibold" : "text-zinc-600 group-hover:text-zinc-800"
+              )}>{link.label}</span>
             </Link>
           )
         })}
