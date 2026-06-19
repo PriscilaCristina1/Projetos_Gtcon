@@ -5391,5 +5391,59 @@
     "entrada": "07/2026",
     "mesReferencia": "07-2026",
     "grupo": "BILHAR"
+  },
+  {
+    "id": 0,
+    "cod": 2256,
+    "empresa": "PROJETO VISAO SOCIAL OPTOMETRIA LTDA - Filial 0006",
+    "tributacao": "LUCRO PRESUMIDO",
+    "grupo": "OVER BLACK",
+    "entrada": "07/2026",
+    "mesReferencia": "07-2026"
+  },
+  {
+    "id": 0,
+    "cod": 2257,
+    "empresa": "PROJETO VISAO SOCIAL OPTOMETRIA LTDA - Filial 0007",
+    "tributacao": "LUCRO PRESUMIDO",
+    "grupo": "OVER BLACK",
+    "entrada": "07/2026",
+    "mesReferencia": "07-2026"
+  },
+  {
+    "id": 0,
+    "cod": 2258,
+    "empresa": "PROJETO VISAO SOCIAL OPTOMETRIA LTDA - Filial 0010",
+    "tributacao": "LUCRO PRESUMIDO",
+    "grupo": "OVER BLACK",
+    "entrada": "07/2026",
+    "mesReferencia": "07-2026"
+  },
+  {
+    "id": 0,
+    "cod": 2259,
+    "empresa": "PROJETO VISAO SOCIAL OPTOMETRIA LTDA - Filial 0011",
+    "tributacao": "LUCRO PRESUMIDO",
+    "grupo": "OVER BLACK",
+    "entrada": "07/2026",
+    "mesReferencia": "07-2026"
+  },
+  {
+    "id": 0,
+    "cod": 2260,
+    "empresa": "PROJETO VISAO SOCIAL OPTOMETRIA LTDA - Filial 0014",
+    "tributacao": "LUCRO PRESUMIDO",
+    "grupo": "OVER BLACK",
+    "entrada": "07/2026",
+    "mesReferencia": "07-2026"
+  },
+  {
+    "id": 0,
+    "cod": 2261,
+    "empresa": "PROJETO VISAO SOCIAL OPTOMETRIA LTDA - Filial 0015",
+    "tributacao": "LUCRO PRESUMIDO",
+    "grupo": "OVER BLACK",
+    "entrada": "07/2026",
+    "mesReferencia": "07-2026"
   }
 ]
