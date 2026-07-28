@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDI - Plano de Desenvolvimento Individual</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .container { background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 100%; max-width: 400px; }
+        h1 { color: #333; text-align: center; margin-bottom: 1.5rem; font-size: 1.5rem; }
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.5rem; color: #555; font-weight: 500; }
+        input, select { width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; }
+        input:focus, select:focus { outline: none; border-color: #667eea; }
+        button { width: 100%; padding: 0.75rem; background: #667eea; color: white; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer; transition: background 0.3s; }
+        button:hover { background: #556cd6; }
+        .error { color: #e74c3c; text-align: center; margin-bottom: 1rem; }
+        .admin-link { text-align: center; margin-top: 1rem; }
+        .admin-link a { color: #667eea; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 PDI - Plano de Desenvolvimento Individual</h1>
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+        <form method="POST" action="/login">
+            <div class="form-group">
+                <label for="name">Nome Completo:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="department">Departamento / Área:</label>
+                <select id="department" name="department" required>
+                    <option value="">Selecione...</option>
+                    <option value="Administrativo">Administrativo</option>
+                    <option value="Financeiro">Financeiro</option>
+                    <option value="Comercial">Comercial</option>
+                    <option value="Operacional">Operacional</option>
+                    <option value="TI">Tecnologia da Informação</option>
+                    <option value="RH">Recursos Humanos</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Outro">Outro</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="role">Cargo Atual:</label>
+                <input type="text" id="role" name="role" required>
+            </div>
+            <div class="form-group">
+                <label for="time_company">Tempo de Empresa:</label>
+                <select id="time_company" name="time_company" required>
+                    <option value="">Selecione...</option>
+                    <option value="Menos de 6 meses">Menos de 6 meses</option>
+                    <option value="6 meses a 1 ano">6 meses a 1 ano</option>
+                    <option value="1 a 2 anos">1 a 2 anos</option>
+                    <option value="2 a 5 anos">2 a 5 anos</option>
+                    <option value="Mais de 5 anos">Mais de 5 anos</option>
+                </select>
+            </div>
+            <button type="submit">Iniciar PDI</button>
+        </form>
+        <div class="admin-link">
+            <a href="/admin">Acesso Administrativo</a>
+        </div>
+    </div>
+</body>
+</html>

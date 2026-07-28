@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Reforma Tributaria - IBS/CBS PGDAS x Hibrido</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        @media print {
+            .app-header, .tabs, .btn-group { display: none !important; }
+            .tab-content { display: block !important; page-break-before: always; border: 1px solid #ccc; margin-bottom: 16px; }
+            .tab-content:first-of-type { page-break-before: avoid; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <img src="rtc.png" alt="Logo" class="header-logo">
+            <div>
+                <h1>Simulador Reforma Tributaria</h1>
+                <div class="subtitle">IBS/CBS no PGDAS x Hibrido - LC 214/2025 / EC 132/2023 - v3</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="leia">Leia-me</button>
+            <button class="tab-btn" data-tab="dados">Dados</button>
+            <button class="tab-btn" data-tab="despesas">Despesas</button>
+            <button class="tab-btn" data-tab="cen1">Cenario 1 - PGDAS</button>
+            <button class="tab-btn" data-tab="cen2">Cenario 2 - Hibrido</button>
+            <button class="tab-btn" data-tab="comparativo">Comparativo</button>
+            <button class="tab-btn" data-tab="parametros">Parametros</button>
+            <button class="tab-btn" data-tab="confronto">Confronto Simples</button>
+        </div>
+
+        <!-- ==================== TAB LEIA-ME ==================== -->
+        <div id="tab-leia" class="tab-content active">
+            <div class="card card-leia-me">
+                <div class="card-title">Leia-me <span class="badge" style="background:#f39c12;color:#333">Manual</span></div>
+                <div class="leia-me-content">
+                    <div class="leia-me-section">
+                        <h4>1. Objetivo</h4>
+                        <p>Comparar, para optantes do Simples Nacional, as duas estrategias do art. 41 da LC 214/2025:</p>
+                        <ul>
+                            <li><strong>CENARIO 1 - PGDAS:</strong> IBS/CBS recolhidos por dentro do PGDAS-D.</li>
+                            <li><strong>CENARIO 2 - HIBRIDO:</strong> Demais tributos no Simples + IBS/CBS apurados por fora (regime regular), com reducoes de alquota do cClassTrib nas vendas e creditos sobre as despesas detalhadas.</li>
+                        </ul>
+                    </div>
+                    <div class="leia-me-section">
+                        <h4>2. Como Usar</h4>
+                        <ul>
+                            <li>Preencha somente os campos em amarelo nas abas <strong>Dados</strong> e <strong>Despesas</strong>.</li>
+                            <li>Escolha o ano (2027 a 2033).</li>
+                            <li>As abas <strong>Cen1_PGDAS</strong> e <strong>Cen2_Hibrido</strong> calculam automaticamente.</li>
+                            <li>A aba <strong>Comparativo</strong> consolida e indica a estrategia.</li>
+                        </ul>
+                    </div>
+                    <div class="leia-me-section">
+                        <h4>3. Variaveis que Decidem o Jogo</h4>
+                        <ul>
+                            <li>% de vendas B2B para clientes do regime regular (no hibrido o cliente credita o IBS/CBS destacado).</li>
+                            <li>cClassTrib das vendas: reducoes so valem por fora.</li>
+                            <li>Volume e perfil das despesas com credito.</li>
+                            <li>Receitas segregadas (ST/monofasico) perdem o beneficio gradualmente no Cenario 1.</li>
+                            <li>Vendas B2C, margem alta e cClassTrib integral favorecem o PGDAS.</li>
+                        </ul>
+                    </div>
+                    <div class="leia-me-section">
+                        <h4>4. Premissas</h4>
+                        <ul>
+                            <li>Alicotas de referencia estimadas (serao fixadas por resolucao do Senado).</li>
+                            <li>Transicao do IBS: 2029=10%, 2030=20%, 2031=30%, 2032=40%, 2033=100%.</li>
+                            <li>CBS integral desde 2027.</li>
+                            <li>IBS-teste de 0,1% (2027/2028) desprezado.</li>
+                            <li>Codigos cClassTrib pre-carregados sao exemplos - confirme na tabela oficial.</li>
+                        </ul>
+                    </div>
+                    <div class="leia-me-section">
+                        <h4>5. Base Legal</h4>
+                        <p>EC 132/2023; LC 214/2025 (art. 41 - opcao irretratavel); IT/NT 2025.002; LC 123/2006 (Anexos I a V).</p>
+                    </div>
+                    <div class="leia-me-section leia-me-aviso">
+                        <p><strong>AVISO:</strong> Ferramenta de apoio a decisao com estimativas e premissas simplificadoras. Nao substitui a analise do caso concreto nem a legislacao vigente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB DADOS ==================== -->
+        <div id="tab-dados" class="tab-content">
+            <div class="alert alert-info" style="margin-bottom:16px">
+                Preencha as celulas em amarelo. Percentuais em cinza sao calculados automaticamente.
+            </div>
+
+            <!-- IDENTIFICACAO -->
+            <div class="card">
+                <div class="card-title">Identificacao</div>
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label>Cliente</label>
+                        <input type="text" id="cliente" class="campo-amarelo calc-trigger">
+                    </div>
+                    <div class="form-group">
+                        <label>Ano da simulacao</label>
+                        <select id="ano" class="campo-amarelo calc-trigger">
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                            <option value="2029">2029</option>
+                            <option value="2030">2030</option>
+                            <option value="2031">2031</option>
+                            <option value="2032">2032</option>
+                            <option value="2033">2033</option>
+                        </select>
+                        <div class="help-text">Escolha 2027 a 2033 para ver o efeito da transicao.</div>
+                    </div>
+                    <div class="form-group">
+                        <label>RBT12 - receita bruta acumulada 12 meses (R$)</label>
+                        <input type="text" id="rbt12" class="campo-amarelo calc-trigger num-input">
+                    </div>
+                </div>
+                <div class="grid-2" style="margin-top:8px">
+                    <div class="alert alert-info" id="calc-coerencia">-</div>
+                    <div class="alert alert-success" id="calc-rbt12-display">RBT12: <strong id="calc-rbt12">-</strong></div>
+                </div>
+            </div>
+
+            <!-- ATIVIDADE 1 -->
+            <div class="card">
+                <div class="card-title">Atividade 1 - Comercio / Industria <span class="badge">Principal</span></div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Anexo do Simples</label>
+                        <select id="anexo1" class="campo-amarelo calc-trigger">
+                            <option value="I">I - Comercio</option>
+                            <option value="II">II - Industria</option>
+                            <option value="III">III - Servicos</option>
+                            <option value="IV">IV - Servicos</option>
+                            <option value="V">V - Servicos</option>
+                        </select>
+                        <div class="help-text">I = comercio; II = industria.</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Receita mensal TOTAL (R$)</label>
+                        <input type="text" id="receita1" class="campo-amarelo calc-trigger num-input">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Receita com ICMS-ST hoje (R$/mes)</label>
+                        <input type="text" id="receitaST1" class="campo-amarelo calc-trigger num-input">
+                        <div class="help-text">- % da receita: <span id="calc-percST1" class="calc-display">-</span></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Receita monofasica de PIS/COFINS hoje (R$/mes)</label>
+                        <input type="text" id="receitaMono1" class="campo-amarelo calc-trigger num-input">
+                        <div class="help-text">- % da receita: <span id="calc-percMono1" class="calc-display">-</span></div>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>% das receitas concentradas que PERMANECEM concentradas</label>
+                        <input type="text" id="permConc1" class="campo-amarelo calc-trigger num-input">
+                        <div class="help-text">Regra geral: 0%. Use >0% p/ combustiveis e regimes especificos.</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Vendas geram credito ao adquirente? (S/N)</label>
+                        <select id="vendaCredito1" class="campo-amarelo calc-trigger">
+                            <option value="S">Sim</option>
+                            <option value="N">Nao</option>
+                        </select>
+                        <div class="help-text">Marque 'N' p/ bares e restaurantes - art. 276 da LC 214/2025 veda o credito ao adquirente.</div>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>cClassTrib dos produtos COM reducao de IBS/CBS</label>
+                        <select id="cClassTrib1" class="campo-amarelo calc-trigger">
+                            <option value="000001">000001 - Tributacao integral</option>
+                            <option value="200003">200003 - Alimentacao humana (red. 60%)</option>
+                            <option value="200004">200004 - Dispositivos medicos (red. 60%)</option>
+                            <option value="200039">200039 - Producoes artisticas (red. 60%)</option>
+                            <option value="RED-60">RED-60 - Generico red. 60%</option>
+                            <option value="RED-30">RED-30 - Profissoes intelectuais (red. 30%)</option>
+                            <option value="ALIQ-ZERO">ALIQ-ZERO - Alquota zero</option>
+                            <option value="RED-40-BAR-REST" selected>RED-40-BAR-REST - Bares/Restaurantes (red. 40%)</option>
+                            <option value="RED-40-HOTEL">RED-40-HOTEL - Hotelaria (red. 40%)</option>
+                        </select>
+                        <div class="help-text">pRedIBS: <strong id="cClassTrib1_pRedIBS">-</strong> | pRedCBS: <strong id="cClassTrib1_pRedCBS">-</strong></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Receita mensal de produtos COM reducao de IBS/CBS (R$)</label>
+                        <input type="text" id="receitaRed1" class="campo-amarelo calc-trigger num-input">
+                        <div class="help-text">- % de produtos COM reducao: <span id="calc-percRed1" class="calc-display">-</span> | % SEM reducao: <span id="calc-percSemRed1" class="calc-display">-</span></div>
+                    </div>
+                </div>
+                <div class="grid-1">
+                    <div class="form-group">
+                        <label>Exclusoes da base por fora (R$/mes): gorjetas repassadas + retencoes de delivery</label>
+                        <input type="text" id="exclusoes1" class="campo-amarelo calc-trigger num-input">
+                        <div class="help-text">Arts. 274, p.ult., LC 214/2025 e 399 do Dec. 12.955/26 (gorjeta ate 15%); exige segregacao no documento fiscal.</div>
+                    </div>
+                </div>
+                <div class="help-text" id="calc-faixa1">-</div>
+            </div>
+
+            <!-- ATIVIDADE 2 -->
+            <div class="card">
+                <div class="card-title">Atividade 2 - Servicos <span class="badge" style="background:var(--accent)">Secundaria</span></div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Anexo do Simples</label>
+                        <select id="anexo2" class="campo-amarelo calc-trigger">
+                            <option value="I">I - Comercio</option>
+                            <option value="II">II - Industria</option>
+                            <option value="III" selected>III - Servicos</option>
+                            <option value="IV">IV - Servicos</option>
+                            <option value="V">V - Servicos</option>
+                        </select>
+                        <div class="help-text">III, IV ou V (avalie o Fator R).</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Receita mensal TOTAL (R$)</label>
+                        <input type="text" id="receita2" class="campo-amarelo calc-trigger num-input">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Receita com ICMS-ST hoje (R$/mes)</label>
+                        <input type="text" id="receitaST2" class="campo-amarelo calc-trigger num-input">
+                        <div class="help-text">- % da receita: <span id="calc-percST2" class="calc-display">-</span></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Receita monofasica de PIS/COFINS hoje (R$/mes)</label>
+                        <input type="text" id="receitaMono2" class="campo-amarelo calc-trigger num-input">
+                        <div class="help-text">- % da receita: <span id="calc-percMono2" class="calc-display">-</span></div>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>% das receitas concentradas que PERMANECEM concentradas</label>
+                        <input type="text" id="permConc2" class="campo-amarelo calc-trigger num-input">
+                        <div class="help-text">Regra geral: 0%. Use >0% p/ combustiveis e regimes especificos.</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Vendas geram credito ao adquirente? (S/N)</label>
+                        <select id="vendaCredito2" class="campo-amarelo calc-trigger">
+                            <option value="S">Sim</option>
+                            <option value="N">Nao</option>
+                        </select>
+                        <div class="help-text">Marque 'N' p/ bares e restaurantes - art. 276 da LC 214/2025 veda o credito ao adquirente.</div>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>cClassTrib dos produtos COM reducao de IBS/CBS</label>
+                        <select id="cClassTrib2" class="campo-amarelo calc-trigger">
+                            <option value="000001" selected>000001 - Tributacao integral</option>
+                            <option value="200003">200003 - Alimentacao humana (red. 60%)</option>
+                            <option value="200004">200004 - Dispositivos medicos (red. 60%)</option>
+                            <option value="200039">200039 - Producoes artisticas (red. 60%)</option>
+                            <option value="RED-60">RED-60 - Generico red. 60%</option>
+                            <option value="RED-30">RED-30 - Profissoes intelectuais (red. 30%)</option>
+                            <option value="ALIQ-ZERO">ALIQ-ZERO - Alquota zero</option>
+                            <option value="RED-40-BAR-REST">RED-40-BAR-REST - Bares/Restaurantes (red. 40%)</option>
+                            <option value="RED-40-HOTEL">RED-40-HOTEL - Hotelaria (red. 40%)</option>
+                        </select>
+                        <div class="help-text">pRedIBS: <strong id="cClassTrib2_pRedIBS">-</strong> | pRedCBS: <strong id="cClassTrib2_pRedCBS">-</strong></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Receita mensal de produtos COM reducao de IBS/CBS (R$)</label>
+                        <input type="text" id="receitaRed2" class="campo-amarelo calc-trigger num-input">
+                        <div class="help-text">- % de produtos COM reducao: <span id="calc-percRed2" class="calc-display">-</span> | % SEM reducao: <span id="calc-percSemRed2" class="calc-display">-</span></div>
+                    </div>
+                </div>
+                <div class="grid-1">
+                    <div class="form-group">
+                        <label>Exclusoes da base por fora (R$/mes): gorjetas repassadas + retencoes de delivery</label>
+                        <input type="text" id="exclusoes2" class="campo-amarelo calc-trigger num-input">
+                        <div class="help-text">Arts. 274, p.ult., LC 214/2025 e 399 do Dec. 12.955/26 (gorjeta ate 15%); exige segregacao no documento fiscal.</div>
+                    </div>
+                </div>
+                <div class="help-text" id="calc-faixa2">-</div>
+            </div>
+
+            <!-- PERFIL CLIENTES -->
+            <div class="card">
+                <div class="card-title">Perfil de Clientes</div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>% das vendas B2B para clientes do regime regular (aproveitam credito)</label>
+                        <input type="text" id="percB2B" class="campo-amarelo calc-trigger num-input">
+                        <div class="help-text">Variavel decisiva: no hibrido o cliente credita o IBS/CBS destacado.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" id="btn-calcular">Calcular Cenarios</button>
+                <button class="btn btn-accent" id="btn-exportar">Exportar / Imprimir</button>
+            </div>
+        </div>
+
+        <!-- ==================== TAB DESPESAS ==================== -->
+        <div id="tab-despesas" class="tab-content">
+            <div class="alert alert-info">
+                Credito = Valor x (S/N) x % fornecedor regime regular x (1 - reducao cClassTrib do fornecedor) x aliquota IBS/CBS vigente no ano (Cen2). Fornecedor com cClassTrib reduzido destaca menos imposto -> credito menor. Fornecedor do Simples por dentro transfere so o valor pago no DAS (ajuste na coluna % fornecedor regime regular).
+            </div>
+            <div id="despesas-content"></div>
+        </div>
+
+        <!-- ==================== TAB CENARIO 1 ==================== -->
+        <div id="tab-cen1" class="tab-content">
+            <div id="cen1-content"></div>
+        </div>
+
+        <!-- ==================== TAB CENARIO 2 ==================== -->
+        <div id="tab-cen2" class="tab-content">
+            <div id="cen2-content"></div>
+        </div>
+
+        <!-- ==================== TAB COMPARATIVO ==================== -->
+        <div id="tab-comparativo" class="tab-content">
+            <!-- Dados da Simulacao -->
+            <div class="card">
+                <div class="card-title">Dados da Simulacao</div>
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label>Cliente</label>
+                        <div class="resultado-campo" id="comp-cliente">-</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Ano da simulacao</label>
+                        <div class="resultado-campo" id="comp-ano">-</div>
+                    </div>
+                    <div class="form-group">
+                        <label>RBT12 - Receita bruta acumulada 12 meses (R$)</label>
+                        <div class="resultado-campo" id="comp-rbt12">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela Comparativa -->
+            <div class="card">
+                <div class="card-title">Comparativo e Decisao Estrategica</div>
+                <div style="overflow-x:auto">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width:40%">Indicador</th>
+                                <th style="width:20%;text-align:right">CENARIO 1 - Tudo no PGDAS</th>
+                                <th style="width:20%;text-align:right">CENARIO 2 - Hibrido (por fora)</th>
+                                <th style="width:20%;text-align:right">Diferenca (C2 - C1)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Carga tributaria propria - MENSAL (R$)</td>
+                                <td class="num" id="comp-carga-mensal-c1">-</td>
+                                <td class="num" id="comp-carga-mensal-c2">-</td>
+                                <td class="num" id="comp-diff-mensal">-</td>
+                            </tr>
+                            <tr>
+                                <td>Carga tributaria propria - ANUAL (R$)</td>
+                                <td class="num" id="comp-carga-anual-c1">-</td>
+                                <td class="num" id="comp-carga-anual-c2">-</td>
+                                <td class="num" id="comp-diff-anual">-</td>
+                            </tr>
+                            <tr>
+                                <td>Carga propria em % da receita</td>
+                                <td class="num" id="comp-perc-c1">-</td>
+                                <td class="num" id="comp-perc-c2">-</td>
+                                <td class="num" id="comp-diff-perc">-</td>
+                            </tr>
+                            <tr>
+                                <td>Credito de IBS/CBS gerado a clientes B2B (R$/mes)</td>
+                                <td class="num" id="comp-cred-c1">-</td>
+                                <td class="num" id="comp-cred-c2">-</td>
+                                <td class="num" id="comp-diff-cred">-</td>
+                            </tr>
+                            <tr class="subtotal">
+                                <td><strong>CARGA LIQUIDA NA CADEIA (propria - credito B2B)</strong></td>
+                                <td class="num" id="comp-liq-c1">-</td>
+                                <td class="num" id="comp-liq-c2">-</td>
+                                <td class="num" id="comp-diff-liq">-</td>
+                            </tr>
+                            <tr>
+                                <td>Aliq. IBS/CBS destacada na NF - Atividade 1</td>
+                                <td class="num" id="comp-aliq-nf-c1">por dentro</td>
+                                <td class="num" id="comp-aliq-nf-c2">-</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Aliq. IBS/CBS destacada na NF - Atividade 2</td>
+                                <td class="num">por dentro</td>
+                                <td class="num" id="comp-aliq-nf-c2b">-</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Saldo credor mensal no hibrido (se houver)</td>
+                                <td class="num">n/a</td>
+                                <td class="num" id="comp-saldo-credor">-</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="help-text" style="margin-top:8px">Valores negativos na coluna Diferenca = hibrido melhor.</div>
+            </div>
+
+            <!-- Leitura dos Resultados -->
+            <div class="card">
+                <div class="card-title">Leitura dos Resultados</div>
+                <div class="grid-2" style="margin-bottom:12px">
+                    <div class="form-group">
+                        <label>Qual cenario custa menos PARA A EMPRESA?</label>
+                        <div class="resultado-campo" id="comp-melhor-empresa">-</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Qual cenario custa menos PARA A CADEIA?</label>
+                        <div class="resultado-campo" id="comp-melhor-cadeia">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recomendacao -->
+            <div class="destaque-box recomendacao">
+                <div class="rotulo">RECOMENDACAO</div>
+                <div id="comp-recomendacao" style="font-size:1rem;font-weight:600;color:white;margin-top:6px">-</div>
+            </div>
+
+            <!-- Drivers da Decisao -->
+            <div class="card">
+                <div class="card-title">Drivers da Decisao (teste nas abas Dados e Despesas)</div>
+                <ul style="font-size:0.82rem;line-height:1.8;padding-left:20px">
+                    <li>cClassTrib com reducao (30%/60%) ou aliquota zero nas VENDAS so beneficia quem esta POR FORA: derruba o debito do hibrido, mantem os creditos das compras e pode gerar saldo credor.</li>
+                    <li>Maior % vendas B2B para regime regular e mais despesas com credito favorecem o HIBRIDO.</li>
+                    <li>Maior vendas B2C, maior margem (pouco insumo) e cClassTrib integral (000001) favorecem o PGDAS.</li>
+                    <li>Receitas segregadas (ST/monofasico) perdem o beneficio gradualmente no Cenario 1 - recalcule a cada ano da transicao (2027-2033).</li>
+                    <li>Bares e restaurantes (regime especifico - arts. 273-276): use o codigo RED-40-BAR-REST (red. 40%), marque 'N' em 'vendas geram credito ao adquirente' e lance gorjetas repassadas/retencoes de delivery nas exclusoes da base.</li>
+                    <li>Confira as vedacoes de credito (uso e consumo pessoal - art. 57) e a reducao do cClassTrib dos FORNECEDORES: comprar de quem vende com reducao tambem reduz seu credito.</li>
+                    <li>A opcao pelo regime regular de IBS/CBS e irretratavel para o ano-calendario: simule antes do prazo de opcao de cada ano.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ==================== TAB PARAMETROS ==================== -->
+        <div id="tab-parametros" class="tab-content">
+            <div class="card">
+                <div class="card-title">Tabelas do Simples Nacional - LC 123/2006, Anexos I a V</div>
+                <div id="tabela-simples" style="overflow-x:auto"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Transicao da Reforma - EC 132/2023 / LC 214/2025</div>
+                <div id="tabela-transicao"></div>
+                <div class="help-text" style="margin-top:8px">
+                    2027/2028: IBS-teste de 0,1% desprezado. 2029-2032: ICMS/ISS reduzidos em 10/20/30/40% e IBS cobrado na mesma proporcao.
+                    2033: extincao do ICMS/ISS.
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Alicotas de Referencia do Regime Regular</div>
+                <div class="grid-3">
+                    <div class="result-item">
+                        <div class="label">CBS (federal)</div>
+                        <div class="value">8,80%</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="label">IBS (estadual + municipal)</div>
+                        <div class="value">17,70%</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="label">TOTAL IBS + CBS</div>
+                        <div class="value">26,50%</div>
+                    </div>
+                </div>
+                <div class="help-text">Alicotas estimadas; serao fixadas por resolucao do Senado Federal.</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Tabela cClassTrib - Classificacao Tributaria e Reducoes (IT 2025.002)</div>
+                <div id="tabela-cclasstrib" style="overflow-x:auto"></div>
+                <div class="help-text" style="margin-top:8px">
+                    Codigos e percentuais pre-carregados sao EXEMPLOS para simulacao.
+                    Substitua/complete com a tabela oficial cClassTrib vigente (Portal Nacional da NF-e).
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB CONFRONTO ==================== -->
+        <div id="tab-confronto" class="tab-content">
+            <div class="alert alert-info">
+                <strong>Confronto com a Tabela do Simples Nacional:</strong> a alquota efetiva e calculada pela formula:
+                (RBT12 x nominal - parcela a deduzir) / RBT12. Compare abaixo, faixa a faixa, para o RBT12 informado.
+            </div>
+            <div id="confronto-content" style="overflow-x:auto"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data/simples_nacional.js"></script>
+    <script src="js/data/transicao.js"></script>
+    <script src="js/utils/format.js"></script>
+    <script src="js/engine/calculator.js"></script>
+    <script src="js/engine/cenario1.js"></script>
+    <script src="js/engine/cenario2.js"></script>
+    <script src="js/engine/comparativo.js"></script>
+    <script src="js/ui/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDI - GTCON</title>
+    <link rel="icon" href="LogoBranca.jpeg" type="image/jpeg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+
+        <!-- ===== TELA DE LOGIN ===== -->
+        <div id="screen-login" class="screen active">
+            <div class="login-wrapper">
+                <div class="login-card">
+                    <div class="logo-wrapper">
+                        <img src="LogoBranca.jpeg" alt="GTCON">
+                    </div>
+                    <h2>Plano de Desenvolvimento Individual</h2>
+                    <p class="login-subtitle">Diagnóstico e desenvolvimento contínuo</p>
+                    <div class="form-group">
+                        <label>Nome Completo</label>
+                        <input type="text" id="login-name" placeholder="Seu nome completo">
+                    </div>
+                    <div class="form-group">
+                        <label>Departamento / Área</label>
+                        <select id="login-dept">
+                            <option value="">Selecione...</option>
+                            <option value="Compliance">Compliance</option>
+                            <option value="Contábil">Contábil</option>
+                            <option value="DP">DP</option>
+                            <option value="Fiscal">Fiscal</option>
+                            <option value="Implantação">Implantação</option>
+                            <option value="Legalização">Legalização</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="NIT">NIT</option>
+                            <option value="Sucesso do Cliente">Sucesso do Cliente</option>
+                            <option value="Tributário">Tributário</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Cargo</label>
+                        <input type="text" id="login-role" placeholder="Ex: Analista, Gerente...">
+                    </div>
+                    <div class="form-group">
+                        <label>Tempo de Empresa</label>
+                        <select id="login-time">
+                            <option value="">Selecione...</option>
+                            <option value="Menos de 6 meses">Menos de 6 meses</option>
+                            <option value="6 meses a 1 ano">6 meses a 1 ano</option>
+                            <option value="1 a 2 anos">1 a 2 anos</option>
+                            <option value="2 a 5 anos">2 a 5 anos</option>
+                            <option value="Mais de 5 anos">Mais de 5 anos</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="startPDI()" style="width:100%;margin-top:0.3rem;">Iniciar PDI</button>
+                    <a href="#" class="admin-link" onclick="showScreen('screen-admin-login')">🔒 Acesso Administrativo</a>
+                </div>
+            </div>
+            <p class="copyright">GTCON &copy; 2026</p>
+        </div>
+
+        <!-- ===== LOGIN ADMIN ===== -->
+        <div id="screen-admin-login" class="screen">
+            <div class="login-wrapper">
+                <div class="login-card">
+                    <div class="logo-wrapper">
+                        <img src="LogoBranca.jpeg" alt="GTCON">
+                    </div>
+                    <h2>🔒 Acesso Administrativo</h2>
+                    <p class="login-subtitle">Painel de gerenciamento dos PDIs</p>
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" id="admin-password" placeholder="Digite a senha" onkeydown="if(event.key==='Enter')adminLogin()">
+                    </div>
+                    <button class="btn btn-admin" onclick="adminLogin()">Entrar</button>
+                    <a href="#" class="admin-link" onclick="showScreen('screen-login')">← Voltar</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== FASES DO PDI ===== -->
+        <div id="screen-phase" class="screen">
+            <div class="header">
+                <img src="LogoBranca.jpeg" alt="GTCON" class="logo">
+                <h1>Plano de Desenvolvimento Individual</h1>
+                <p id="phase-subtitle"></p>
+            </div>
+            <div class="container">
+                <div class="phase-indicator" id="phase-indicator"></div>
+                <div class="card" id="phase-content"></div>
+                <div class="navigation">
+                    <button class="btn btn-secondary" id="btn-prev" onclick="prevPhase()">← Anterior</button>
+                    <button class="btn btn-primary" id="btn-next" onclick="nextPhase()">Próxima Fase →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== DASHBOARD COLABORADOR ===== -->
+        <div id="screen-dashboard" class="screen">
+            <div class="header">
+                <img src="LogoBranca.jpeg" alt="GTCON" class="logo">
+                <h1>Meu PDI</h1>
+            </div>
+            <div class="container">
+                <div class="card" id="dashboard-content"></div>
+            </div>
+        </div>
+
+        <!-- ===== PAINEL ADMINISTRATIVO ===== -->
+        <div id="screen-admin" class="screen">
+            <div class="header">
+                <img src="LogoBranca.jpeg" alt="GTCON" class="logo">
+                <h1>Painel Administrativo</h1>
+                <p>Gerenciamento e relatórios dos PDIs</p>
+            </div>
+            <div class="container">
+                <div id="admin-stats" class="stats"></div>
+                <div class="card">
+                    <h2>PDIs Registrados</h2>
+                    <div class="filters">
+                        <select id="filter-dept" onchange="filterAdmin()">
+                            <option value="">Todos os Departamentos</option>
+                        </select>
+                        <select id="filter-status" onchange="filterAdmin()">
+                            <option value="">Todos os Status</option>
+                            <option value="completed">Concluídos</option>
+                            <option value="pending">Em Andamento</option>
+                        </select>
+                        <input type="text" id="filter-search" placeholder="Buscar nome..." oninput="filterAdmin()">
+                    </div>
+                    <table id="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Depto</th>
+                                <th>Cargo</th>
+                                <th>Progresso</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-tbody"></tbody>
+                    </table>
+                </div>
+                <div class="card">
+                    <h2>Relatório Consolidado</h2>
+                    <div id="admin-report"></div>
+                    <div class="actions">
+                        <button class="btn btn-primary" onclick="exportJSON()">Exportar JSON</button>
+                        <button class="btn btn-primary" onclick="exportCSV()">Exportar CSV</button>
+                        <button class="btn btn-secondary" onclick="showScreen('screen-login')">Sair</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== DETALHES DO PDI ===== -->
+        <div id="screen-detail" class="screen">
+            <div class="header">
+                <img src="LogoBranca.jpeg" alt="GTCON" class="logo">
+                <h1>Detalhes do PDI</h1>
+            </div>
+            <div class="container">
+                <div class="card" id="detail-content"></div>
+                <button class="btn btn-secondary" onclick="showScreen('screen-admin')" style="margin-top:1rem;">← Voltar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="phases.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
