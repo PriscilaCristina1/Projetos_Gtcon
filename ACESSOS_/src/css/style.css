@@ -678,3 +678,82 @@ tr.empty-row td {
 input[type="checkbox"] {
   accent-color: var(--accent);
 }
+
+/* Tabs Navigation */
+.tabs-container {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 64px;
+  z-index: 99;
+}
+
+.tabs-scroll {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  overflow-x: auto;
+  gap: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tabs-scroll::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  flex-shrink: 0;
+  padding: 0.65rem 1.125rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.tab-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+}
+
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+
+/* Reduce stats to 1 card for multi-department */
+.stats-grid {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+/* Password clickable cell */
+.pw-cell {
+  cursor: pointer;
+  font-family: 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 0.8rem;
+  user-select: none;
+}
+
+.pw-cell:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .tabs-container {
+    top: 56px;
+  }
+
+  .tabs-scroll {
+    padding: 0 0.5rem;
+  }
+
+  .tab-btn {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.75rem;
+  }
+}

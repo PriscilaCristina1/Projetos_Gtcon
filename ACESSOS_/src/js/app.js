@@ -7,7 +7,11 @@
 
   function init() {
     Theme.init();
-    Storage.seedInitialData();
+
+    const seeded = Storage.seedInitialData();
+    if (seeded > 0) {
+      console.log('Dados iniciais semeados: ' + seeded + ' registros');
+    }
 
     const loginForm = document.getElementById('loginForm');
     const loginError = document.getElementById('loginError');
@@ -15,6 +19,7 @@
     const loginScreen = document.getElementById('loginScreen');
     const logoutBtn = document.getElementById('logoutBtn');
     const themeToggle = document.getElementById('themeToggle');
+    const resetBtn = document.getElementById('resetDataBtn');
 
     if (Auth.isAuthenticated()) {
       loginScreen.classList.add('hidden');
@@ -59,6 +64,16 @@
     themeToggle.addEventListener('click', function() {
       const newTheme = Theme.toggle();
       themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+
+    resetBtn.addEventListener('click', function() {
+      const key = UI.getCurrentSheet();
+      if (!key) return;
+      const config = (window.AcessosApp.SHEETS || []).find(s => s.key === key);
+      if (!config) return;
+      const count = Storage.resetSheet(key, config.columns);
+      UI.renderTable();
+      UI.showToast('Dados da aba recarregados (' + count + ' registros).', 'success');
     });
 
     if (Theme.getTheme() === 'dark') {

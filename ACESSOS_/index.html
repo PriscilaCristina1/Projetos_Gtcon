@@ -58,7 +58,7 @@
             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
           </svg>
           Acessos GTCON
-          <span class="badge">v1.0</span>
+          <span class="badge">v2.0</span>
         </div>
         <div class="header-actions">
           <span class="user-info" id="userInfo">ADM</span>
@@ -70,21 +70,18 @@
       </div>
     </header>
 
+    <!-- TABS -->
+    <nav class="tabs-container" id="tabsContainer">
+      <div class="tabs-scroll" id="tabsScroll"></div>
+    </nav>
+
     <main class="container">
 
       <!-- STATS -->
-      <div class="stats-grid">
+      <div class="stats-grid" id="statsGrid">
         <div class="stat-card">
           <div class="label">Total de Registros</div>
           <div class="value accent" id="statTotal">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">Usuários Ativos</div>
-          <div class="value success" id="statAtivos">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">Sem Senha Definida</div>
-          <div class="value" id="statSemSenha" style="color: var(--text-primary)">0</div>
         </div>
       </div>
 
@@ -92,32 +89,20 @@
       <div class="toolbar">
         <div class="search-box">
           <span class="search-icon">🔍</span>
-          <input type="text" id="searchInput" placeholder="Buscar por nome, usuário ou senha..." autocomplete="off">
+          <input type="text" id="searchInput" placeholder="Buscar..." autocomplete="off">
         </div>
-        <div class="filter-group">
-          <select id="filterStatus">
-            <option value="">Todos os status</option>
-            <option value="ativo">Ativo</option>
-            <option value="pendente">Pendente</option>
-            <option value="inativo">Inativo</option>
-          </select>
-        </div>
-        <button class="btn btn-primary" id="addBtn">+ Novo Acesso</button>
+        <button class="btn btn-primary" id="addBtn">+ Novo</button>
         <button class="btn btn-outline" id="exportCSVBtn" title="Exportar CSV">📥 CSV</button>
-        <button class="btn btn-outline" id="exportXLSXBtn" title="Exportar XLSX">📊 XLSX</button>
         <button class="btn btn-outline" id="exportJSONBtn" title="Exportar JSON">📋 JSON</button>
+        <button class="btn btn-outline btn-sm" id="resetDataBtn" title="Recarregar da planilha">🔄 Recarregar</button>
       </div>
 
       <!-- TABLE -->
       <div class="table-container">
         <div class="table-wrapper">
           <table>
-            <thead>
-              <tr>
-                <th>USUÁRIO EXACT</th>
-                <th>USUÁRIO GTCON</th>
-                <th>SENHA PADRÃO</th>
-                <th>STATUS</th>
+            <thead id="tableHead">
+              <tr id="headerRow">
                 <th style="width: 160px;">AÇÕES</th>
               </tr>
             </thead>
@@ -125,10 +110,10 @@
           </table>
         </div>
         <div id="emptyState" class="empty-state hidden">
-          <div class="icon">🔍</div>
+          <div class="icon">📋</div>
           <h3>Nenhum registro encontrado</h3>
-          <p>Tente ajustar os filtros ou cadastre um novo acesso.</p>
-          <button class="btn btn-primary" onclick="window.AcessosApp.UI.openCreateModal?.()">+ Novo Acesso</button>
+          <p>Tente ajustar os filtros ou cadastre um novo registro.</p>
+          <button class="btn btn-primary" onclick="window.AcessosApp.UI.openCreateModal?.()">+ Novo Registro</button>
         </div>
       </div>
 
@@ -139,33 +124,12 @@
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
       <div class="modal-header">
-        <h2 id="modalTitle">Novo Acesso</h2>
+        <h2 id="modalTitle">Novo Registro</h2>
         <button class="btn btn-ghost btn-icon" id="modalCloseBtn">&times;</button>
       </div>
       <form id="modalForm">
         <input type="hidden" id="recordId" value="">
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="frmUsuarioExact">USUÁRIO EXACT *</label>
-            <input type="text" id="frmUsuarioExact" placeholder="Ex: GTCON65" required>
-          </div>
-          <div class="form-group">
-            <label for="frmUsuarioGtcon">USUÁRIO GTCON</label>
-            <input type="text" id="frmUsuarioGtcon" placeholder="Ex: Adriene">
-          </div>
-          <div class="form-group">
-            <label for="frmSenhaPadrao">SENHA PADRÃO</label>
-            <input type="text" id="frmSenhaPadrao" placeholder="Senha ou deixe em branco">
-          </div>
-          <div class="form-group">
-            <label for="frmStatus">Status</label>
-            <select id="frmStatus">
-              <option value="ativo">Ativo</option>
-              <option value="pendente">Pendente</option>
-              <option value="inativo">Inativo</option>
-            </select>
-          </div>
-        </div>
+        <div class="modal-body" id="modalBody"></div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline" id="modalCancelBtn">Cancelar</button>
           <button type="submit" class="btn btn-primary">Salvar</button>
@@ -193,6 +157,7 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- SCRIPTS -->
+  <script src="src/js/data.js"></script>
   <script src="src/js/storage.js"></script>
   <script src="src/js/auth.js"></script>
   <script src="src/js/theme.js"></script>

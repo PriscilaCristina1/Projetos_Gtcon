@@ -1,90 +1,115 @@
 window.AcessosApp = window.AcessosApp || {};
 
 (function() {
-  const APP_KEY = 'acessos_gtcon_data';
-  const SETTINGS_KEY = 'acessos_gtcon_settings';
+  const PREFIX = 'acessos_gtcon_';
 
-  function getAll() {
+  function getKey(sheet) { return PREFIX + sheet; }
+  function getSettingsKey() { return PREFIX + 'settings'; }
+
+  function getAll(sheet) {
     try {
-      return JSON.parse(localStorage.getItem(APP_KEY)) || [];
+      return JSON.parse(localStorage.getItem(getKey(sheet))) || [];
     } catch { return []; }
   }
 
-  function saveAll(data) {
-    localStorage.setItem(APP_KEY, JSON.stringify(data));
+  function saveAll(sheet, data) {
+    localStorage.setItem(getKey(sheet), JSON.stringify(data));
   }
 
-  function getById(id) {
-    return getAll().find(r => r.id === id);
+  function getById(sheet, id) {
+    return getAll(sheet).find(r => r.id === id);
   }
 
-  function create(record) {
-    const data = getAll();
+  function create(sheet, record) {
+    const data = getAll(sheet);
     const newRecord = {
       id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
-      usuarioExact: record.usuarioExact || '',
-      usuarioGtcon: record.usuarioGtcon || '',
-      senhaPadrao: record.senhaPadrao || '',
-      status: record.status || 'ativo',
+      ...record,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
     data.push(newRecord);
-    saveAll(data);
+    saveAll(sheet, data);
     return newRecord;
   }
 
-  function update(id, changes) {
-    const data = getAll();
+  function update(sheet, id, changes) {
+    const data = getAll(sheet);
     const idx = data.findIndex(r => r.id === id);
     if (idx === -1) return null;
     data[idx] = { ...data[idx], ...changes, updatedAt: new Date().toISOString() };
-    saveAll(data);
+    saveAll(sheet, data);
     return data[idx];
   }
 
-  function remove(id) {
-    const data = getAll().filter(r => r.id !== id);
-    saveAll(data);
+  function remove(sheet, id) {
+    const data = getAll(sheet).filter(r => r.id !== id);
+    saveAll(sheet, data);
   }
 
   function getSettings() {
     try {
-      return JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {};
+      return JSON.parse(localStorage.getItem(getSettingsKey())) || {};
     } catch { return {}; }
   }
 
   function saveSettings(settings) {
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+    localStorage.setItem(getSettingsKey(), JSON.stringify(settings));
+  }
+
+  function parseSheet(sheetKey, columns) {
+    const raw = (window.AcessosApp.XLSX_DATA || {})[sheetKey];
+    if (!raw || !Array.isArray(raw)) return [];
+
+    const colSet = new Set(columns);
+
+    const records = [];
+    for (let ri = 0; ri < raw.length; ri++) {
+      const row = raw[ri];
+      if (!row || row.every(v => v === null || v === undefined || v === '')) continue;
+
+      const nonNull = row.filter(v => v !== null && v !== undefined && v !== '');
+      if (nonNull.length < 2) continue;
+
+      if (nonNull.some(v => typeof v === 'string' && colSet.has(v.trim()))) continue;
+
+      const record = { id: undefined };
+      let hasData = false;
+      columns.forEach((col, ci) => {
+        let val = row[ci] !== undefined ? row[ci] : null;
+        if (val === null || val === undefined) val = '';
+        record[col] = String(val).trim();
+        if (record[col]) hasData = true;
+      });
+      if (hasData) {
+        record.id = Date.now().toString(36) + Math.random().toString(36).substr(2, 3) + ri;
+        records.push(record);
+      }
+    }
+    return records;
   }
 
   function seedInitialData() {
-    const data = getAll();
-    if (data.length === 0) {
-      const initial = [
-        { usuarioExact: 'GTCON65', usuarioGtcon: 'Adriene', senhaPadrao: 'Gtcon#1882', status: 'ativo' },
-        { usuarioExact: 'GTCON44', usuarioGtcon: 'Alessandra', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON85', usuarioGtcon: 'Alexandre Rangel', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON41', usuarioGtcon: 'Alexandre Vieira', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON36', usuarioGtcon: 'Alexsandra', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON3', usuarioGtcon: 'Aline Bezerra', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON90', usuarioGtcon: 'Allan', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON11', usuarioGtcon: 'Ana Cristina', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON13', usuarioGtcon: 'Andreia', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON14', usuarioGtcon: 'Anna Carolina', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON91', usuarioGtcon: 'Barbara', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON12', usuarioGtcon: 'Bruna de Almeida', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON38', usuarioGtcon: 'Bruno Silva', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON15', usuarioGtcon: 'Caroline Pereira', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON67', usuarioGtcon: 'Cassia Yara', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON45', usuarioGtcon: 'Clara', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON57', usuarioGtcon: 'CONTABIL', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON17', usuarioGtcon: 'Danieli', senhaPadrao: '', status: 'ativo' },
-        { usuarioExact: 'GTCON109', usuarioGtcon: 'Danielle', senhaPadrao: '', status: 'ativo' },
-      ];
-      initial.forEach(r => create(r));
-    }
+    const sheets = window.AcessosApp.SHEETS || [];
+    let seeded = 0;
+    sheets.forEach(s => {
+      const existing = getAll(s.key);
+      if (existing.length === 0) {
+        const parsed = parseSheet(s.key, s.columns);
+        if (parsed.length > 0) {
+          saveAll(s.key, parsed);
+          seeded += parsed.length;
+        }
+      }
+    });
+    return seeded;
   }
 
-  window.AcessosApp.Storage = { getAll, getById, create, update, remove, getSettings, saveSettings, seedInitialData };
+  function resetSheet(sheetKey, columns) {
+    const parsed = parseSheet(sheetKey, columns);
+    saveAll(sheetKey, parsed);
+    return parsed.length;
+  }
+
+  window.AcessosApp.Storage = { getAll, getById, create, update, remove, getSettings, saveSettings, seedInitialData, resetSheet, parseSheet };
 })();

@@ -2,48 +2,58 @@ window.AcessosApp = window.AcessosApp || {};
 
 (function() {
   const Storage = window.AcessosApp.Storage;
-  const Auth = window.AcessosApp.Auth;
-
-  let currentFilter = { search: '', status: '', dateFrom: '', dateTo: '' };
+  let currentSheet = null;
+  let currentFilter = { search: '' };
   let _initialized = false;
 
+  function getCurrentSheet() {
+    return currentSheet;
+  }
+
+  function getSheetConfig(key) {
+    return (window.AcessosApp.SHEETS || []).find(s => s.key === key);
+  }
+
+  function renderTabs() {
+    const container = document.getElementById('tabsScroll');
+    const sheets = window.AcessosApp.SHEETS || [];
+    container.innerHTML = sheets.map(s => `
+      <button class="tab-btn ${s.key === currentSheet ? 'active' : ''}" data-key="${s.key}">
+        ${s.label}
+      </button>
+    `).join('');
+
+    container.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.key;
+        if (key !== currentSheet) {
+          currentSheet = key;
+          renderTabs();
+          renderTable();
+          updateStats();
+        }
+      });
+    });
+  }
+
   function renderTable() {
-    let data = Storage.getAll();
-    data = applyFilters(data);
-    updateStats(data);
-    renderRows(data);
+    if (!currentSheet) return;
+    const config = getSheetConfig(currentSheet);
+    if (!config) return;
+
+    const data = applyFilters(Storage.getAll(currentSheet));
+    renderColumns(config.columns);
+    renderRows(data, config.columns);
+    updateStats();
   }
 
-  function applyFilters(data) {
-    const { search, status } = currentFilter;
-
-    if (search) {
-      const q = search.toLowerCase();
-      data = data.filter(r =>
-        (r.usuarioExact || '').toLowerCase().includes(q) ||
-        (r.usuarioGtcon || '').toLowerCase().includes(q) ||
-        (r.senhaPadrao || '').toLowerCase().includes(q)
-      );
-    }
-
-    if (status) {
-      data = data.filter(r => r.status === status);
-    }
-
-    return data;
+  function renderColumns(columns) {
+    const thead = document.getElementById('tableHead');
+    const headers = columns.map(c => `<th>${escapeHtml(c)}</th>`).join('');
+    thead.innerHTML = `<tr id="headerRow">${headers}<th style="width: 120px;">AÇÕES</th></tr>`;
   }
 
-  function updateStats(data) {
-    const total = Storage.getAll().length;
-    const ativos = data.filter(r => r.status === 'ativo').length;
-    const semSenha = data.filter(r => !r.senhaPadrao || r.senhaPadrao.trim() === '').length;
-
-    document.getElementById('statTotal').textContent = total;
-    document.getElementById('statAtivos').textContent = ativos;
-    document.getElementById('statSemSenha').textContent = semSenha;
-  }
-
-  function renderRows(data) {
+  function renderRows(data, columns) {
     const tbody = document.getElementById('tableBody');
     const emptyState = document.getElementById('emptyState');
 
@@ -55,93 +65,97 @@ window.AcessosApp = window.AcessosApp || {};
 
     emptyState.classList.add('hidden');
 
-    tbody.innerHTML = data.map(r => `
+    tbody.innerHTML = data.map(r => {
+      const cells = columns.map(col => {
+        let val = r[col] || '';
+        const isPw = /senha/i.test(col);
+        if (isPw && val) {
+          return `<td><span class="pw-cell" data-pw="${escapeHtml(val)}">••••••••</span></td>`;
+        }
+        return `<td>${escapeHtml(val)}</td>`;
+      }).join('');
+      return `
       <tr>
-        <td><strong>${escapeHtml(r.usuarioExact || '')}</strong></td>
-        <td>${escapeHtml(r.usuarioGtcon || '')}</td>
-        <td>
-          <div class="password-cell">
-            <span class="pw-text ${r.senhaPadrao ? '' : 'text-muted'}" data-pw="${escapeHtml(r.senhaPadrao || '')}">
-              ${r.senhaPadrao ? '••••••••' : '—'}
-            </span>
-            ${r.senhaPadrao ? `<button class="btn btn-ghost btn-icon btn-sm toggle-pw" title="Mostrar/ocultar senha" data-id="${r.id}">👁</button>` : ''}
-          </div>
-        </td>
-        <td>
-          <span class="status-badge status-${r.status}">
-            <span class="dot"></span>
-            ${r.status === 'ativo' ? 'Ativo' : r.status === 'pendente' ? 'Pendente' : 'Inativo'}
-          </span>
-        </td>
+        ${cells}
         <td>
           <div class="action-btns">
-            <button class="btn btn-outline btn-sm edit-btn" data-id="${r.id}" title="Editar">
-              ✏️ <span>Editar</span>
-            </button>
-            <button class="btn btn-danger btn-sm delete-btn" data-id="${r.id}" title="Excluir">
-              🗑 <span>Excluir</span>
-            </button>
+            <button class="btn btn-outline btn-sm edit-btn" data-id="${r.id}">✏️</button>
+            <button class="btn btn-danger btn-sm delete-btn" data-id="${r.id}">🗑</button>
           </div>
         </td>
-      </tr>
-    `).join('');
+      </tr>`;
+    }).join('');
 
     tbody.querySelectorAll('.edit-btn').forEach(btn => {
       btn.addEventListener('click', () => openEditModal(btn.dataset.id));
     });
-
     tbody.querySelectorAll('.delete-btn').forEach(btn => {
       btn.addEventListener('click', () => confirmDelete(btn.dataset.id));
     });
-
-    tbody.querySelectorAll('.toggle-pw').forEach(btn => {
-      btn.addEventListener('click', () => togglePassword(btn.dataset.id, btn));
+    tbody.querySelectorAll('.pw-cell').forEach(el => {
+      el.addEventListener('click', function() {
+        if (this.dataset.revealed) {
+          this.textContent = '••••••••';
+          delete this.dataset.revealed;
+        } else {
+          this.textContent = this.dataset.pw;
+          this.dataset.revealed = '1';
+        }
+      });
     });
   }
 
-  function togglePassword(id, btn) {
-    const record = Storage.getById(id);
-    if (!record) return;
-    const span = btn.closest('.password-cell').querySelector('.pw-text');
-    if (span.classList.contains('masked')) {
-      span.textContent = record.senhaPadrao || '—';
-      span.classList.remove('masked');
-      btn.textContent = '🙈';
-    } else {
-      span.textContent = '••••••••';
-      span.classList.add('masked');
-      btn.textContent = '👁';
-    }
+  function applyFilters(data) {
+    const { search } = currentFilter;
+    if (!search) return data;
+    const q = search.toLowerCase();
+    return data.filter(r => {
+      return Object.values(r).some(v => String(v || '').toLowerCase().includes(q));
+    });
   }
 
-  function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
+  function updateStats() {
+    if (!currentSheet) return;
+    const data = Storage.getAll(currentSheet);
+    document.getElementById('statTotal').textContent = data.length;
   }
 
   function openCreateModal() {
-    document.getElementById('modalTitle').textContent = 'Novo Acesso';
+    if (!currentSheet) return;
+    const config = getSheetConfig(currentSheet);
+    if (!config) return;
+    document.getElementById('modalTitle').textContent = `Novo - ${config.label}`;
     document.getElementById('recordId').value = '';
-    document.getElementById('frmUsuarioExact').value = '';
-    document.getElementById('frmUsuarioGtcon').value = '';
-    document.getElementById('frmSenhaPadrao').value = '';
-    document.getElementById('frmStatus').value = 'ativo';
+    const body = document.getElementById('modalBody');
+    body.innerHTML = config.columns.map(col => `
+      <div class="form-group">
+        <label for="frm_${col}">${escapeHtml(col)}</label>
+        <input type="text" id="frm_${col}" placeholder="${escapeHtml(col)}">
+      </div>
+    `).join('');
     document.getElementById('modalOverlay').classList.add('active');
-    document.getElementById('frmUsuarioExact').focus();
+    const firstInput = body.querySelector('input');
+    if (firstInput) firstInput.focus();
   }
 
   function openEditModal(id) {
-    const record = Storage.getById(id);
+    if (!currentSheet) return;
+    const config = getSheetConfig(currentSheet);
+    if (!config) return;
+    const record = Storage.getById(currentSheet, id);
     if (!record) return;
-    document.getElementById('modalTitle').textContent = 'Editar Acesso';
+    document.getElementById('modalTitle').textContent = `Editar - ${config.label}`;
     document.getElementById('recordId').value = id;
-    document.getElementById('frmUsuarioExact').value = record.usuarioExact || '';
-    document.getElementById('frmUsuarioGtcon').value = record.usuarioGtcon || '';
-    document.getElementById('frmSenhaPadrao').value = record.senhaPadrao || '';
-    document.getElementById('frmStatus').value = record.status || 'ativo';
+    const body = document.getElementById('modalBody');
+    body.innerHTML = config.columns.map(col => `
+      <div class="form-group">
+        <label for="frm_${col}">${escapeHtml(col)}</label>
+        <input type="text" id="frm_${col}" value="${escapeHtml(record[col] || '')}" placeholder="${escapeHtml(col)}">
+      </div>
+    `).join('');
     document.getElementById('modalOverlay').classList.add('active');
-    document.getElementById('frmUsuarioExact').focus();
+    const firstInput = body.querySelector('input');
+    if (firstInput) firstInput.focus();
   }
 
   function closeModal() {
@@ -149,10 +163,13 @@ window.AcessosApp = window.AcessosApp || {};
   }
 
   function confirmDelete(id) {
-    const record = Storage.getById(id);
+    if (!currentSheet) return;
+    const record = Storage.getById(currentSheet, id);
     if (!record) return;
-    const name = record.usuarioGtcon || record.usuarioExact;
-    document.getElementById('confirmMessage').textContent = `Tem certeza que deseja excluir o acesso de "${name}"?`;
+    const config = getSheetConfig(currentSheet);
+    const firstCol = config ? (config.columns[0] || '') : '';
+    const name = record[firstCol] || id;
+    document.getElementById('confirmMessage').textContent = `Excluir registro "${name}"?`;
     document.getElementById('confirmDeleteBtn').dataset.id = id;
     document.getElementById('confirmOverlay').classList.add('active');
   }
@@ -163,25 +180,22 @@ window.AcessosApp = window.AcessosApp || {};
 
   function handleFormSubmit(e) {
     e.preventDefault();
+    if (!currentSheet) return;
+    const config = getSheetConfig(currentSheet);
+    if (!config) return;
     const id = document.getElementById('recordId').value;
-    const data = {
-      usuarioExact: document.getElementById('frmUsuarioExact').value.trim(),
-      usuarioGtcon: document.getElementById('frmUsuarioGtcon').value.trim(),
-      senhaPadrao: document.getElementById('frmSenhaPadrao').value.trim(),
-      status: document.getElementById('frmStatus').value
-    };
-
-    if (!data.usuarioExact) {
-      showToast('O campo USUÁRIO EXACT é obrigatório.', 'error');
-      return;
-    }
+    const data = {};
+    config.columns.forEach(col => {
+      const el = document.getElementById('frm_' + col);
+      data[col] = el ? el.value.trim() : '';
+    });
 
     if (id) {
-      Storage.update(id, data);
-      showToast('Registro atualizado com sucesso!', 'success');
+      Storage.update(currentSheet, id, data);
+      showToast('Registro atualizado!', 'success');
     } else {
-      Storage.create(data);
-      showToast('Novo acesso cadastrado com sucesso!', 'success');
+      Storage.create(currentSheet, data);
+      showToast('Novo registro criado!', 'success');
     }
 
     closeModal();
@@ -189,12 +203,12 @@ window.AcessosApp = window.AcessosApp || {};
   }
 
   function handleDelete() {
+    if (!currentSheet) return;
     const id = document.getElementById('confirmDeleteBtn').dataset.id;
-    const record = Storage.getById(id);
-    Storage.remove(id);
+    Storage.remove(currentSheet, id);
     closeConfirm();
     renderTable();
-    showToast(`Acesso de "${record?.usuarioGtcon || record?.usuarioExact}" excluído.`, 'info');
+    showToast('Registro excluído.', 'info');
   }
 
   function handleSearch(e) {
@@ -202,29 +216,18 @@ window.AcessosApp = window.AcessosApp || {};
     renderTable();
   }
 
-  function handleFilterStatus(e) {
-    currentFilter.status = e.target.value;
-    renderTable();
-  }
-
-  function showToast(message, type = 'info') {
+  function showToast(message, type) {
     const container = document.getElementById('toastContainer');
     const toast = document.createElement('div');
-    toast.className = `toast ${type}`;
-
+    toast.className = 'toast ' + (type || 'info');
     const icons = { success: '✅', error: '❌', info: 'ℹ️' };
     toast.innerHTML = `
       <span>${icons[type] || 'ℹ️'}</span>
       <span>${escapeHtml(message)}</span>
       <button class="toast-close">&times;</button>
     `;
-
-    toast.querySelector('.toast-close').addEventListener('click', () => {
-      toast.remove();
-    });
-
+    toast.querySelector('.toast-close').addEventListener('click', () => toast.remove());
     container.appendChild(toast);
-
     setTimeout(() => {
       if (toast.parentNode) {
         toast.style.opacity = '0';
@@ -235,9 +238,33 @@ window.AcessosApp = window.AcessosApp || {};
     }, 4000);
   }
 
-  function init() {
-    if (_initialized) { renderTable(); return; }
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function init(initialSheet) {
+    if (_initialized && initialSheet) {
+      if (currentSheet !== initialSheet) {
+        currentSheet = initialSheet;
+        renderTabs();
+        renderTable();
+        updateStats();
+      }
+      return;
+    }
     _initialized = true;
+
+    if (!initialSheet) {
+      const sheets = window.AcessosApp.SHEETS || [];
+      initialSheet = sheets.length > 0 ? sheets[0].key : null;
+    }
+    currentSheet = initialSheet;
+
+    renderTabs();
+    renderTable();
+    updateStats();
 
     document.getElementById('addBtn').addEventListener('click', openCreateModal);
     document.getElementById('modalForm').addEventListener('submit', handleFormSubmit);
@@ -246,7 +273,6 @@ window.AcessosApp = window.AcessosApp || {};
     document.getElementById('confirmCancelBtn').addEventListener('click', closeConfirm);
     document.getElementById('confirmDeleteBtn').addEventListener('click', handleDelete);
     document.getElementById('searchInput').addEventListener('input', handleSearch);
-    document.getElementById('filterStatus').addEventListener('change', handleFilterStatus);
 
     document.getElementById('modalOverlay').addEventListener('click', (e) => {
       if (e.target === e.currentTarget) closeModal();
@@ -254,16 +280,10 @@ window.AcessosApp = window.AcessosApp || {};
     document.getElementById('confirmOverlay').addEventListener('click', (e) => {
       if (e.target === e.currentTarget) closeConfirm();
     });
-
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeModal();
-        closeConfirm();
-      }
+      if (e.key === 'Escape') { closeModal(); closeConfirm(); }
     });
-
-    renderTable();
   }
 
-  window.AcessosApp.UI = { init, renderTable, showToast, closeModal, closeConfirm, openCreateModal };
+  window.AcessosApp.UI = { init, renderTable, showToast, closeModal, closeConfirm, openCreateModal, getCurrentSheet };
 })();
